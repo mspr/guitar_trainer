@@ -4,14 +4,15 @@
 #
 #-------------------------------------------------
 
-TEMPLATE = subdirs
-CONFIG += ordered
+include(../defaults.pri)
 
-SUBDIRS = \
-	src \
-	app \
-	tests
+TEMPLATE = app
 
-app.depends = src
-tests.depends = src
-	
+CONFIG += console
+CONFIG -= app_bundle
+
+QT += widgets
+
+SOURCES += main.cpp
+
+LIBS += -L../src -lguitar_trainer
