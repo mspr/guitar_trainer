@@ -9,7 +9,7 @@ namespace Model
 	class Interval
 	{
 		public:
-			enum EMinMajPerfect
+			enum EInterval
 			{
 				PERFECT_UNISON,
 				MINOR_SECOND,
@@ -17,46 +17,38 @@ namespace Model
 				MINOR_THIRD,
 				MAJOR_THIRD,
 				PERFECT_FOURTH,
+				DIMINISHED_FIFTH,
 				PERFECT_FIFTH,
 				MINOR_SIXTH,
 				MAJOR_SIXTH,
 				MINOR_SEVENTH,
 				MAJOR_SEVENTH,
-				PERFECT_OCTAVE
+				PERFECT_OCTAVE,
+				MINOR_NINTH,
+				MAJOR_NINTH,
+				MINOR_TENTH,
+				MAJOR_TENTH,
+				PERFECT_ELEVENTH,
+				DIMINISHED_TWELFTH,
+				PERFECT_TWELFTH,
+				MINOR_THIRTEENTH,
+				MAJOR_THIRTEENTH,
+				MINOR_FOURTEENTH,
+				MAJOR_FOURTEENTH,
+				PERFECT_FIFTEENTH,
+				AUGMENTED_FIFTEENTH
 			};
 
-			enum EDimAug
-			{
-				DIMINISHED_SECOND,
-				AUGMENTED_UNISON,
-				DIMINISHED_THIRD,
-				AUGMENTED_SECOND,
-				DIMINISHED_FOURTH,
-				AUGMENTED_THIRD,
-				DIMINISHED_FIFTH,
-				AUGMENTED_FOURTH,
-				DIMINISHED_SIXTH,
-				AUGMENTED_FIFTH,
-				DIMINISHED_SEVENTH,
-				AUGMENTED_SIXTH,
-				DIMINISHED_OCTAVE,
-				AUGMENTED_SEVENTH
-			};
-
-			static QString toString(EMinMajPerfect interval);
-			static EMinMajPerfect toMinMajPerfect(const QString& intervalStr);
-			static QStringList minMajPerfectIntervals();
-			static QString toString(EDimAug interval);
-			static EDimAug toDimAug(const QString& intervalStr);
-			static QStringList dimAugIntervals();
+			static QString toString(EInterval interval);
+			static EInterval toInterval(const QString& intervalStr);
+			static EInterval toInterval(const uint semitone);
+			static QStringList intervals();
 
 		private:
-			static QHash<EMinMajPerfect, QString> initStrByMinMajPerfect();
-			static QHash<EDimAug, QString> initStrByDimAug();
+			static QHash<EInterval, QString> initStrByInterval();
 
 		private:
-			static const QHash<EMinMajPerfect, QString> s_strByMinMajPerfect;
-			static const QHash<EDimAug, QString> s_strByDimAug;
+			static const QHash<EInterval, QString> s_strByInterval;
 	};
 
 } // Model

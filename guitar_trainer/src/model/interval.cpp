@@ -4,77 +4,60 @@
 
 using namespace Model;
 
-const QHash<Interval::EMinMajPerfect, QString> Interval::s_strByMinMajPerfect = Interval::initStrByMinMajPerfect();
-const QHash<Interval::EDimAug, QString> Interval::s_strByDimAug = Interval::initStrByDimAug();
+const QHash<Interval::EInterval, QString> Interval::s_strByInterval = Interval::initStrByInterval();
 
-/*static*/ QHash<Interval::EMinMajPerfect, QString> Interval::initStrByMinMajPerfect()
+/*static*/ QHash<Interval::EInterval, QString> Interval::initStrByInterval()
 {
-	QHash<EMinMajPerfect, QString> strByMinMajPerfect;
+	QHash<EInterval, QString> strByInterval;
 
-	strByMinMajPerfect.insert(PERFECT_UNISON, "Perfect Unison");
-	strByMinMajPerfect.insert(MINOR_SECOND, "Minor Second");
-	strByMinMajPerfect.insert(MAJOR_SECOND, "Mahor Second");
-	strByMinMajPerfect.insert(MINOR_THIRD, "Minor Third");
-	strByMinMajPerfect.insert(MAJOR_THIRD, "Major Third");
-	strByMinMajPerfect.insert(PERFECT_FOURTH, "Perfect Fourth");
-	strByMinMajPerfect.insert(PERFECT_FIFTH, "Perfect Fifth");
-	strByMinMajPerfect.insert(MINOR_SIXTH, "Minor Sixth");
-	strByMinMajPerfect.insert(MAJOR_SIXTH, "Major Sixth");
-	strByMinMajPerfect.insert(MINOR_SEVENTH, "Minor Seventh");
-	strByMinMajPerfect.insert(MAJOR_SEVENTH, "Major Seventh");
-	strByMinMajPerfect.insert(PERFECT_OCTAVE, "Perfect Octave");
+	strByInterval.insert(PERFECT_UNISON, "Perfect Unison");
+	strByInterval.insert(MINOR_SECOND, "Minor Second");
+	strByInterval.insert(MAJOR_SECOND, "Mahor Second");
+	strByInterval.insert(MINOR_THIRD, "Minor Third");
+	strByInterval.insert(MAJOR_THIRD, "Major Third");
+	strByInterval.insert(PERFECT_FOURTH, "Perfect Fourth");
+	strByInterval.insert(DIMINISHED_FIFTH, "Diminished Fifth");
+	strByInterval.insert(PERFECT_FIFTH, "Perfect Fifth");
+	strByInterval.insert(MINOR_SIXTH, "Minor Sixth");
+	strByInterval.insert(MAJOR_SIXTH, "Major Sixth");
+	strByInterval.insert(MINOR_SEVENTH, "Minor Seventh");
+	strByInterval.insert(MAJOR_SEVENTH, "Major Seventh");
+	strByInterval.insert(PERFECT_OCTAVE, "Perfect Octave");
+	strByInterval.insert(MINOR_NINTH, "Minor Ninth");
+	strByInterval.insert(MAJOR_NINTH, "Major Ninth");
+	strByInterval.insert(MINOR_TENTH, "Minor Tenth");
+	strByInterval.insert(MAJOR_TENTH, "Major Tenth");
+	strByInterval.insert(PERFECT_ELEVENTH, "Perfect Eleventh");
+	strByInterval.insert(DIMINISHED_TWELFTH, "Diminished Twelfth");
+	strByInterval.insert(PERFECT_TWELFTH, "Perfect Twelfth");
+	strByInterval.insert(MINOR_THIRTEENTH, "Minor Thirteenth");
+	strByInterval.insert(MAJOR_THIRTEENTH, "Major Thirteenth");
+	strByInterval.insert(MINOR_FOURTEENTH, "Minor Fourteenth");
+	strByInterval.insert(MAJOR_FOURTEENTH, "Major Fourteenth");
+	strByInterval.insert(PERFECT_FIFTEENTH, "Perfect Fifteenth");
+	strByInterval.insert(AUGMENTED_FIFTEENTH, "Augmented Fifteenth");
 
-	return strByMinMajPerfect;
+	return strByInterval;
 }
 
-/*static*/ QHash<Interval::EDimAug, QString> Interval::initStrByDimAug()
+/*static*/ QString Interval::toString(EInterval interval)
 {
-	QHash<EDimAug, QString> strByDimAug;
-
-	strByDimAug.insert(DIMINISHED_SECOND, "Diminished Second");
-	strByDimAug.insert(AUGMENTED_UNISON, "Augmented Unison");
-	strByDimAug.insert(DIMINISHED_THIRD, "Diminished Third");
-	strByDimAug.insert(AUGMENTED_SECOND, "Augmented Second");
-	strByDimAug.insert(DIMINISHED_FOURTH, "Diminished Fourth");
-	strByDimAug.insert(AUGMENTED_THIRD, "Augmented Third");
-	strByDimAug.insert(DIMINISHED_FIFTH, "Diminished Fifth");
-	strByDimAug.insert(AUGMENTED_FOURTH, "Augmented Fourth");
-	strByDimAug.insert(DIMINISHED_SIXTH, "Diminished Sixth");
-	strByDimAug.insert(AUGMENTED_FIFTH, "Augmented Fifth");
-	strByDimAug.insert(DIMINISHED_SEVENTH, "Diminished Seventh");
-	strByDimAug.insert(AUGMENTED_SIXTH, "Augmented Sixth");
-	strByDimAug.insert(DIMINISHED_OCTAVE, "Diminished Octave");
-	strByDimAug.insert(AUGMENTED_SEVENTH, "Augmented Seventh");
-
-	return strByDimAug;
+	return s_strByInterval.value(interval);
 }
 
-/*static*/ QString Interval::toString(EMinMajPerfect interval)
+/*static*/ Interval::EInterval Interval::toInterval(const QString& intervalStr)
 {
-	return s_strByMinMajPerfect.value(interval);
+	return s_strByInterval.key(intervalStr);
 }
 
-/*static*/ Interval::EMinMajPerfect Interval::toMinMajPerfect(const QString& intervalStr)
+/*static*/ Interval::EInterval Interval::toInterval(const uint semitone)
 {
-	return s_strByMinMajPerfect.key(intervalStr);
+	Q_ASSERT_X(semitone < 26, "toInterval", "Semitone is too high to be supported.");
+
+	return (EInterval)semitone;
 }
 
-/*static*/ QStringList Interval::minMajPerfectIntervals()
+/*static*/ QStringList Interval::intervals()
 {
-	return s_strByMinMajPerfect.values();
-}
-
-/*static*/ QString Interval::toString(EDimAug interval)
-{
-	return s_strByDimAug.value(interval);
-}
-
-/*static*/ Interval::EDimAug Interval::toDimAug(const QString& intervalStr)
-{
-	return s_strByDimAug.key(intervalStr);
-}
-
-/*static*/ QStringList Interval::dimAugIntervals()
-{
-	return s_strByDimAug.values();
+	return s_strByInterval.values();
 }
