@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "fretboardview.h"
+#include "model/fretboardxmlhandler.h"
 
 #include <QFileDialog>
 
@@ -27,6 +28,8 @@ void MainWindow::startEdition()
 	if (m_appMode == NORMAL)
 	{
 		const QString fileName = QFileDialog::getOpenFileName(this, tr("Open xml file"), "", tr("Xml Files (*.xml)"));
+		Model::FretboardXmlHandler fretboardXmlHandler;
+		const bool result = fretboardXmlHandler.handle(fileName);
 
 		m_appMode = EDITION;
 	}

@@ -1,14 +1,16 @@
 #ifndef FRETBOARDXMLHANDLER_H
 #define FRETBOARDXMLHANDLER_H
 
-#include <QtXml/QXmlDefaultHandler>
+#include <QObject>
 
 namespace Model
 {
-	class FretboardXmlHandler : public QXmlDefaultHandler
+	class FretboardXmlHandler : public QObject
 	{
 		public:
-			FretboardXmlHandler();
+			FretboardXmlHandler(QObject* parent = 0);
+
+			bool handle(const QString& fileName);
 	};
 
 } // Model
