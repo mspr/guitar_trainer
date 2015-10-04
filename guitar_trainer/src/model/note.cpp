@@ -4,39 +4,39 @@
 
 using namespace Model;
 
-const QHash<Note::ENote, QString> Note::s_mapStrByNote = Note::initMapStrByNote();
+const QHash<Note::ENote, QString> Note::s_strByNote = Note::initStrByNote();
 
-/*static*/ QHash<Note::ENote, QString> Note::initMapStrByNote()
+/*static*/ QHash<Note::ENote, QString> Note::initStrByNote()
 {
-	QHash<Note::ENote, QString> mapStrByNote;
+	QHash<Note::ENote, QString> strByNote;
 
-	mapStrByNote.insert(Note::A, "A");
-	mapStrByNote.insert(Note::Ash, "A#");
-	mapStrByNote.insert(Note::B, "B");
-	mapStrByNote.insert(Note::C, "C");
-	mapStrByNote.insert(Note::Csh, "C#");
-	mapStrByNote.insert(Note::D, "D");
-	mapStrByNote.insert(Note::Dsh, "D#");
-	mapStrByNote.insert(Note::E, "E");
-	mapStrByNote.insert(Note::F, "F");
-	mapStrByNote.insert(Note::Fsh, "F#");
-	mapStrByNote.insert(Note::G, "G");
-	mapStrByNote.insert(Note::Gsh, "G#");
+	strByNote.insert(Note::A, "A");
+	strByNote.insert(Note::ASH, "A#");
+	strByNote.insert(Note::B, "B");
+	strByNote.insert(Note::C, "C");
+	strByNote.insert(Note::CSH, "C#");
+	strByNote.insert(Note::D, "D");
+	strByNote.insert(Note::DSH, "D#");
+	strByNote.insert(Note::E, "E");
+	strByNote.insert(Note::F, "F");
+	strByNote.insert(Note::FSH, "F#");
+	strByNote.insert(Note::G, "G");
+	strByNote.insert(Note::GSH, "G#");
 
-	return mapStrByNote;
+	return strByNote;
 }
 
 /*static*/ QString Note::toString(ENote note)
 {
-	return s_mapStrByNote.value(note);
+	return s_strByNote.value(note);
 }
 
 /*static*/ Note::ENote Note::toNote(const QString& noteStr)
 {
-	return s_mapStrByNote.key(noteStr);
+	return s_strByNote.key(noteStr);
 }
 
 /*static*/ QStringList Note::notes()
 {
-	return s_mapStrByNote.values();
+	return s_strByNote.values();
 }

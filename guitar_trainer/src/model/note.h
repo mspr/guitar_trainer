@@ -12,17 +12,17 @@ namespace Model
 			enum ENote
 			{
 				A,
-				Ash,
+				ASH,
 				B,
 				C,
-				Csh,
+				CSH,
 				D,
-				Dsh,
+				DSH,
 				E,
 				F,
-				Fsh,
+				FSH,
 				G,
-				Gsh,
+				GSH,
 				NOTE_COUNT
 			};
 
@@ -31,10 +31,10 @@ namespace Model
 			static QStringList notes();
 
 		private:
-			static QHash<Note::ENote, QString> initMapStrByNote();
+			static QHash<Note::ENote, QString> initStrByNote();
 
 		private:
-			static const QHash<ENote, QString> s_mapStrByNote;
+			static const QHash<ENote, QString> s_strByNote;
 	};
 
 } // Model
