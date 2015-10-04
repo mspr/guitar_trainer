@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<fretboard tuning="">
+	<image path="./fretboard.png" />
+    <frets>
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+		<fret x="" />
+	</frets>
+	<strings>
+		<string y="" />
+		<string y="" />
+		<string y="" />
+		<string y="" />
+		<string y="" />
+		<string y="" />
+	</strings>
+</fretboard>
