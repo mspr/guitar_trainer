@@ -41,7 +41,8 @@ namespace Model
 
 			static QString toString(EInterval interval);
 			static EInterval toInterval(const QString& intervalStr);
-			static EInterval toInterval(const uint semitone);
+			static EInterval toInterval(const uint semiTone);
+			static uint toSemiTone(EInterval interval);
 			static QStringList intervals();
 
 		private:

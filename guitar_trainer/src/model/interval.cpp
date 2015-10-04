@@ -50,11 +50,16 @@ const QHash<Interval::EInterval, QString> Interval::s_strByInterval = Interval::
 	return s_strByInterval.key(intervalStr);
 }
 
-/*static*/ Interval::EInterval Interval::toInterval(const uint semitone)
+/*static*/ Interval::EInterval Interval::toInterval(const uint semiTone)
 {
-	Q_ASSERT_X(semitone < 26, "toInterval", "Semitone is too high to be supported.");
+	Q_ASSERT_X(semiTone < 26, "toInterval", "Semitone is too high to be supported.");
 
-	return (EInterval)semitone;
+	return (EInterval)semiTone;
+}
+
+/*static*/ uint Interval::toSemiTone(EInterval interval)
+{
+	return (uint)interval;
 }
 
 /*static*/ QStringList Interval::intervals()
