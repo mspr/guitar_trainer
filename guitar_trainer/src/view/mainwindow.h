@@ -5,16 +5,30 @@
 
 namespace Ui { class MainWindow; }
 
-class MainWindow : public QMainWindow
+namespace View
 {
-	Q_OBJECT
+	class MainWindow : public QMainWindow
+	{
+		Q_OBJECT
 
-	public:
-		explicit MainWindow(QWidget* parent = 0);
-		~MainWindow();
+		enum AppMode
+		{
+			EDITION,
+			NORMAL
+		};
 
-	private:
-		Ui::MainWindow* ui;
-};
+		public:
+			explicit MainWindow(QWidget* parent = 0);
+			~MainWindow();
+
+		private slots:
+			void startEdition();
+
+		private:
+			Ui::MainWindow* m_ui;
+			AppMode m_appMode;
+	};
+
+} // View
 
 #endif // MAINWINDOW_H
