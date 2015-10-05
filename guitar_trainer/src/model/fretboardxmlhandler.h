@@ -14,10 +14,11 @@ namespace Model
 			bool handle(const QString& fileName);
 
 		private:
+			QString m_tuning;
 			uint m_stringCount;
-			QHash<uint, uint> m_yByString;
+			QHash<uint, double> m_yByString;
 			uint m_fretCount;
-			QHash<uint, uint> m_xByFret;
+			QHash<uint, double> m_xByFret;
 	};
 
 } // Model
