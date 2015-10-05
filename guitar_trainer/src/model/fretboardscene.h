@@ -3,14 +3,16 @@
 
 #include <QGraphicsScene>
 
-namespace View
+namespace Model
 {
 	class FretboardScene : public QGraphicsScene
 	{
 		public:
 			FretboardScene(const QRectF& sceneRect, QObject* parent);
+
+			void init(const QString& fileName);
 	};
 
-} // View
+} // Model
 
 #endif // FRETBOARDSCENE_H

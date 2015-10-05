@@ -9,6 +9,8 @@ namespace View
 	{
 		public:
 			FretboardView(QWidget* parent);
+
+			void initScene(const QString& fileName);
 	};
 
 } // Model
