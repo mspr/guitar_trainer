@@ -11,6 +11,10 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    testnote.cpp
 
 LIBS += -L../src -lguitar_trainer
+
+HEADERS += \
+    testnote.h
