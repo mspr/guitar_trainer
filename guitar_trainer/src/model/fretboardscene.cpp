@@ -14,7 +14,13 @@ FretboardScene::FretboardScene(const QRectF& sceneRect, QObject* parent)
 void FretboardScene::init(const QString& fileName)
 {
 	FretboardXmlHandler fretboardXmlHandler;
-	const bool result = fretboardXmlHandler.handle(fileName);
+	if (fretboardXmlHandler.handle(fileName))
+	{
+		const QString& imagePath = fretboardXmlHandler.imagePath();
+		QPixmap pix;
+		pix.load(imagePath);
+		addPixmap(pix);
+	}
 }
 
 void FretboardScene::mousePressEvent(QGraphicsSceneMouseEvent* event)

@@ -21,6 +21,7 @@ bool FretboardXmlHandler::handle(const QString& fileName)
 			const QDomElement fretboardElm = dom.firstChildElement("fretboard");
 			if (!fretboardElm.isNull())
 			{
+				m_imagePath = fretboardElm.attribute("imagePath");
 				m_tuning = fretboardElm.attribute("tuning");
 
 				const QDomElement fretsElm = fretboardElm.firstChildElement("frets");
@@ -61,4 +62,9 @@ bool FretboardXmlHandler::handle(const QString& fileName)
 	}
 
 	return true;
+}
+
+QString FretboardXmlHandler::imagePath() const
+{
+	return m_imagePath;
 }
