@@ -29,7 +29,7 @@ void MainWindow::startEdition()
 		const QString fileName = QFileDialog::getOpenFileName(this, tr("Open xml file"), "", tr("Xml Files (*.xml)"));
 
 		FretboardView* fretboardView = dynamic_cast<FretboardView*>(centralWidget());
-		Q_ASSERT_X(fretboardView == nullptr, "startEdition()", "nullptr");
+        Q_ASSERT_X(fretboardView != nullptr, "startEdition()", "nullptr");
 
 		fretboardView->initScene(fileName);
 

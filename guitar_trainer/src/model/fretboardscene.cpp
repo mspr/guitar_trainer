@@ -2,6 +2,7 @@
 #include "fretboardxmlhandler.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
 
 using namespace Model;
 
@@ -18,8 +19,12 @@ void FretboardScene::init(const QString& fileName)
 	{
 		const QString& imagePath = fretboardXmlHandler.imagePath();
 		QPixmap pix;
-		pix.load(imagePath);
-		addPixmap(pix);
+		if (pix.load(imagePath))
+		{
+			addPixmap(pix);
+		}
+		else
+			qWarning() << QString("Impossible to load fretboard image %1.").arg(imagePath);
 	}
 }
 
