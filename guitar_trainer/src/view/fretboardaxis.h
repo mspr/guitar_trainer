@@ -8,7 +8,7 @@ namespace View
 	class FretboardAxis : public QGraphicsLineItem
 	{
 		public:
-			FretboardAxis(QGraphicsItem* parent);
+			FretboardAxis(qreal x1, qreal y1, qreal x2, qreal y2, QGraphicsItem* parent = 0);
 	};
 
 } // View

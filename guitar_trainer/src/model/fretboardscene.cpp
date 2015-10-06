@@ -14,14 +14,16 @@ FretboardScene::FretboardScene(QObject* parent)
 
 void FretboardScene::init(const QString& fileName)
 {
-	FretboardXmlHandler fretboardXmlHandler;
-	if (fretboardXmlHandler.handle(fileName))
+	FretboardXmlHandler xmlHandler;
+	if (xmlHandler.handle(fileName))
 	{
-		const QString& imagePath = fretboardXmlHandler.imagePath();
+		const QString& imagePath = xmlHandler.imagePath();
 		QPixmap pix;
 		if (pix.load(imagePath))
 		{
 			addPixmap(pix);
+
+			const QHash<uint, double> yByString = xmlHandler.yByString();
 		}
 		else
 			qWarning() << QString("Impossible to load fretboard image %1.").arg(imagePath);
