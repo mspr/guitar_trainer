@@ -69,3 +69,8 @@ QHash<uint, double> FretboardXmlHandler::yByString() const
 {
 	return m_yByString;
 }
+
+QHash<uint, double> FretboardXmlHandler::xByFret() const
+{
+	return m_xByFret;
+}

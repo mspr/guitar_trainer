@@ -15,6 +15,7 @@ namespace Model
 
 			QString imagePath() const;
 			QHash<uint, double> yByString() const;
+			QHash<uint, double> xByFret() const;
 
 		private:
 			QString m_imagePath;

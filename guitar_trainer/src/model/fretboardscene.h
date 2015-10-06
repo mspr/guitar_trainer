@@ -3,6 +3,8 @@
 
 #include <QGraphicsScene>
 
+namespace View { class FretboardAxis; }
+
 namespace Model
 {
 	class FretboardScene : public QGraphicsScene
@@ -24,6 +26,8 @@ namespace Model
 
 		private:
 			EditionMode m_editionMode;
+			QPointF m_oldPos;
+			View::FretboardAxis* m_editionAxis;
 	};
 
 } // Model
