@@ -6,8 +6,8 @@
 
 using namespace Model;
 
-FretboardScene::FretboardScene(const QRectF& sceneRect, QObject* parent)
-	: QGraphicsScene(sceneRect, parent)
+FretboardScene::FretboardScene(QObject* parent)
+	: QGraphicsScene(parent)
 	, m_editionMode(FRET_EDITION)
 {
 }

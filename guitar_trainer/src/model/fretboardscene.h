@@ -14,7 +14,7 @@ namespace Model
 		};
 
 		public:
-			FretboardScene(const QRectF& sceneRect, QObject* parent);
+			FretboardScene(QObject* parent = 0);
 
 			void init(const QString& fileName);
 

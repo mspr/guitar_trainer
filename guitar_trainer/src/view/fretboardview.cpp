@@ -6,13 +6,12 @@ using namespace Model;
 
 FretboardView::FretboardView(QWidget* parent)
 	: QGraphicsView(parent)
+	, m_scene(new FretboardScene())
 {
+	setScene(m_scene.data());
 }
 
 void FretboardView::initScene(const QString& fileName)
 {
-	FretboardScene* scene = dynamic_cast<FretboardScene*>(this->scene());
-	Q_ASSERT_X(scene == nullptr, "initScene()", "nullptr");
-
-	scene->init(fileName);
+	m_scene->init(fileName);
 }
