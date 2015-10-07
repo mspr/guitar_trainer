@@ -13,11 +13,12 @@ QT += testlib
 CONFIG += console
 CONFIG -= app_bundle
 
-SOURCES += main.cpp \
+LIBS += -L../src -lguitar_trainer
+
+SOURCES += \
+    main.cpp \
     testnote.cpp \
     testinterval.cpp
-
-LIBS += -L../src -lguitar_trainer
 
 HEADERS += \
     testnote.h \

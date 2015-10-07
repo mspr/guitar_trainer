@@ -11,8 +11,6 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 
-QT += widgets
+LIBS += -L../src -lguitar_trainer
 
 SOURCES += main.cpp
-
-LIBS += -L../src -lguitar_trainer
