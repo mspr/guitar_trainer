@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "fretboard/fretboardview.h"
+#include "fretboard/fretboardeditionwindow.h"
 
 #include <QFileDialog>
 
@@ -24,16 +25,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::startEdition()
 {
-	if (m_appMode == NORMAL)
+	const QString fileName = QFileDialog::getOpenFileName(this, tr("Open xml file"), "", tr("Xml Files (*.xml)"));
+	if (!fileName.isNull())
 	{
-		const QString fileName = QFileDialog::getOpenFileName(this, tr("Open xml file"), "", tr("Xml Files (*.xml)"));
-
-		FretboardView* fretboardView = dynamic_cast<FretboardView*>(centralWidget());
-		Q_ASSERT_X(fretboardView != nullptr, "startEdition()", "nullptr");
-
-		fretboardView->initScene(fileName);
-
-
-		m_appMode = EDITION;
+		FretboardEditionWindow* editionWindow = new FretboardEditionWindow(fileName, this);
+		editionWindow->show();
 	}
 }
