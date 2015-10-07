@@ -3,6 +3,7 @@
 #include "fretboardaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsView>
 #include <QDebug>
 
 using namespace Fretboard;
@@ -11,6 +12,8 @@ FretboardScene::FretboardScene(QObject* parent)
 	: QGraphicsScene(parent)
 	, m_editionMode(FRET_EDITION)
 {
+	m_editionAxis = new FretboardAxis();
+	addItem(m_editionAxis);
 }
 
 void FretboardScene::init(const QString& fileName)
@@ -55,7 +58,7 @@ void FretboardScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	{
 		m_editionMode = (EditionMode)(((int)m_editionMode + 1) / 2);
 
-		m_editionAxis->setRotation(90.0);
+		//m_editionAxis->setRotation(90.0);
 	}
 	else
 	{
@@ -69,9 +72,25 @@ void FretboardScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 	QGraphicsScene::mouseMoveEvent(event);
 
-	QPointF dP = event->pos() - m_oldPos;
+	//QPointF dP = event->pos() - m_oldPos;
 
-	m_editionAxis->moveBy(dP.x(), dP.y());
+	qWarning() << "SCENE mousePos " << event->pos() << " | axisPos " << m_editionAxis->pos();
 
-	m_oldPos = event->pos();
+	switch (m_editionMode)
+	{
+		case FRET_EDITION:
+			m_editionAxis->setPos(event->pos().x(), m_editionAxis->pos().y());
+		break;
+		case STRING_EDITION:
+			m_editionAxis->setPos(m_editionAxis->pos().x(), event->pos().y());
+		break;
+		default:
+		break;
+	}
+
+	//m_editionAxis->setPos(event->pos().x());
+
+	//m_editionAxis->moveBy(dP.x(), dP.y());
+
+	//m_oldPos = event->pos();
 }

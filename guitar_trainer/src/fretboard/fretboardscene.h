@@ -21,8 +21,8 @@ namespace Fretboard
 			void init(const QString& fileName);
 
 		protected:
-			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
-			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
 		private:
 			EditionMode m_editionMode;
