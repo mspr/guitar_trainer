@@ -8,12 +8,12 @@ HEADERS += \
     fretboard/fretboardscene.h \
     fretboard/fretboardxmlhandler.h \
     fretboard/fretboardview.h \
-    fretboard/freatboardnote.h \
+    fretboard/fretboardnote.h \
     fretboard/fretboardaxis.h
 
 SOURCES += \
     fretboard/fretboardscene.cpp \
     fretboard/fretboardxmlhandler.cpp \
     fretboard/fretboardview.cpp \
-    fretboard/freatboardnote.cpp \
+    fretboard/fretboardnote.cpp \
     fretboard/fretboardaxis.cpp
