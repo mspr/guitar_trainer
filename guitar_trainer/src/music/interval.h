@@ -4,7 +4,7 @@
 #include <QString>
 #include <QHash>
 
-namespace Model
+namespace Music
 {
 	class Interval
 	{
@@ -52,6 +52,6 @@ namespace Model
 			static const QHash<EInterval, QString> s_strByInterval;
 	};
 
-} // Model
+} // Music
 
 #endif // INTERVAL_H

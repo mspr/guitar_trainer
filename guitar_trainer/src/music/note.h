@@ -4,7 +4,7 @@
 #include <QString>
 #include <QHash>
 
-namespace Model
+namespace Music
 {
 	class Note
 	{
@@ -37,6 +37,6 @@ namespace Model
 			static const QHash<ENote, QString> s_strByNote;
 	};
 
-} // Model
+} // Music
 
 #endif // NOTE_H

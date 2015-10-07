@@ -5,9 +5,21 @@
 #-------------------------------------------------
 
 include(../defaults.pri)
-include(model/model.pri)
-include(view/view.pri)
+include(music/music.pri)
+include(fretboard/fretboard.pri)
 
 TARGET = guitar_trainer
 TEMPLATE = lib
 DESTDIR = ./
+
+QT += \
+    widgets \
+
+SOURCES += \
+    mainwindow.cpp
+
+HEADERS += \
+    mainwindow.h
+
+FORMS += \
+    mainwindow.ui

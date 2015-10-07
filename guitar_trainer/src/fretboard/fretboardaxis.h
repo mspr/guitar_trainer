@@ -3,7 +3,7 @@
 
 #include <QGraphicsLineItem>
 
-namespace View
+namespace Fretboard
 {
 	class FretboardAxis : public QGraphicsLineItem
 	{
@@ -11,6 +11,6 @@ namespace View
 			FretboardAxis(qreal x1, qreal y1, qreal x2, qreal y2, QGraphicsItem* parent = 0);
 	};
 
-} // View
+} // Fretboard
 
 #endif // FRETBOARDAXIS_H

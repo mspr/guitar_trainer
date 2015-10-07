@@ -1,8 +1,7 @@
 #include "fretboardview.h"
-#include "model/fretboardscene.h"
+#include "fretboardscene.h"
 
-using namespace View;
-using namespace Model;
+using namespace Fretboard;
 
 FretboardView::FretboardView(QWidget* parent)
 	: QGraphicsView(parent)

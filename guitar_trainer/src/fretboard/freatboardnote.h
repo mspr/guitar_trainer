@@ -3,19 +3,19 @@
 
 #include <QGraphicsEllipseItem>
 
-#include "model/note.h"
+#include "music/note.h"
 
-namespace View
+namespace Fretboard
 {
 	class FreatboardNote : public QGraphicsEllipseItem
 	{
 		public:
-			FreatboardNote(Model::Note::ENote note, QGraphicsItem* parent);
+			FreatboardNote(Music::Note::ENote note, QGraphicsItem* parent);
 
 		private:
-			Model::Note::ENote m_note;
+			Music::Note::ENote m_note;
 	};
 
-} // View
+} // Fretboard
 
 #endif // FREATBOARDNOTE_H

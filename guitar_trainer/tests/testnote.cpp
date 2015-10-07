@@ -1,9 +1,9 @@
 #include "testnote.h"
-#include "model/note.h"
+#include "music/note.h"
 
 #include <QStringList>
 
-using namespace Model;
+using namespace Music;
 
 void TestNote::toString()
 {

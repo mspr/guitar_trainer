@@ -3,7 +3,7 @@
 #include <QDomDocument>
 #include <QFile>
 
-using namespace Model;
+using namespace Fretboard;
 
 FretboardXmlHandler::FretboardXmlHandler(QObject* parent)
 	: QObject(parent)

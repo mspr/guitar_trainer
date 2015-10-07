@@ -2,7 +2,7 @@
 
 #include <QStringList>
 
-using namespace Model;
+using namespace Music;
 
 const QHash<Note::ENote, QString> Note::s_strByNote = Note::initStrByNote();
 

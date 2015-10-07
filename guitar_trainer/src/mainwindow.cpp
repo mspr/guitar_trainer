@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "fretboardview.h"
+#include "fretboard/fretboardview.h"
 
 #include <QFileDialog>
 
-using namespace View;
+using namespace Fretboard;
 
 MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent)

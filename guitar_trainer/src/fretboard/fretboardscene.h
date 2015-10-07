@@ -3,10 +3,10 @@
 
 #include <QGraphicsScene>
 
-namespace View { class FretboardAxis; }
-
-namespace Model
+namespace Fretboard
 {
+	class FretboardAxis;
+
 	class FretboardScene : public QGraphicsScene
 	{
 		enum EditionMode
@@ -27,9 +27,9 @@ namespace Model
 		private:
 			EditionMode m_editionMode;
 			QPointF m_oldPos;
-			View::FretboardAxis* m_editionAxis;
+			FretboardAxis* m_editionAxis;
 	};
 
-} // Model
+} // Fretboard
 
 #endif // FRETBOARDSCENE_H

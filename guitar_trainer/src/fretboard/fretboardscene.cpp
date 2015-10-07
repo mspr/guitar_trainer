@@ -1,12 +1,11 @@
 #include "fretboardscene.h"
 #include "fretboardxmlhandler.h"
-#include "view/fretboardaxis.h"
+#include "fretboardaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
-using namespace View;
-using namespace Model;
+using namespace Fretboard;
 
 FretboardScene::FretboardScene(QObject* parent)
 	: QGraphicsScene(parent)

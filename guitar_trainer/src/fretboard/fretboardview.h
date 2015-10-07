@@ -3,10 +3,10 @@
 
 #include <QGraphicsView>
 
-namespace Model { class FretboardScene; }
-
-namespace View
+namespace Fretboard
 {
+	class FretboardScene;
+
 	class FretboardView : public QGraphicsView
 	{
 		public:
@@ -15,9 +15,9 @@ namespace View
 			void initScene(const QString& fileName);
 
 		private:
-			QScopedPointer<Model::FretboardScene> m_scene;
+			QScopedPointer<FretboardScene> m_scene;
 	};
 
-} // Model
+} // Fretboard
 
 #endif // FRETBOARDVIEW_H

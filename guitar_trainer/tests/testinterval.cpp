@@ -1,7 +1,7 @@
 #include "testinterval.h"
-#include "model/interval.h"
+#include "music/interval.h"
 
-using namespace Model;
+using namespace Music;
 
 void TestInterval::toString()
 {

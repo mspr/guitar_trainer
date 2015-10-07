@@ -2,7 +2,7 @@
 
 #include <QStringList>
 
-using namespace Model;
+using namespace Music;
 
 const QHash<Interval::EInterval, QString> Interval::s_strByInterval = Interval::initStrByInterval();
 

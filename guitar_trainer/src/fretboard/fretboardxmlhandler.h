@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QHash>
 
-namespace Model
+namespace Fretboard
 {
 	class FretboardXmlHandler : public QObject
 	{
@@ -24,6 +24,6 @@ namespace Model
 			QHash<uint, double> m_xByFret;
 	};
 
-} // Model
+} // Fretboard
 
 #endif // FRETBOARDXMLHANDLER_H
