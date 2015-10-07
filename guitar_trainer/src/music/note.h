@@ -12,17 +12,17 @@ namespace Music
 			enum ENote
 			{
 				A,
-				ASH,
+				A_SHARP,
 				B,
 				C,
-				CSH,
+				C_SHARP,
 				D,
-				DSH,
+				D_SHARP,
 				E,
 				F,
-				FSH,
+				F_SHARP,
 				G,
-				GSH,
+				G_SHARP,
 				NOTE_COUNT
 			};
 
