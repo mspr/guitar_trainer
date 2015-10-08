@@ -70,18 +70,16 @@ void FretboardScene::switchEditionMode(const QPointF& scenePos)
 	{
 		QPointF p1(sceneRect().x(), scenePos.y());
 		m_editionAxis->setPos(p1);
-		QPointF p2(sceneRect().x() + sceneRect().width(), scenePos.y());
-		m_editionAxis->setLine(QLineF(p1, p2));
-
+		QPointF p2(sceneRect().x() + sceneRect().width(), 0);
+		m_editionAxis->setLine(QLineF(QPointF(0,0), p2));
 		m_editionMode = STRING_EDITION;
 	}
 	else // STRING_EDITION
 	{
 		QPointF p1(scenePos.x(), sceneRect().y());
 		m_editionAxis->setPos(p1);
-		QPointF p2(scenePos.x(), sceneRect().y() + sceneRect().height());
-		m_editionAxis->setLine(QLineF(p1, p2));
-
+		QPointF p2(0, sceneRect().y() + sceneRect().height());
+		m_editionAxis->setLine(QLineF(QPointF(0,0), p2));
 		m_editionMode = FRET_EDITION;
 	}
 }
@@ -89,8 +87,6 @@ void FretboardScene::switchEditionMode(const QPointF& scenePos)
 void FretboardScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mouseMoveEvent(event);
-
-	qWarning() << "SCENE mousePos " << event->scenePos() << " | sceneRect " << sceneRect() << " | axisPos " << m_editionAxis->pos();
 
 	switch (m_editionMode)
 	{
