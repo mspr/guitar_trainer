@@ -26,7 +26,6 @@ namespace Fretboard
 
 		private:
 			EditionMode m_editionMode;
-			QPointF m_oldPos;
 			FretboardAxis* m_editionAxis;
 	};
 

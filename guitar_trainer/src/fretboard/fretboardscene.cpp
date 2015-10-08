@@ -72,25 +72,17 @@ void FretboardScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 	QGraphicsScene::mouseMoveEvent(event);
 
-	//QPointF dP = event->pos() - m_oldPos;
-
-	qWarning() << "SCENE mousePos " << event->pos() << " | axisPos " << m_editionAxis->pos();
+	qWarning() << "SCENE mousePos " << event->scenePos() << " | axisPos " << m_editionAxis->pos();
 
 	switch (m_editionMode)
 	{
 		case FRET_EDITION:
-			m_editionAxis->setPos(event->pos().x(), m_editionAxis->pos().y());
+			m_editionAxis->setPos(event->scenePos().x(), m_editionAxis->pos().y());
 		break;
 		case STRING_EDITION:
-			m_editionAxis->setPos(m_editionAxis->pos().x(), event->pos().y());
+			m_editionAxis->setPos(m_editionAxis->pos().x(), event->scenePos().y());
 		break;
 		default:
 		break;
 	}
-
-	//m_editionAxis->setPos(event->pos().x());
-
-	//m_editionAxis->moveBy(dP.x(), dP.y());
-
-	//m_oldPos = event->pos();
 }
