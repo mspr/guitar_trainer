@@ -17,6 +17,9 @@ FretboardView::FretboardView(QWidget* parent)
 void FretboardView::initScene(const QString& fileName)
 {
 	m_scene->init(fileName);
+
+	qWarning() << "sceneRect " << sceneRect();
+
 	setMouseTracking(true);
 	setEnabled(true);
 }
