@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 
 	private slots:
 		void startEdition();
+		void quitApplication();
 
 	private:
 		Ui::MainWindow* m_ui;

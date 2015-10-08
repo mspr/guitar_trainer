@@ -32,3 +32,8 @@ void MainWindow::startEdition()
 		editionWindow->show();
 	}
 }
+
+void MainWindow::quitApplication()
+{
+	qApp->quit();
+}

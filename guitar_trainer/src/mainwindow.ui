@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuApplication">
@@ -28,6 +28,7 @@
      <string>Application</string>
     </property>
     <addaction name="editorAct"/>
+    <addaction name="quitAct"/>
    </widget>
    <addaction name="menuApplication"/>
   </widget>
@@ -56,6 +57,14 @@
     <string>Ctrl+Shift+E</string>
    </property>
   </action>
+  <action name="quitAct">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Q</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -78,8 +87,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>quitAct</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>quitApplication()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>startEdition()</slot>
+  <slot>quitApplication()</slot>
  </slots>
 </ui>
