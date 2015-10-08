@@ -13,4 +13,7 @@ CONFIG -= app_bundle
 
 LIBS += -L../src -lguitar_trainer
 
+QT += \
+    widgets \
+
 SOURCES += main.cpp
