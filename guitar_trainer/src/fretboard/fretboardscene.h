@@ -25,6 +25,9 @@ namespace Fretboard
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
 		private:
+			void switchEditionMode(const QPointF& scenePos);
+
+		private:
 			EditionMode m_editionMode;
 			FretboardAxis* m_editionAxis;
 	};

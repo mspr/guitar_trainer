@@ -56,13 +56,33 @@ void FretboardScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 	if (event->button() == Qt::RightButton)
 	{
-		//m_editionMode = (EditionMode)(((int)m_editionMode + 1) / 2);
-
-		//m_editionAxis->setRotation(90.0);
+		switchEditionMode(event->scenePos());
 	}
 	else
 	{
 
+	}
+}
+
+void FretboardScene::switchEditionMode(const QPointF& scenePos)
+{
+	if (m_editionMode == FRET_EDITION)
+	{
+		QPointF p1(sceneRect().x(), scenePos.y());
+		m_editionAxis->setPos(p1);
+		QPointF p2(sceneRect().x() + sceneRect().width(), scenePos.y());
+		m_editionAxis->setLine(QLineF(p1, p2));
+
+		m_editionMode = STRING_EDITION;
+	}
+	else // STRING_EDITION
+	{
+		QPointF p1(scenePos.x(), sceneRect().y());
+		m_editionAxis->setPos(p1);
+		QPointF p2(scenePos.x(), sceneRect().y() + sceneRect().height());
+		m_editionAxis->setLine(QLineF(p1, p2));
+
+		m_editionMode = FRET_EDITION;
 	}
 }
 

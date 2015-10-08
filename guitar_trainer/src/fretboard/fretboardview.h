@@ -14,10 +14,6 @@ namespace Fretboard
 
 			void initScene(const QString& fileName);
 
-		protected:
-			virtual void mousePressEvent(QMouseEvent* event) override;
-			virtual void mouseMoveEvent(QMouseEvent* event) override;
-
 		private:
 			QScopedPointer<FretboardScene> m_scene;
 	};
