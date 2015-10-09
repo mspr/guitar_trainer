@@ -60,7 +60,7 @@ void FretboardScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	}
 	else
 	{
-
+		addItem(new FretboardAxis(m_editionAxis->scenePos(), m_editionAxis->line()));
 	}
 }
 
