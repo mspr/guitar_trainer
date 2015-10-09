@@ -1,15 +1,15 @@
-#ifndef FRETBOARDXMLHANDLER_H
-#define FRETBOARDXMLHANDLER_H
+#ifndef FRETBOARDXMLPARSER_H
+#define FRETBOARDXMLPARSER_H
 
 #include <QObject>
 #include <QHash>
 
 namespace Fretboard
 {
-	class FretboardXmlHandler : public QObject
+	class FretboardXmlParser : public QObject
 	{
 		public:
-			FretboardXmlHandler(QObject* parent = 0);
+			FretboardXmlParser(QObject* parent = 0);
 
 			bool handle(const QString& fileName);
 
@@ -26,4 +26,4 @@ namespace Fretboard
 
 } // Fretboard
 
-#endif // FRETBOARDXMLHANDLER_H
+#endif // FRETBOARDXMLPARSER_H

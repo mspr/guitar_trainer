@@ -1,5 +1,5 @@
 #include "fretboardscene.h"
-#include "fretboardxmlhandler.h"
+#include "fretboardxmlparser.h"
 #include "fretboardaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
@@ -16,17 +16,17 @@ FretboardScene::FretboardScene(QObject* parent)
 
 void FretboardScene::init(const QString& fileName)
 {
-	FretboardXmlHandler xmlHandler;
-	if (xmlHandler.handle(fileName))
+	FretboardXmlParser xmlParser;
+	if (xmlParser.handle(fileName))
 	{
-		const QString& imagePath = xmlHandler.imagePath();
+		const QString& imagePath = xmlParser.imagePath();
 		QPixmap pix;
 		if (pix.load(imagePath))
 		{
 			addPixmap(pix);
 			setSceneRect(pix.rect().x(), pix.rect().y(), pix.rect().x() + pix.rect().width(), pix.rect().y() + pix.rect().height());
 
-			const QHash<uint, double> yByString = xmlHandler.yByString();
+			const QHash<uint, double> yByString = xmlParser.yByString();
 			QHash<uint, double>::const_iterator it = yByString.begin();
 			for (; it != yByString.end(); ++it)
 			{
@@ -34,7 +34,7 @@ void FretboardScene::init(const QString& fileName)
 																	sceneRect().x() + sceneRect().width(), it.value()));
 			}
 
-			const QHash<uint, double> xByFret = xmlHandler.xByFret();
+			const QHash<uint, double> xByFret = xmlParser.xByFret();
 			it = xByFret.begin();
 			for (; it != xByFret.end(); ++it)
 			{

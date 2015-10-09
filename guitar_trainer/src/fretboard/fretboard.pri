@@ -6,7 +6,7 @@ QT += \
 
 HEADERS += \
     fretboard/fretboardscene.h \
-    fretboard/fretboardxmlhandler.h \
+    fretboard/fretboardxmlparser.h \
     fretboard/fretboardview.h \
     fretboard/fretboardnote.h \
     fretboard/fretboardaxis.h \
@@ -14,7 +14,7 @@ HEADERS += \
 
 SOURCES += \
     fretboard/fretboardscene.cpp \
-    fretboard/fretboardxmlhandler.cpp \
+    fretboard/fretboardxmlparser.cpp \
     fretboard/fretboardview.cpp \
     fretboard/fretboardnote.cpp \
     fretboard/fretboardaxis.cpp \

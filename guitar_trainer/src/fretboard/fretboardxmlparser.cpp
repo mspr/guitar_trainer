@@ -1,16 +1,16 @@
-#include "fretboardxmlhandler.h"
+#include "fretboardxmlparser.h"
 
 #include <QDomDocument>
 #include <QFile>
 
 using namespace Fretboard;
 
-FretboardXmlHandler::FretboardXmlHandler(QObject* parent)
+FretboardXmlParser::FretboardXmlParser(QObject* parent)
 	: QObject(parent)
 {
 }
 
-bool FretboardXmlHandler::handle(const QString& fileName)
+bool FretboardXmlParser::handle(const QString& fileName)
 {
 	QFile file(fileName);
 	if (file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -60,17 +60,17 @@ bool FretboardXmlHandler::handle(const QString& fileName)
 	return true;
 }
 
-QString FretboardXmlHandler::imagePath() const
+QString FretboardXmlParser::imagePath() const
 {
 	return m_imagePath;
 }
 
-QHash<uint, double> FretboardXmlHandler::yByString() const
+QHash<uint, double> FretboardXmlParser::yByString() const
 {
 	return m_yByString;
 }
 
-QHash<uint, double> FretboardXmlHandler::xByFret() const
+QHash<uint, double> FretboardXmlParser::xByFret() const
 {
 	return m_xByFret;
 }
