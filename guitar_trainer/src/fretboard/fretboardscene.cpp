@@ -50,6 +50,10 @@ void FretboardScene::init(const QString& fileName)
 	}
 }
 
+void FretboardScene::save(const QString& fileName)
+{
+}
+
 void FretboardScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mousePressEvent(event);

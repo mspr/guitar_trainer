@@ -20,3 +20,8 @@ void FretboardView::initScene(const QString& fileName)
 	setMouseTracking(true);
 	setEnabled(true);
 }
+
+void FretboardView::saveScene(const QString& fileName)
+{
+	m_scene->save(fileName);
+}

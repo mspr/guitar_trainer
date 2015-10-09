@@ -19,6 +19,7 @@ namespace Fretboard
 			FretboardScene(QObject* parent = 0);
 
 			void init(const QString& fileName);
+			void save(const QString& fileName);
 
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;

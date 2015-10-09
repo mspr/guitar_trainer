@@ -15,6 +15,9 @@ namespace Fretboard
 			explicit FretboardEditionWindow(const QString& fileName, QWidget* parent = 0);
 			~FretboardEditionWindow();
 
+		private slots:
+			void save();
+
 		private:
 			Ui::FretboardEditionWindow* m_ui;
 	};
