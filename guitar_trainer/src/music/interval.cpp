@@ -52,7 +52,7 @@ const QHash<Interval::EInterval, QString> Interval::s_strByInterval = Interval::
 
 /*static*/ Interval::EInterval Interval::toInterval(const uint semiTone)
 {
-	Q_ASSERT_X(semiTone < 26, "toInterval", "Semitone is too high to be supported.");
+	Q_ASSERT_X(semiTone < 26, "toInterval()", "Semitone is too high to be supported.");
 
 	return (EInterval)semiTone;
 }
