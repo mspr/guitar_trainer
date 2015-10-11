@@ -12,10 +12,11 @@ namespace Fretboard
 		Q_OBJECT
 
 		public:
-			explicit FretboardEditionWindow(const QString& fileName, QWidget* parent = 0);
+			explicit FretboardEditionWindow(QWidget* parent = 0);
 			~FretboardEditionWindow();
 
 		private slots:
+			void open();
 			void save();
 
 		private:

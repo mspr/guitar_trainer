@@ -25,12 +25,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::startEdition()
 {
-	const QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Xml Files (*.xml)"));
-	if (!fileName.isNull())
-	{
-		FretboardEditionWindow* editionWindow = new FretboardEditionWindow(fileName, this);
-		editionWindow->show();
-	}
+	FretboardEditionWindow* editionWindow = new FretboardEditionWindow(this);
+	editionWindow->show();
 }
 
 void MainWindow::quitApplication()
