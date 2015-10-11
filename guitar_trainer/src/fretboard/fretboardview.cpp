@@ -10,15 +10,12 @@ FretboardView::FretboardView(QWidget* parent)
 	, m_scene(new FretboardScene())
 {
 	setScene(m_scene.data());
-	setEnabled(false);
+	setMouseTracking(true);
 }
 
 void FretboardView::initScene(const QString& fileName)
 {
 	m_scene->init(fileName);
-
-	setMouseTracking(true);
-	setEnabled(true);
 }
 
 void FretboardView::saveScene(const QString& fileName)
