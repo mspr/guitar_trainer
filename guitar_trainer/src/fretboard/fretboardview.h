@@ -5,18 +5,13 @@
 
 namespace Fretboard
 {
-	class FretboardScene;
-
 	class FretboardView : public QGraphicsView
 	{
 		public:
 			FretboardView(QWidget* parent);
 
-			void initScene(const QString& fileName);
-			void saveScene(const QString& fileName);
-
-		private:
-			QScopedPointer<FretboardScene> m_scene;
+			virtual void initScene(const QString& fileName) = 0;
+			virtual void saveScene(const QString& fileName) = 0;
 	};
 
 } // Fretboard

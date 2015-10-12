@@ -10,7 +10,9 @@ HEADERS += \
     fretboard/fretboardview.h \
     fretboard/fretboardnote.h \
     fretboard/fretboardaxis.h \
-    fretboard/fretboardeditionwindow.h
+    fretboard/fretboardeditionwindow.h \
+    fretboard/fretboardeditionscene.h \
+    fretboard/fretboardeditionview.h
 
 SOURCES += \
     fretboard/fretboardscene.cpp \
@@ -18,7 +20,9 @@ SOURCES += \
     fretboard/fretboardview.cpp \
     fretboard/fretboardnote.cpp \
     fretboard/fretboardaxis.cpp \
-    fretboard/fretboardeditionwindow.cpp
+    fretboard/fretboardeditionwindow.cpp \
+    fretboard/fretboardeditionscene.cpp \
+    fretboard/fretboardeditionview.cpp
 
 FORMS += \
     fretboard/fretboardeditionwindow.ui

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "fretboard/fretboardview.h"
+//#include "fretboard/fretboardview.h"
 #include "fretboard/fretboardeditionwindow.h"
 
 #include <QFileDialog>
@@ -14,8 +14,10 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	m_ui->setupUi(this);
 
+	/*
 	FretboardView* fretboardView = new FretboardView(this);
 	setCentralWidget(fretboardView);
+	*/
 }
 
 MainWindow::~MainWindow()

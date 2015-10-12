@@ -1,6 +1,6 @@
 #include "fretboardeditionwindow.h"
 #include "ui_fretboardeditionwindow.h"
-#include "fretboard/fretboardview.h"
+#include "fretboard/fretboardeditionview.h"
 
 #include <QFileDialog>
 
@@ -12,7 +12,7 @@ FretboardEditionWindow::FretboardEditionWindow(const QString& fileName, QWidget*
 {
 	m_ui->setupUi(this);
 
-	FretboardView* fretboardView = new FretboardView(this);
+	FretboardEditionView* fretboardView = new FretboardEditionView(this);
 	fretboardView->initScene(fileName);
 	setCentralWidget(fretboardView);
 }
@@ -24,11 +24,10 @@ FretboardEditionWindow::~FretboardEditionWindow()
 
 void FretboardEditionWindow::save()
 {
-
 	const QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Xml Files (*.xml)"));
 	if (!fileName.isNull())
 	{
-		FretboardView* fretboardView = dynamic_cast<FretboardView*>(centralWidget());
+		FretboardEditionView* fretboardView = dynamic_cast<FretboardEditionView*>(centralWidget());
 		Q_ASSERT_X(fretboardView != nullptr, "save()", "nullptr");
 		fretboardView->saveScene(fileName);
 	}
