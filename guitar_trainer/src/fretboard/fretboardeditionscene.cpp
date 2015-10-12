@@ -4,6 +4,7 @@
 
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
+#include <QFile>
 #include <QDebug>
 
 using namespace Fretboard;
@@ -26,16 +27,18 @@ FretboardEditionScene::FretboardEditionScene(const QString& fileName, QObject* p
 			QHash<uint, double>::const_iterator it = yByString.begin();
 			for (; it != yByString.end(); ++it)
 			{
-				addItem(new FretboardAxis(sceneRect().x(), it.value(),
-																	sceneRect().x() + sceneRect().width(), it.value()));
+				FretboardAxis* axis = new FretboardAxis(sceneRect().x(), it.value(), sceneRect().x() + sceneRect().width(), it.value());
+				addItem(axis);
+				m_stringAxis.append(axis);
 			}
 
 			const QHash<uint, double> xByFret = xmlParser.xByFret();
 			it = xByFret.begin();
 			for (; it != xByFret.end(); ++it)
 			{
-				addItem(new FretboardAxis(it.value(), sceneRect().y(),
-																	it.value(), sceneRect().y() + sceneRect().height()));
+				FretboardAxis* axis = new FretboardAxis(it.value(), sceneRect().y(), it.value(), sceneRect().y() + sceneRect().height());
+				addItem(axis);
+				m_fretAxis.append(axis);
 			}
 
 			m_editionAxis = new FretboardAxis(sceneRect().x(), sceneRect().y(), sceneRect().x(), sceneRect().y() + sceneRect().height());
@@ -48,6 +51,10 @@ FretboardEditionScene::FretboardEditionScene(const QString& fileName, QObject* p
 
 void FretboardEditionScene::save(const QString& fileName)
 {
+	QFile file(fileName);
+	if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+	}
 }
 
 void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -60,7 +67,17 @@ void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	}
 	else
 	{
-		addItem(new FretboardAxis(m_editionAxis->scenePos(), m_editionAxis->line()));
+		FretboardAxis* axis = new FretboardAxis(m_editionAxis->scenePos(), m_editionAxis->line());
+		addItem(axis);
+
+		if (m_editionMode == FRET_EDITION)
+		{
+			m_fretAxis.append(axis);
+		}
+		else // STRING_EDITION
+		{
+			m_stringAxis.append(axis);
+		}
 	}
 }
 

@@ -30,6 +30,8 @@ namespace Fretboard
 		private:
 			EditionMode m_editionMode;
 			FretboardAxis* m_editionAxis;
+			QList<FretboardAxis*> m_stringAxis;
+			QList<FretboardAxis*> m_fretAxis;
 	};
 
 } // Fretboard
