@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<fretboard imagePath="C:\Users\MSpriet\Documents\guitar_trainer\guitar_trainer\tests\resources\fretboard.png" tuning="EADGBE">
+<fretboard imagePath="C:\Users\Maxime\Documents\projects\guitar_trainer\guitar_trainer\tests\resources\fretboard.png" tuning="EADGBE">
     <frets>
 		<fret x="" />
 		<fret x="" />

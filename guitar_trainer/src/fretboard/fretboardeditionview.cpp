@@ -10,66 +10,49 @@ using namespace Fretboard;
 
 FretboardEditionView::FretboardEditionView(QWidget* parent)
 	: FretboardView(parent)
-	, m_scene(new FretboardEditionScene())
 {
-	setScene(m_scene.data());
+}
+
+FretboardEditionView::~FretboardEditionView()
+{
+	if (scene() != nullptr)
+		delete scene();
 }
 
 void FretboardEditionView::initScene(const QString& fileName)
 {
-	m_scene->init(fileName);
+	qDebug() << "initScene(" << fileName << ")";
+
+	FretboardEditionScene* scene = new FretboardEditionScene(fileName);
+	setScene(scene);
 }
 
 void FretboardEditionView::saveScene(const QString& fileName)
 {
-	m_scene->save(fileName);
+	FretboardEditionScene* scene = dynamic_cast<FretboardEditionScene*>(this->scene());
+	Q_ASSERT_X(scene != nullptr, "saveScene()", "nullptr");
+	scene->save(fileName);
 }
 
 void FretboardEditionView::dragEnterEvent(QDragEnterEvent* event)
 {
-	if (event->mimeData()->hasUrls())
+	if (event->mimeData()->urls().count() == 1)
 	{
-		foreach (const QUrl& url, event->mimeData()->urls())
-		{
-			qWarning() << "dragEnterEvent url " << url;
-
-			const QString str = url.toLocalFile();
-			qWarning() << "local file " << str;
-
-			if (QFileInfo(str).suffix() == "xml")
-			{
-				qWarning() << "xml >> accepted drop action";
-				event->acceptProposedAction();
-			}
-		}
+		const QString fileName = event->mimeData()->urls().first().toLocalFile();
+		if (QFileInfo(fileName).suffix() == "xml")
+			event->acceptProposedAction();
 	}
 
 	QGraphicsView::dragEnterEvent(event);
 }
 
-void FretboardEditionView::dragMoveEvent(QDragMoveEvent* event)
-{
-	if (event->mimeData()->hasUrls())
-	{
-		foreach (const QUrl& url, event->mimeData()->urls())
-		{
-			qWarning() << "dragMoveEvent url " << url;
-
-			const QString str = url.toLocalFile();
-			qWarning() << "local file " << str;
-
-			if (QFileInfo(str).suffix() == "xml")
-			{
-				qWarning() << "xml >> accepted drop action";
-				event->acceptProposedAction();
-			}
-		}
-	}
-
-	QGraphicsView::dragMoveEvent(event);
-}
-
 void FretboardEditionView::dropEvent(QDropEvent* event)
 {
+	Q_ASSERT_X(event->mimeData()->urls().count() == 1, "dropEvent()", "");
+
+	const QString fileName = event->mimeData()->urls().first().toLocalFile();
+	if (QFileInfo(fileName).suffix() == "xml")
+		initScene(fileName);
+
 	QGraphicsView::dropEvent(event);
 }

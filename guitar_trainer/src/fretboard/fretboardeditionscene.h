@@ -16,9 +16,8 @@ namespace Fretboard
 		};
 
 		public:
-			FretboardEditionScene(QObject* parent = 0);
+			FretboardEditionScene(const QString& fileName, QObject* parent = 0);
 
-			void init(const QString& fileName);
 			void save(const QString& fileName);
 
 		protected:

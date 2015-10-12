@@ -8,13 +8,9 @@
 
 using namespace Fretboard;
 
-FretboardEditionScene::FretboardEditionScene(QObject* parent)
+FretboardEditionScene::FretboardEditionScene(const QString& fileName, QObject* parent)
 	: FretboardScene(parent)
 	, m_editionMode(FRET_EDITION)
-{
-}
-
-void FretboardEditionScene::init(const QString& fileName)
 {
 	FretboardXmlParser xmlParser;
 	if (xmlParser.handle(fileName))
