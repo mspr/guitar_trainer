@@ -23,8 +23,15 @@ void FretboardEditionView::initScene(const QString& fileName)
 {
 	qDebug() << "initScene(" << fileName << ")";
 
-	FretboardEditionScene* scene = new FretboardEditionScene(fileName);
-	setScene(scene);
+	try
+	{
+		FretboardEditionScene* scene = new FretboardEditionScene(fileName);
+		setScene(scene);
+	}
+	catch(const std::exception&)
+	{
+
+	}
 }
 
 void FretboardEditionView::saveScene(const QString& fileName)

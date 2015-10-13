@@ -16,10 +16,12 @@ QT += \
     widgets \
 
 SOURCES += \
-    mainwindow.cpp
+    mainwindow.cpp \
+    exception.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    exception.h
 
 FORMS += \
     mainwindow.ui
