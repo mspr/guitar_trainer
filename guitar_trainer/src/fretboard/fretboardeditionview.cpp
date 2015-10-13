@@ -32,6 +32,7 @@ void FretboardEditionView::saveScene(const QString& fileName)
 	FretboardEditionScene* scene = dynamic_cast<FretboardEditionScene*>(this->scene());
 	Q_ASSERT_X(scene != nullptr, "saveScene()", "nullptr");
 	scene->save(fileName);
+	qWarning() << "Scene saved in " << fileName;
 }
 
 void FretboardEditionView::dragEnterEvent(QDragEnterEvent* event)

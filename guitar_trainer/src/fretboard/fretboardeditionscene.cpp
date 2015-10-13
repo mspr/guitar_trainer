@@ -1,5 +1,6 @@
 #include "fretboardeditionscene.h"
 #include "fretboardxmlparser.h"
+#include "fretboardxmlwriter.h"
 #include "fretboardaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
@@ -16,9 +17,9 @@ FretboardEditionScene::FretboardEditionScene(const QString& fileName, QObject* p
 	FretboardXmlParser xmlParser;
 	if (xmlParser.handle(fileName))
 	{
-		const QString& imagePath = xmlParser.imagePath();
+		m_imagePath = xmlParser.imagePath();
 		QPixmap pix;
-		if (pix.load(imagePath))
+		if (pix.load(m_imagePath))
 		{
 			addPixmap(pix);
 			setSceneRect(pix.rect().x(), pix.rect().y(), pix.rect().x() + pix.rect().width(), pix.rect().y() + pix.rect().height());
@@ -45,7 +46,7 @@ FretboardEditionScene::FretboardEditionScene(const QString& fileName, QObject* p
 			addItem(m_editionAxis);
 		}
 		else
-			qWarning() << QString("Impossible to load fretboard image %1.").arg(imagePath);
+			qWarning() << QString("Impossible to load fretboard image %1.").arg(m_imagePath);
 	}
 }
 
@@ -54,6 +55,24 @@ void FretboardEditionScene::save(const QString& fileName)
 	QFile file(fileName);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
+		QByteArray buffer;
+		FretboardXmlWriter writer(&buffer);
+		writer.writeStartFretboard(m_imagePath);
+
+		writer.writeStartStrings();
+		foreach (const QGraphicsItem* axis, m_stringAxis)
+			writer.writeString(axis->y());
+		writer.writeEndStrings();
+
+		writer.writeStartFrets();
+		foreach (const QGraphicsItem* axis, m_fretAxis)
+			writer.writeFret(axis->x());
+		writer.writeEndFrets();
+
+		writer.writeEndFretboard();
+
+		file.write(buffer);
+		file.close();
 	}
 }
 

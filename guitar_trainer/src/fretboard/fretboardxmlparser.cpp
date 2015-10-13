@@ -21,7 +21,7 @@ bool FretboardXmlParser::handle(const QString& fileName)
 			const QDomElement fretboardElm = dom.firstChildElement("fretboard");
 			if (!fretboardElm.isNull())
 			{
-				m_imagePath = fretboardElm.attribute("imagePath");
+				m_imagePath = fretboardElm.attribute("image");
 				m_tuning = fretboardElm.attribute("tuning");
 
 				const QDomElement stringsElm = fretboardElm.firstChildElement("strings");
@@ -30,8 +30,8 @@ bool FretboardXmlParser::handle(const QString& fileName)
 					const QDomNodeList stringNodeList = stringsElm.childNodes();
 					for (int i=0; i<stringNodeList.count(); ++i)
 					{
-						const QDomElement stringElm = stringNodeList.at(i).firstChildElement("string");
-						if (!stringElm.isNull())
+						const QDomElement stringElm = stringNodeList.at(i).toElement();
+						if (!stringElm.isNull() && stringElm.tagName() == "string")
 						{
 							const double y = stringElm.attribute("y").toDouble();
 							m_yByString.insert(i, y);
@@ -45,8 +45,8 @@ bool FretboardXmlParser::handle(const QString& fileName)
 					const QDomNodeList fretNodeList = fretsElm.childNodes();
 					for (int i=0; i<fretNodeList.count(); ++i)
 					{
-						const QDomElement fretElm = fretNodeList.at(i).firstChildElement("fret");
-						if (!fretElm.isNull())
+						const QDomElement fretElm = fretNodeList.at(i).toElement();
+						if (!fretElm.isNull() && fretElm.tagName() == "fret")
 						{
 							const double x = fretElm.attribute("x").toDouble();
 							m_xByFret.insert(i, x);

@@ -11,8 +11,8 @@ void FretboardXmlWriter::writeStartFretboard(const QString& fileName)
 {
 	writeStartDocument();
 	writeStartElement("fretboard");
+	writeAttribute("image", fileName);
 	writeAttribute("tuning", "EADGBE");
-	writeAttribute("image", "");
 }
 
 void FretboardXmlWriter::writeEndFretboard()
@@ -21,12 +21,34 @@ void FretboardXmlWriter::writeEndFretboard()
 	writeEndDocument();
 }
 
-void FretboardXmlWriter::writeString(int y)
+void FretboardXmlWriter::writeStartStrings()
 {
-
+	writeStartElement("strings");
 }
 
-void FretboardXmlWriter::writeFret(int x)
+void FretboardXmlWriter::writeString(double y)
 {
+	writeEmptyElement("string");
+	writeAttribute("y", QString::number(y));
+}
 
+void FretboardXmlWriter::writeEndStrings()
+{
+	writeEndElement();
+}
+
+void FretboardXmlWriter::writeStartFrets()
+{
+	writeStartElement("frets");
+}
+
+void FretboardXmlWriter::writeFret(double x)
+{
+	writeEmptyElement("fret");
+	writeAttribute("x", QString::number(x));
+}
+
+void FretboardXmlWriter::writeEndFrets()
+{
+	writeEndElement();
 }

@@ -5,15 +5,19 @@
 
 namespace Fretboard
 {
-	class FretboardXmlWriter : public QXmlStreamWriter
+	class FretboardXmlWriter : protected QXmlStreamWriter
 	{
 		public:
 			FretboardXmlWriter(QByteArray* buffer);
 
 			void writeStartFretboard(const QString& fileName);
 			void writeEndFretboard();
-			void writeString(int y);
-			void writeFret(int x);
+			void writeStartStrings();
+			void writeString(double y);
+			void writeEndStrings();
+			void writeStartFrets();
+			void writeFret(double x);
+			void writeEndFrets();
 	};
 
 } // Fretboard
