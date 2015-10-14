@@ -1,5 +1,5 @@
 #include "fretboardeditionscene.h"
-#include "fretboardxmlparser.h"
+#include "fretboardxmlreader.h"
 #include "fretboardxmlwriter.h"
 #include "fretboardaxis.h"
 
@@ -55,19 +55,19 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 {
 	FretboardEditionScene* scene = nullptr;
 
-	FretboardXmlParser xmlParser;
-	if (xmlParser.handle(fileName))
+	FretboardXmlReader xmlReader;
+	if (xmlReader.handle(fileName))
 	{
 		QPixmap pix;
-		if (pix.load(xmlParser.imagePath()))
+		if (pix.load(xmlReader.imagePath()))
 		{
-			scene = new FretboardEditionScene(xmlParser.imagePath(),
+			scene = new FretboardEditionScene(xmlReader.imagePath(),
 																				pix,
-																				xmlParser.yByString(),
-																				xmlParser.xByFret());
+																				xmlReader.yByString(),
+																				xmlReader.xByFret());
 		}
 		else
-			qWarning() << QString("Impossible to load fretboard image %1.").arg(xmlParser.imagePath());
+			qWarning() << QString("Impossible to load fretboard image %1.").arg(xmlReader.imagePath());
 	}
 
 	return scene;
