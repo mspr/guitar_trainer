@@ -13,25 +13,21 @@ FretboardEditionView::FretboardEditionView(QWidget* parent)
 {
 }
 
-FretboardEditionView::~FretboardEditionView()
+bool FretboardEditionView::tryCreateScene(const QString& fileName)
 {
-	if (scene() != nullptr)
-		delete scene();
-}
+	bool created = false;
 
-void FretboardEditionView::initScene(const QString& fileName)
-{
-	qDebug() << "initScene(" << fileName << ")";
-
-	try
+	FretboardEditionScene* scene = FretboardEditionScene::tryLoad(fileName);
+	if (scene != nullptr)
 	{
-		FretboardEditionScene* scene = new FretboardEditionScene(fileName);
+		scene->setParent(this);
 		setScene(scene);
-	}
-	catch(const std::exception&)
-	{
+		setMouseTracking(true);
 
+		created = true;
 	}
+
+	return created;
 }
 
 void FretboardEditionView::saveScene(const QString& fileName)
@@ -60,7 +56,7 @@ void FretboardEditionView::dropEvent(QDropEvent* event)
 
 	const QString fileName = event->mimeData()->urls().first().toLocalFile();
 	if (QFileInfo(fileName).suffix() == "xml")
-		initScene(fileName);
+		tryCreateScene(fileName);
 
 	QGraphicsView::dropEvent(event);
 }

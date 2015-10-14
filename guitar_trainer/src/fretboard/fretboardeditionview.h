@@ -9,9 +9,8 @@ namespace Fretboard
 	{
 		public:
 			FretboardEditionView(QWidget* parent);
-			~FretboardEditionView();
 
-			virtual void initScene(const QString& fileName) override;
+			bool tryCreateScene(const QString& fileName);
 			virtual void saveScene(const QString& fileName) override;
 
 		protected:

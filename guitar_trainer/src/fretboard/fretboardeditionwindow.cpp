@@ -1,6 +1,7 @@
 #include "fretboardeditionwindow.h"
 #include "ui_fretboardeditionwindow.h"
-#include "fretboard/fretboardeditionview.h"
+#include "fretboardeditionview.h"
+#include "fretboardeditionscene.h"
 
 #include <QFileDialog>
 
@@ -28,7 +29,7 @@ void FretboardEditionWindow::open()
 	{
 		FretboardEditionView* fretboardView = dynamic_cast<FretboardEditionView*>(centralWidget());
 		Q_ASSERT_X(fretboardView != nullptr, "open()", "nullptr");
-		fretboardView->initScene(fileName);
+		fretboardView->tryCreateScene(fileName);
 	}
 }
 

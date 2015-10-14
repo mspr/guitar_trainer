@@ -2,7 +2,6 @@
 #include "fretboardxmlparser.h"
 #include "fretboardxmlwriter.h"
 #include "fretboardaxis.h"
-#include "exception.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
@@ -11,56 +10,67 @@
 
 using namespace Fretboard;
 
-FretboardEditionScene::FretboardEditionScene(const QString& fileName, QObject* parent)
+FretboardEditionScene::FretboardEditionScene(QObject* parent)
 	: FretboardScene(parent)
 	, m_editionMode(FRET_EDITION)
 {
+}
+
+FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
+																						 const QPixmap& imagePix,
+																						 const QHash<uint, double>& yByString,
+																						 const QHash<uint, double>& xByFret,
+																						 QObject* parent)
+	: FretboardScene(parent)
+	, m_imagePath(imagePath)
+{
+	addPixmap(imagePix);
+
+	setSceneRect(imagePix.rect().x(),
+							 imagePix.rect().y(),
+							 imagePix.rect().x() + imagePix.rect().width(),
+							 imagePix.rect().y() + imagePix.rect().height());
+
+	QHash<uint, double>::const_iterator it = yByString.begin();
+	for (; it != yByString.end(); ++it)
+	{
+		FretboardAxis* axis = new FretboardAxis(sceneRect().x(), it.value(), sceneRect().x() + sceneRect().width(), it.value());
+		addItem(axis);
+		m_stringAxis.append(axis);
+	}
+
+	it = xByFret.begin();
+	for (; it != xByFret.end(); ++it)
+	{
+		FretboardAxis* axis = new FretboardAxis(it.value(), sceneRect().y(), it.value(), sceneRect().y() + sceneRect().height());
+		addItem(axis);
+		m_fretAxis.append(axis);
+	}
+
+	m_editionAxis = new FretboardAxis(sceneRect().x(), sceneRect().y(), sceneRect().x(), sceneRect().y() + sceneRect().height());
+	addItem(m_editionAxis);
+}
+
+/*static*/ FretboardEditionScene* FretboardEditionScene::tryLoad(const QString& fileName)
+{
+	FretboardEditionScene* scene = nullptr;
+
 	FretboardXmlParser xmlParser;
 	if (xmlParser.handle(fileName))
 	{
-		m_imagePath = xmlParser.imagePath();
 		QPixmap pix;
-
-		try
+		if (pix.load(xmlParser.imagePath()))
 		{
-			if (pix.load(m_imagePath))
-			{
-				addPixmap(pix);
-				setSceneRect(pix.rect().x(), pix.rect().y(), pix.rect().x() + pix.rect().width(), pix.rect().y() + pix.rect().height());
-
-				const QHash<uint, double> yByString = xmlParser.yByString();
-				QHash<uint, double>::const_iterator it = yByString.begin();
-				for (; it != yByString.end(); ++it)
-				{
-					FretboardAxis* axis = new FretboardAxis(sceneRect().x(), it.value(), sceneRect().x() + sceneRect().width(), it.value());
-					addItem(axis);
-					m_stringAxis.append(axis);
-				}
-
-				const QHash<uint, double> xByFret = xmlParser.xByFret();
-				it = xByFret.begin();
-				for (; it != xByFret.end(); ++it)
-				{
-					FretboardAxis* axis = new FretboardAxis(it.value(), sceneRect().y(), it.value(), sceneRect().y() + sceneRect().height());
-					addItem(axis);
-					m_fretAxis.append(axis);
-				}
-
-				m_editionAxis = new FretboardAxis(sceneRect().x(), sceneRect().y(), sceneRect().x(), sceneRect().y() + sceneRect().height());
-				addItem(m_editionAxis);
-			}
-			else
-			{
-				throw Exception(QString("Impossible to load fretboard image %1.").arg(m_imagePath));
-			}
+			scene = new FretboardEditionScene(xmlParser.imagePath(),
+																				pix,
+																				xmlParser.yByString(),
+																				xmlParser.xByFret());
 		}
-		catch(const Exception& e)
-		{
-			qWarning() << e.message();
-
-			throw;
-		}
+		else
+			qWarning() << QString("Impossible to load fretboard image %1.").arg(xmlParser.imagePath());
 	}
+
+	return scene;
 }
 
 void FretboardEditionScene::save(const QString& fileName)

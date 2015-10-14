@@ -11,7 +11,7 @@ void FretboardXmlWriter::writeStartFretboard(const QString& fileName)
 {
 	writeStartDocument();
 	writeStartElement("fretboard");
-	writeAttribute("image", fileName);
+	writeAttribute("imagePath", fileName);
 	writeAttribute("tuning", "EADGBE");
 }
 

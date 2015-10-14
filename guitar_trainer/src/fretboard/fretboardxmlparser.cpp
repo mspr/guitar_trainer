@@ -21,7 +21,7 @@ bool FretboardXmlParser::handle(const QString& fileName)
 			const QDomElement fretboardElm = dom.firstChildElement("fretboard");
 			if (!fretboardElm.isNull())
 			{
-				m_imagePath = fretboardElm.attribute("image");
+				m_imagePath = fretboardElm.attribute("imagePath");
 				m_tuning = fretboardElm.attribute("tuning");
 
 				const QDomElement stringsElm = fretboardElm.firstChildElement("strings");
