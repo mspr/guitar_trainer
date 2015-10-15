@@ -1,9 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#include "fretboard/fretboardview.h"
 #include "fretboard/fretboardeditionwindow.h"
-
-#include <QFileDialog>
+#include "outputwindow.h"
 
 using namespace Fretboard;
 
@@ -14,10 +12,8 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	m_ui->setupUi(this);
 
-	/*
-	FretboardView* fretboardView = new FretboardView(this);
-	setCentralWidget(fretboardView);
-	*/
+	OutputWindow* outputWindow = new OutputWindow(this);
+	addDockWidget(Qt::BottomDockWidgetArea, outputWindow);
 }
 
 MainWindow::~MainWindow()

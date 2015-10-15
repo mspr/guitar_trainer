@@ -1,5 +1,6 @@
 #include <QApplication>
 #include "mainwindow.h"
+#include "messagehandler.h"
 
 int main(int argc, char* argv[])
 {
@@ -7,6 +8,8 @@ int main(int argc, char* argv[])
 
 	MainWindow w;
 	w.showFullScreen();
+
+	qInstallMessageHandler(MessageHandler::handleMessage);
 
 	return a.exec();
 }

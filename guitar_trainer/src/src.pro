@@ -16,13 +16,18 @@ QT += \
     widgets \
 
 SOURCES += \
-    mainwindow.cpp
+    mainwindow.cpp \
+    outputwindow.cpp \
+    messagehandler.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    outputwindow.h \
+    messagehandler.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    outputwindow.ui
 
 RESOURCES += \
     resources.qrc
