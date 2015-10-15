@@ -13,8 +13,7 @@ class OutputWindow : public QDockWidget
 		explicit OutputWindow(QWidget* parent = 0);
 		~OutputWindow();
 
-	private:
-		static void showMessage(QtMsgType type, const QString& msg);
+		void showMessage(QtMsgType type, const QString& msg);
 
 	private:
 		Ui::OutputWindow* m_ui;

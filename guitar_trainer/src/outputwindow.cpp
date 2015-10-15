@@ -18,6 +18,6 @@ OutputWindow::~OutputWindow()
 	delete m_ui;
 }
 
-/*static*/ void OutputWindow::showMessage(QtMsgType type, const QString& msg)
+void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 {
 }

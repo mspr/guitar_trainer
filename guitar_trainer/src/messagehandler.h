@@ -14,6 +14,10 @@ class MessageHandler
 		static void handleMessage(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
 	private:
+		static void printToConsole(QtMsgType type, const QMessageLogContext& context, const QString& msg);
+		static void tryRedirectToOutputWindow(QtMsgType type, const QMessageLogContext& context, const QString& msg);
+
+	private:
 		static OutputWindow* s_outputWindow;
 };
 
