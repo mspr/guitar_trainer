@@ -11,6 +11,7 @@ OutputWindow::OutputWindow(QWidget* parent)
 	m_ui->setupUi(this);
 
 	setAllowedAreas(Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea);
+	setTitleBarWidget(new QWidget());
 
 	MessageHandler::registerOutputWindow(this);
 }

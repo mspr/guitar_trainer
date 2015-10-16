@@ -45,7 +45,7 @@ MessageHandler::MessageHandler()
 	}
 }
 
-/*static*/ void MessageHandler::tryRedirectToOutputWindow(QtMsgType type, const QMessageLogContext& context, const QString& msg)
+/*static*/ void MessageHandler::tryRedirectToOutputWindow(QtMsgType type, const QMessageLogContext& /*context*/, const QString& msg)
 {
 	if (s_outputWindow != nullptr)
 		s_outputWindow->showMessage(type, msg);

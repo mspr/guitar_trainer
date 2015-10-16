@@ -5,6 +5,8 @@
 
 namespace Ui { class MainWindow; }
 
+class OutputWindow;
+
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -19,6 +21,9 @@ class MainWindow : public QMainWindow
 		explicit MainWindow(QWidget* parent = 0);
 		~MainWindow();
 
+	protected:
+		virtual void resizeEvent(QResizeEvent* event) override;
+
 	private slots:
 		void startEdition();
 		void quitApplication();
@@ -26,6 +31,7 @@ class MainWindow : public QMainWindow
 	private:
 		Ui::MainWindow* m_ui;
 		AppMode m_appMode;
+		OutputWindow* m_outputWindow;
 };
 
 #endif // MAINWINDOW_H

@@ -3,6 +3,7 @@
 #include "fretboard/fretboardeditionwindow.h"
 #include "outputwindow.h"
 
+#include <QResizeEvent>
 #include <QDebug>
 
 using namespace Fretboard;
@@ -14,8 +15,8 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	m_ui->setupUi(this);
 
-	OutputWindow* outputWindow = new OutputWindow(this);
-	addDockWidget(Qt::BottomDockWidgetArea, outputWindow);
+	m_outputWindow = new OutputWindow(this);
+	addDockWidget(Qt::BottomDockWidgetArea, m_outputWindow);
 
 	qWarning() << "tryCreateScene";
 	qCritical() << "tryCreateScene";
@@ -45,4 +46,11 @@ void MainWindow::startEdition()
 void MainWindow::quitApplication()
 {
 	qApp->quit();
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	QMainWindow::resizeEvent(event);
+
+	m_outputWindow->setMinimumHeight(0.15*height());
 }
