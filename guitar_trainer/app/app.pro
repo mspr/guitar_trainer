@@ -13,6 +13,8 @@ CONFIG -= app_bundle
 
 LIBS += -L../src -lguitar_trainer
 
+QMAKE_CXXFLAGS += -std=c++11
+
 QT += \
     widgets \
 

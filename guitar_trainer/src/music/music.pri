@@ -1,5 +1,3 @@
-QMAKE_CXXFLAGS += -std=c++11
-
 HEADERS += \
     music/note.h \
     music/interval.h
