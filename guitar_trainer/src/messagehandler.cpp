@@ -1,6 +1,5 @@
 #include "messagehandler.h"
-
-#include <QString>
+#include "outputwindow.h"
 
 OutputWindow* MessageHandler::s_outputWindow = nullptr;
 
@@ -49,21 +48,5 @@ MessageHandler::MessageHandler()
 /*static*/ void MessageHandler::tryRedirectToOutputWindow(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {
 	if (s_outputWindow != nullptr)
-	{
-		switch (type)
-		{
-			case QtDebugMsg:
-			break;
-#if QT_VERSION >= 0x050500
-			case QtInfoMsg:
-			break;
-#endif
-			case QtWarningMsg:
-			break;
-			case QtCriticalMsg:
-			break;
-			case QtFatalMsg:
-			break;
-		}
-	}
+		s_outputWindow->showMessage(type, msg);
 }

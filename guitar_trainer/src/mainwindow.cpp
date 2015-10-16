@@ -3,6 +3,8 @@
 #include "fretboard/fretboardeditionwindow.h"
 #include "outputwindow.h"
 
+#include <QDebug>
+
 using namespace Fretboard;
 
 MainWindow::MainWindow(QWidget* parent)
@@ -14,6 +16,19 @@ MainWindow::MainWindow(QWidget* parent)
 
 	OutputWindow* outputWindow = new OutputWindow(this);
 	addDockWidget(Qt::BottomDockWidgetArea, outputWindow);
+
+	qWarning() << "tryCreateScene";
+	qCritical() << "tryCreateScene";
+	qWarning() << "tryCreateScene";
+	qCritical() << "tryCreateScene";
+	qWarning() << "tryCreateScene";
+	qCritical() << "tryCreateScene";
+	qWarning() << "tryCreateScene";
+	qCritical() << "tryCreateScene";
+	qWarning() << "tryCreateScene";
+	qCritical() << "tryCreateScene";
+	qWarning() << "tryCreateScene";
+	qCritical() << "tryCreateScene";
 }
 
 MainWindow::~MainWindow()

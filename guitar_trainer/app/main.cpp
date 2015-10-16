@@ -6,10 +6,10 @@ int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
 
+	qInstallMessageHandler(MessageHandler::handleMessage);
+
 	MainWindow w;
 	w.showFullScreen();
-
-	qInstallMessageHandler(MessageHandler::handleMessage);
 
 	return a.exec();
 }
