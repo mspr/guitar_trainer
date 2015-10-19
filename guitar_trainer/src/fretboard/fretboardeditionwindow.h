@@ -15,6 +15,9 @@ namespace Fretboard
 			explicit FretboardEditionWindow(QWidget* parent = 0);
 			~FretboardEditionWindow();
 
+		protected:
+			virtual void keyPressEvent(QKeyEvent* event) override;
+
 		private slots:
 			void open();
 			void save();

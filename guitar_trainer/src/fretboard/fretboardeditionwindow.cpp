@@ -4,6 +4,7 @@
 #include "fretboardeditionscene.h"
 
 #include <QFileDialog>
+#include <QKeyEvent>
 
 using namespace Fretboard;
 
@@ -42,4 +43,12 @@ void FretboardEditionWindow::save()
 		Q_ASSERT_X(fretboardView != nullptr, "save()", "nullptr");
 		fretboardView->saveScene(fileName);
 	}
+}
+
+void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
+{
+	QMainWindow::keyPressEvent(event);
+
+	if (event->key() == Qt::Key_Escape)
+		close();
 }
