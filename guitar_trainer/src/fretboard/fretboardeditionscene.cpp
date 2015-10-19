@@ -4,7 +4,6 @@
 #include "fretboardaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
-#include <QGraphicsView>
 #include <QFile>
 #include <QDebug>
 

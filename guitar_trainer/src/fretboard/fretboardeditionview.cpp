@@ -23,6 +23,7 @@ bool FretboardEditionView::tryCreateScene(const QString& fileName)
 		scene->setParent(this);
 		setScene(scene);
 		setMouseTracking(true);
+		scene->setFocus();
 
 		created = true;
 	}
