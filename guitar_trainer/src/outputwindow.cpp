@@ -3,6 +3,7 @@
 #include "messagehandler.h"
 
 #include <QLabel>
+#include <QScrollBar>
 
 OutputWindow::OutputWindow(QWidget* parent)
 	: QDockWidget(parent)
@@ -58,4 +59,6 @@ void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 
 	layout->addWidget(iconLabel, rowIdx, 0, 1, 1);
 	layout->addWidget(msgLabel, rowIdx, 1, 1, 1);
+
+	m_ui->scrollArea->verticalScrollBar()->setValue(m_ui->scrollArea->verticalScrollBar()->maximum());
 }
