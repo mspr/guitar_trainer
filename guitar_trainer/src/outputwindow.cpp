@@ -28,28 +28,39 @@ void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 	const int rowIdx = layout->rowCount();
 
 	QLabel* iconLabel = new QLabel();
+	QLabel* msgLabel = new QLabel();
+
 	switch (type)
 	{
 		case QtDebugMsg:
 		break;
 #if QT_VERSION >= 0x050500
 		case QtInfoMsg:
+		{
 			iconLabel->setPixmap(QPixmap(":/images/info.png"));
+			msgLabel->setText(msg);
+		}
 		break;
 #endif
 		case QtWarningMsg:
+		{
 			iconLabel->setPixmap(QPixmap(":/images/warning.png"));
+			msgLabel->setText(msg);
+		}
 		break;
 		case QtCriticalMsg:
+		{
 			iconLabel->setPixmap(QPixmap(":/images/error.png"));
+			QString msgInBold = "<b>" + msg + "</b>";
+			msgLabel->setText(msgInBold);
+		}
 		break;
 		case QtFatalMsg:
 		break;
 	}
 
 	iconLabel->setMaximumSize(iconLabel->pixmap()->size());
-	layout->addWidget(iconLabel, rowIdx, 0, 1, 1);
 
-	QLabel* msgLabel = new QLabel(msg);
+	layout->addWidget(iconLabel, rowIdx, 0, 1, 1);
 	layout->addWidget(msgLabel, rowIdx, 1, 1, 1);
 }
