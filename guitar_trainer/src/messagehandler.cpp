@@ -15,7 +15,7 @@ MessageHandler::MessageHandler()
 
 /*static*/ void MessageHandler::handleMessage(QtMsgType type, const QMessageLogContext& context, const QString& msg)
 {
-	//printToConsole(type, context, msg);
+	printToConsole(type, context, msg);
 
 	tryRedirectToOutputWindow(type, context, msg);
 }

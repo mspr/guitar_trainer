@@ -13,6 +13,8 @@ OutputWindow::OutputWindow(QWidget* parent)
 	setAllowedAreas(Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea);
 	setTitleBarWidget(new QWidget());
 
+	m_ui->scrollAreaWidgetContents->layout()->setSizeConstraint(QLayout::SetFixedSize);
+
 	MessageHandler::registerOutputWindow(this);
 }
 
