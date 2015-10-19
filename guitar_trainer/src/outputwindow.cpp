@@ -28,7 +28,7 @@ void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 	const int rowIdx = layout->rowCount();
 
 	QLabel* iconLabel = new QLabel();
-	QLabel* msgLabel = new QLabel();
+	QLabel* msgLabel = new QLabel(msg);
 
 	switch (type)
 	{
@@ -36,23 +36,16 @@ void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 		break;
 #if QT_VERSION >= 0x050500
 		case QtInfoMsg:
-		{
 			iconLabel->setPixmap(QPixmap(":/images/info.png"));
-			msgLabel->setText(msg);
-		}
 		break;
 #endif
 		case QtWarningMsg:
-		{
 			iconLabel->setPixmap(QPixmap(":/images/warning.png"));
-			msgLabel->setText(msg);
-		}
 		break;
 		case QtCriticalMsg:
 		{
 			iconLabel->setPixmap(QPixmap(":/images/error.png"));
-			QString msgInBold = "<b>" + msg + "</b>";
-			msgLabel->setText(msgInBold);
+			msgLabel->setText("<b>" + msgLabel->text() + "</b>");
 		}
 		break;
 		case QtFatalMsg:
