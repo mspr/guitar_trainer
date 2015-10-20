@@ -4,8 +4,7 @@
 #include <QMainWindow>
 
 namespace Ui { class MainWindow; }
-
-class OutputWindow;
+namespace Output { class OutputWindow; }
 
 class MainWindow : public QMainWindow
 {
@@ -31,7 +30,7 @@ class MainWindow : public QMainWindow
 	private:
 		Ui::MainWindow* m_ui;
 		AppMode m_appMode;
-		OutputWindow* m_outputWindow;
+		Output::OutputWindow* m_outputWindow;
 };
 
 #endif // MAINWINDOW_H

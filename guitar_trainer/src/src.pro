@@ -7,6 +7,7 @@
 include(../defaults.pri)
 include(music/music.pri)
 include(fretboard/fretboard.pri)
+include(output/output.pri)
 
 TARGET = guitar_trainer
 TEMPLATE = lib
@@ -19,19 +20,14 @@ QT += \
 
 SOURCES += \
     mainwindow.cpp \
-    outputwindow.cpp \
-    messagehandler.cpp \
-    outputscrollbar.cpp
+    messagehandler.cpp
 
 HEADERS += \
     mainwindow.h \
-    outputwindow.h \
-    messagehandler.h \
-    outputscrollbar.h
+    messagehandler.h
 
 FORMS += \
-    mainwindow.ui \
-    outputwindow.ui
+    mainwindow.ui
 
 RESOURCES += \
     resources.qrc

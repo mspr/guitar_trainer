@@ -5,6 +5,8 @@
 
 #include <QLabel>
 
+using namespace Output;
+
 OutputWindow::OutputWindow(QWidget* parent)
 	: QDockWidget(parent)
 	, m_ui(new Ui::OutputWindow)

@@ -3,14 +3,14 @@
 
 #include <QtMsgHandler>
 
-class OutputWindow;
+namespace Output { class OutputWindow; }
 
 class MessageHandler
 {
 	public:
 		MessageHandler();
 
-		static void registerOutputWindow(OutputWindow* outputWindow);
+		static void registerOutputWindow(Output::OutputWindow* outputWindow);
 		static void handleMessage(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
 	private:
@@ -18,7 +18,7 @@ class MessageHandler
 		static void tryRedirectToOutputWindow(QtMsgType type, const QMessageLogContext& context, const QString& msg);
 
 	private:
-		static OutputWindow* s_outputWindow;
+		static Output::OutputWindow* s_outputWindow;
 };
 
 #endif // MESSAGEHANDLER_H

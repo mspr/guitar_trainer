@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "fretboard/fretboardeditionwindow.h"
-#include "outputwindow.h"
+#include "output/outputwindow.h"
 
 #include <QResizeEvent>
 #include <QDebug>
 
+using namespace Output;
 using namespace Fretboard;
 
 MainWindow::MainWindow(QWidget* parent)

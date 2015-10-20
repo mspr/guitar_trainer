@@ -1,5 +1,7 @@
 #include "outputscrollbar.h"
 
+using namespace Output;
+
 OutputScrollBar::OutputScrollBar(QWidget* parent)
 	: QScrollBar(parent)
 {
