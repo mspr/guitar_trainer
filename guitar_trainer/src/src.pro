@@ -20,12 +20,14 @@ QT += \
 SOURCES += \
     mainwindow.cpp \
     outputwindow.cpp \
-    messagehandler.cpp
+    messagehandler.cpp \
+    outputscrollbar.cpp
 
 HEADERS += \
     mainwindow.h \
     outputwindow.h \
-    messagehandler.h
+    messagehandler.h \
+    outputscrollbar.h
 
 FORMS += \
     mainwindow.ui \

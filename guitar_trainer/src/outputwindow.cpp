@@ -1,9 +1,9 @@
 #include "outputwindow.h"
 #include "ui_outputwindow.h"
 #include "messagehandler.h"
+#include "outputscrollbar.h"
 
 #include <QLabel>
-#include <QScrollBar>
 
 OutputWindow::OutputWindow(QWidget* parent)
 	: QDockWidget(parent)
@@ -14,6 +14,7 @@ OutputWindow::OutputWindow(QWidget* parent)
 	setAllowedAreas(Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea);
 	setTitleBarWidget(new QWidget());
 
+	m_ui->scrollArea->setVerticalScrollBar(new OutputScrollBar(m_ui->scrollArea));
 	m_ui->scrollAreaWidgetContents->layout()->setSizeConstraint(QLayout::SetFixedSize);
 
 	MessageHandler::registerOutputWindow(this);
@@ -59,6 +60,4 @@ void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 
 	layout->addWidget(iconLabel, rowIdx, 0, 1, 1);
 	layout->addWidget(msgLabel, rowIdx, 1, 1, 1);
-
-	m_ui->scrollArea->verticalScrollBar()->setValue(m_ui->scrollArea->verticalScrollBar()->maximum());
 }
