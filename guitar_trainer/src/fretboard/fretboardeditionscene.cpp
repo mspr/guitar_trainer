@@ -33,7 +33,8 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 	QHash<uint, double>::const_iterator it = yByString.begin();
 	for (; it != yByString.end(); ++it)
 	{
-		FretboardAxis* axis = new FretboardAxis(sceneRect().x(), it.value(), sceneRect().x() + sceneRect().width(), it.value());
+		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, sceneRect().width(), 0));
+		axis->setPos(sceneRect().x(), it.value());
 		addItem(axis);
 		m_stringAxis.append(axis);
 	}
@@ -41,12 +42,14 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 	it = xByFret.begin();
 	for (; it != xByFret.end(); ++it)
 	{
-		FretboardAxis* axis = new FretboardAxis(it.value(), sceneRect().y(), it.value(), sceneRect().y() + sceneRect().height());
+		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
+		axis->setPos(it.value(), sceneRect().y());
 		addItem(axis);
 		m_fretAxis.append(axis);
 	}
 
-	m_editionAxis = new FretboardAxis(sceneRect().x(), sceneRect().y(), sceneRect().x(), sceneRect().y() + sceneRect().height());
+	m_editionAxis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
+	m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
 	addItem(m_editionAxis);
 }
 
@@ -108,7 +111,8 @@ void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	}
 	else
 	{
-		FretboardAxis* axis = new FretboardAxis(m_editionAxis->scenePos(), m_editionAxis->line());
+		FretboardAxis* axis = new FretboardAxis(m_editionAxis->line());
+		axis->setPos(m_editionAxis->scenePos());
 		addItem(axis);
 
 		if (m_editionMode == FRET_EDITION)
