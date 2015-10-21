@@ -26,6 +26,8 @@ namespace Fretboard
 			static FretboardEditionScene* tryLoad(const QString& fileName);
 			void save(const QString& fileName);
 
+			bool hasChanged() const;
+
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
@@ -33,8 +35,12 @@ namespace Fretboard
 		private:
 			void switchEditionMode(const QPointF& scenePos);
 
+		private slots:
+			void onChanged(const QList<QRectF>& region);
+
 		private:
 			EditionMode m_editionMode;
+			bool m_hasChanged;
 			FretboardAxis* m_editionAxis;
 			QString m_imagePath;
 			QList<FretboardAxis*> m_stringAxis;

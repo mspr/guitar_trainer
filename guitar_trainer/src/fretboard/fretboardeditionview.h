@@ -9,13 +9,6 @@ namespace Fretboard
 	{
 		public:
 			FretboardEditionView(QWidget* parent);
-
-			bool tryCreateScene(const QString& fileName);
-			virtual void saveScene(const QString& fileName) override;
-
-		protected:
-			virtual void dragEnterEvent(QDragEnterEvent* event) override;
-			virtual void dropEvent(QDropEvent* event) override;
 	};
 
 } // Fretboard

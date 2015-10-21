@@ -9,8 +9,6 @@ namespace Fretboard
 	{
 		public:
 			FretboardView(QWidget* parent);
-
-			virtual void saveScene(const QString& fileName) = 0;
 	};
 
 } // Fretboard
