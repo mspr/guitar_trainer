@@ -4,7 +4,6 @@
 #include "output/outputwindow.h"
 
 #include <QResizeEvent>
-#include <QDebug>
 
 using namespace Output;
 using namespace Fretboard;
@@ -18,19 +17,6 @@ MainWindow::MainWindow(QWidget* parent)
 
 	m_outputWindow = new OutputWindow(this);
 	addDockWidget(Qt::BottomDockWidgetArea, m_outputWindow);
-
-	qWarning() << "tryCreateScene";
-	qCritical() << "tryCreateScene";
-	qWarning() << "tryCreateScene";
-	qCritical() << "tryCreateScene";
-	qWarning() << "tryCreateScene";
-	qCritical() << "tryCreateScene";
-	qWarning() << "tryCreateScene";
-	qCritical() << "tryCreateScene";
-	qWarning() << "tryCreateScene";
-	qCritical() << "tryCreateScene";
-	qWarning() << "tryCreateScene";
-	qCritical() << "tryCreateScene";
 }
 
 MainWindow::~MainWindow()
