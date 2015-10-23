@@ -102,6 +102,34 @@ void FretboardEditionScene::save(const QString& fileName)
 	}
 }
 
+void FretboardEditionScene::addAxis(FretboardAxis* axis)
+{
+	Q_ASSERT_X(axis != nullptr, "addAxis()", "nullptr");
+
+	addItem(axis);
+
+	if (m_editionMode == FRET_EDITION)
+	{
+		m_fretAxis.append(axis);
+	}
+	else // STRING_EDITION
+	{
+		m_stringAxis.append(axis);
+	}
+}
+
+void FretboardEditionScene::removeAxis(FretboardAxis* axis)
+{
+	Q_ASSERT_X(axis != nullptr, "removeAxis()", "nullptr");
+
+	if (!m_fretAxis.removeOne(axis))
+		m_stringAxis.removeOne(axis);
+
+	removeItem(axis);
+
+	delete axis;
+}
+
 void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mousePressEvent(event);

@@ -27,6 +27,9 @@ namespace Fretboard
 			static FretboardEditionScene* tryLoad(const QString& fileName);
 			void save(const QString& fileName);
 
+			void addAxis(FretboardAxis* axis);
+			void removeAxis(FretboardAxis* axis);
+
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
