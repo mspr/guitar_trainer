@@ -1,5 +1,7 @@
 #include "commandmoveaxis.h"
 
+using namespace Fretboard;
+
 CommandMoveAxis::CommandMoveAxis()
 {
 }

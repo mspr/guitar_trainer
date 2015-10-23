@@ -3,13 +3,17 @@
 
 #include <QUndoCommand>
 
-class CommandRemoveAxis : public QUndoCommand
+namespace Fretboard
 {
-	public:
-		CommandRemoveAxis();
+	class CommandRemoveAxis : public QUndoCommand
+	{
+		public:
+			CommandRemoveAxis();
 
-		virtual void undo() override;
-		virtual void redo() override;
-};
+			virtual void undo() override;
+			virtual void redo() override;
+	};
+
+} // Fretboard
 
 #endif // COMMANDREMOVEAXIS_H

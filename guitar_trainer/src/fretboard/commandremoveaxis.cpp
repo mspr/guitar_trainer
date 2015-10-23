@@ -1,5 +1,7 @@
 #include "commandremoveaxis.h"
 
+using namespace Fretboard;
+
 CommandRemoveAxis::CommandRemoveAxis()
 {
 }
