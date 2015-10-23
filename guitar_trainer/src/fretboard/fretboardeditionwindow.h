@@ -22,6 +22,7 @@ namespace Fretboard
 			virtual void dragEnterEvent(QDragEnterEvent* event) override;
 			virtual void dropEvent(QDropEvent* event) override;
 			virtual void keyPressEvent(QKeyEvent* event) override;
+			virtual void closeEvent(QCloseEvent* event) override;
 
 		private:
 			FretboardEditionView* editionView() const;

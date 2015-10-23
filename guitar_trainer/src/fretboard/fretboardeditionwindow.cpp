@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include <QDragMoveEvent>
 #include <QMimeData>
+#include <QMessageBox>
+#include <QDebug>
 
 using namespace Fretboard;
 
@@ -69,20 +71,6 @@ void FretboardEditionWindow::save()
 	}
 }
 
-void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
-{
-	QMainWindow::keyPressEvent(event);
-
-	if (event->key() == Qt::Key_Escape)
-	{
-		if (m_scene->hasChanged())
-		{
-
-			close();
-		}
-	}
-}
-
 void FretboardEditionWindow::dragEnterEvent(QDragEnterEvent* event)
 {
 	if (event->mimeData()->urls().count() == 1)
@@ -104,4 +92,27 @@ void FretboardEditionWindow::dropEvent(QDropEvent* event)
 		tryCreateScene(fileName);
 
 	QMainWindow::dropEvent(event);
+}
+
+void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
+{
+	QMainWindow::keyPressEvent(event);
+
+	if (event->key() == Qt::Key_Escape)
+		close();
+}
+
+void FretboardEditionWindow::closeEvent(QCloseEvent* event)
+{
+	/*
+	const QMessageBox::StandardButton reply = QMessageBox::question(this,
+																																	"The edition window is about to close.",
+																																	"Do you want to save changes ?",
+																																	QMessageBox::Yes|QMessageBox::No);
+
+	if (reply == QMessageBox::Yes)
+		save();
+		*/
+
+	QMainWindow::closeEvent(event);
 }
