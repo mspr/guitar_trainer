@@ -2,8 +2,10 @@
 
 using namespace Fretboard;
 
-CommandRemoveAxis::CommandRemoveAxis()
+CommandRemoveAxis::CommandRemoveAxis(FretboardEditionScene* scene)
+	: m_scene(scene)
 {
+	Q_ASSERT_X(m_scene != nullptr, "CommandRemoveAxis()", "nullptr");
 }
 
 void CommandRemoveAxis::undo()
