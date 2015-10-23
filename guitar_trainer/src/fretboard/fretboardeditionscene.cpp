@@ -9,14 +9,6 @@
 
 using namespace Fretboard;
 
-FretboardEditionScene::FretboardEditionScene(QObject* parent)
-	: FretboardScene(parent)
-	, m_editionMode(FRET_EDITION)
-	, m_hasChanged(false)
-{
-	connect(this, SIGNAL(changed(QList<QRectF>)), this, SLOT(onChanged(QList<QRectF>)));
-}
-
 FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 																						 const QPixmap& imagePix,
 																						 const QHash<uint, double>& yByString,
@@ -52,7 +44,12 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 
 	m_editionAxis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
 	m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
+
+	blockSignals(true);
 	addItem(m_editionAxis);
+	blockSignals(false);
+
+	connect(this, SIGNAL(changed(QList<QRectF>)), this, SLOT(onChanged(QList<QRectF>)));
 }
 
 /*static*/ FretboardEditionScene* FretboardEditionScene::tryLoad(const QString& fileName)
@@ -103,11 +100,6 @@ void FretboardEditionScene::save(const QString& fileName)
 
 		qWarning() << "Scene saved in " << fileName;
 	}
-}
-
-bool FretboardEditionScene::hasChanged() const
-{
-	return m_hasChanged;
 }
 
 void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -170,11 +162,4 @@ void FretboardEditionScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 		default:
 		break;
 	}
-}
-
-void FretboardEditionScene::onChanged(const QList<QRectF>& /*region*/)
-{
-	m_hasChanged = true;
-
-	qWarning() << "FretboardEditionScene::onChanged";
 }
