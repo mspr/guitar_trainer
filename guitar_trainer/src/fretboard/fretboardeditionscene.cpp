@@ -17,6 +17,7 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 																						 const QHash<uint, double>& xByFret,
 																						 QObject* parent)
 	: FretboardScene(parent)
+	, m_usageMode(SELECTION_MODE)
 	, m_imagePath(imagePath)
 	, m_undoStack(new QUndoStack(this))
 {
@@ -71,6 +72,16 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 	}
 
 	return scene;
+}
+
+void FretboardEditionScene::switchToSelectionMode()
+{
+	m_usageMode = SELECTION_MODE;
+}
+
+void FretboardEditionScene::switchToEditionMode()
+{
+	m_usageMode = EDITION_MODE;
 }
 
 void FretboardEditionScene::save(const QString& fileName)

@@ -35,6 +35,9 @@ namespace Fretboard
 			static FretboardEditionScene* tryLoad(const QString& fileName);
 			void save(const QString& fileName);
 
+			void switchToSelectionMode();
+			void switchToEditionMode();
+
 			void addAxis(FretboardAxis* axis);
 			void removeAxis(FretboardAxis* axis);
 
@@ -46,6 +49,7 @@ namespace Fretboard
 			void switchEditionMode(const QPointF& scenePos);
 
 		private:
+			UsageMode m_usageMode;
 			EditionMode m_editionMode;
 			FretboardAxis* m_editionAxis;
 			QString m_imagePath;
