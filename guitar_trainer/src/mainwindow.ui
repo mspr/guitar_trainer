@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuApplication">
@@ -47,7 +47,7 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/images/edition.png</normaloff>:/images/edition.png</iconset>
+     <normaloff>:/images/editor.png</normaloff>:/images/editor.png</iconset>
    </property>
    <property name="text">
     <string>Fretboard Editor</string>
