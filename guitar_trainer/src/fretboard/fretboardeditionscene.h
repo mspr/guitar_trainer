@@ -13,6 +13,12 @@ namespace Fretboard
 	{
 		Q_OBJECT
 
+		enum UsageMode
+		{
+			SELECTION_MODE,
+			EDITION_MODE
+		};
+
 		enum EditionMode
 		{
 			FRET_EDITION,
