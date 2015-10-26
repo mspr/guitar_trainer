@@ -6,5 +6,7 @@
         <file>images/info.png</file>
         <file>images/error.png</file>
         <file>images/editor.png</file>
+        <file>images/selection.png</file>
+        <file>images/edition.png</file>
     </qresource>
 </RCC>

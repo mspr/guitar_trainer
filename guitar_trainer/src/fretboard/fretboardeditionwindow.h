@@ -31,6 +31,8 @@ namespace Fretboard
 		private slots:
 			void open();
 			void save();
+			void switchToSelectionMode();
+			void switchToEditionMode();
 
 		private:
 			Ui::FretboardEditionWindow* m_ui;

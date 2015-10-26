@@ -37,6 +37,9 @@
    </attribute>
    <addaction name="openAct"/>
    <addaction name="saveAct"/>
+   <addaction name="separator"/>
+   <addaction name="selectionAct"/>
+   <addaction name="editionAct"/>
   </widget>
   <action name="openAct">
    <property name="icon">
@@ -66,6 +69,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="selectionAct">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/selection.png</normaloff>:/images/selection.png</iconset>
+   </property>
+   <property name="text">
+    <string>Selection</string>
+   </property>
+   <property name="toolTip">
+    <string>Selection mode</string>
+   </property>
+  </action>
+  <action name="editionAct">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/edition.png</normaloff>:/images/edition.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edition</string>
+   </property>
+   <property name="toolTip">
+    <string>Edition mode</string>
    </property>
   </action>
  </widget>
@@ -105,9 +132,43 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>selectionAct</sender>
+   <signal>triggered()</signal>
+   <receiver>FretboardEditionWindow</receiver>
+   <slot>switchToSelectionMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editionAct</sender>
+   <signal>triggered()</signal>
+   <receiver>FretboardEditionWindow</receiver>
+   <slot>switchToEditionMode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>open()</slot>
   <slot>save()</slot>
+  <slot>switchToSelectionMode()</slot>
+  <slot>switchToEditionMode()</slot>
  </slots>
 </ui>

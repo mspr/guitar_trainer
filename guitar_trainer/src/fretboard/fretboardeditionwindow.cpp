@@ -71,6 +71,16 @@ void FretboardEditionWindow::save()
 	}
 }
 
+void FretboardEditionWindow::switchToSelectionMode()
+{
+
+}
+
+void FretboardEditionWindow::switchToEditionMode()
+{
+
+}
+
 void FretboardEditionWindow::dragEnterEvent(QDragEnterEvent* event)
 {
 	if (event->mimeData()->urls().count() == 1)
