@@ -2,8 +2,10 @@
 #include "fretboardxmlreader.h"
 #include "fretboardxmlwriter.h"
 #include "fretboardaxis.h"
+#include "commandaddaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QUndoStack>
 #include <QFile>
 #include <QDebug>
 
@@ -16,6 +18,7 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 																						 QObject* parent)
 	: FretboardScene(parent)
 	, m_imagePath(imagePath)
+	, m_undoStack(new QUndoStack(this))
 {
 	addPixmap(imagePix);
 
@@ -45,11 +48,7 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 	m_editionAxis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
 	m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
 
-	blockSignals(true);
 	addItem(m_editionAxis);
-	blockSignals(false);
-
-	connect(this, SIGNAL(changed(QList<QRectF>)), this, SLOT(onChanged(QList<QRectF>)));
 }
 
 /*static*/ FretboardEditionScene* FretboardEditionScene::tryLoad(const QString& fileName)
@@ -140,18 +139,8 @@ void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	}
 	else
 	{
-		FretboardAxis* axis = new FretboardAxis(m_editionAxis->line());
-		axis->setPos(m_editionAxis->scenePos());
-		addItem(axis);
-
-		if (m_editionMode == FRET_EDITION)
-		{
-			m_fretAxis.append(axis);
-		}
-		else // STRING_EDITION
-		{
-			m_stringAxis.append(axis);
-		}
+		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEvent()", "nullptr");
+		m_undoStack->push(new CommandAddAxis(m_editionAxis->scenePos(), m_editionAxis->line(), this));
 	}
 }
 

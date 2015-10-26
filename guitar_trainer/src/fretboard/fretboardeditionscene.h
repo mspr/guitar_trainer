@@ -3,6 +3,8 @@
 
 #include "fretboardscene.h"
 
+class QUndoStack;
+
 namespace Fretboard
 {
 	class FretboardAxis;
@@ -43,6 +45,7 @@ namespace Fretboard
 			QString m_imagePath;
 			QList<FretboardAxis*> m_stringAxis;
 			QList<FretboardAxis*> m_fretAxis;
+			QUndoStack* m_undoStack;
 	};
 
 } // Fretboard
