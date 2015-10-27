@@ -48,6 +48,11 @@ namespace Fretboard
 		private:
 			void switchEditionMode(const QPointF& scenePos);
 
+			void mousePressEdition(QGraphicsSceneMouseEvent* event);
+			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);
+			void mousePressSelection(QGraphicsSceneMouseEvent* event);
+			void mouseMoveSelection(QGraphicsSceneMouseEvent* event);
+
 		private:
 			UsageMode m_usageMode;
 			EditionMode m_editionMode;
