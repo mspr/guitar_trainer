@@ -74,13 +74,23 @@ void FretboardEditionWindow::save()
 void FretboardEditionWindow::switchToSelectionMode()
 {
 	if (m_scene != nullptr)
+	{
 		m_scene->switchToSelectionMode();
+
+		m_ui->selectionAct->setDisabled(true);
+		m_ui->editionAct->setEnabled(true);
+	}
 }
 
 void FretboardEditionWindow::switchToEditionMode()
 {
 	if (m_scene != nullptr)
+	{
 		m_scene->switchToEditionMode();
+
+		m_ui->editionAct->setDisabled(true);
+		m_ui->selectionAct->setEnabled(true);
+	}
 }
 
 void FretboardEditionWindow::dragEnterEvent(QDragEnterEvent* event)

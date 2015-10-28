@@ -46,7 +46,8 @@ namespace Fretboard
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
 		private:
-			void switchEditionMode(const QPointF& scenePos);
+			void switchToFretMode(const QPointF& scenePos);
+			void switchToStringMode(const QPointF& scenePos);
 
 			void mousePressEdition(QGraphicsSceneMouseEvent* event);
 			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);
