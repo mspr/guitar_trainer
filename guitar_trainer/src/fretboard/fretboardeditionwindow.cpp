@@ -22,6 +22,9 @@ FretboardEditionWindow::FretboardEditionWindow(QWidget* parent)
 	setCentralWidget(fretboardView);
 
 	setAcceptDrops(true);
+
+	m_ui->editionAct->setDisabled(true);
+	m_ui->selectionAct->setDisabled(true);
 }
 
 FretboardEditionWindow::~FretboardEditionWindow()
@@ -53,7 +56,10 @@ bool FretboardEditionWindow::tryCreateScene(const QString& fileName)
 		m_scene->setParent(this);
 		editionView()->setScene(m_scene);
 		editionView()->setMouseTracking(true);
-		m_scene->setFocus();
+		//m_scene->setFocus();
+
+		m_ui->editionAct->setEnabled(true);
+		m_ui->selectionAct->setEnabled(true);
 
 		created = true;
 	}
