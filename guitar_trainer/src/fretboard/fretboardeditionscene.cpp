@@ -137,13 +137,9 @@ void FretboardEditionScene::addAxis(FretboardAxis* axis)
 	addItem(axis);
 
 	if (m_editionMode == FRET_EDITION)
-	{
 		m_fretAxis.append(axis);
-	}
 	else // STRING_EDITION
-	{
 		m_stringAxis.append(axis);
-	}
 }
 
 void FretboardEditionScene::removeAxis(FretboardAxis* axis)
@@ -175,17 +171,10 @@ void FretboardEditionScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
 
 	if (event->button() == Qt::RightButton)
 	{
-		switch (m_editionMode)
-		{
-			case FRET_EDITION:
-				switchToStringMode(event->scenePos());
-			break;
-			case STRING_EDITION:
-				switchToFretMode(event->scenePos());
-			break;
-			default:
-			break;
-		}
+		if (m_editionMode == FRET_EDITION)
+			switchToStringMode(event->scenePos());
+		else // STRING_EDITION
+			switchToFretMode(event->scenePos());
 	}
 	else
 	{
@@ -244,17 +233,10 @@ void FretboardEditionScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
 
 	if (m_editionAxis != nullptr)
 	{
-		switch (m_editionMode)
-		{
-			case FRET_EDITION:
-				m_editionAxis->setPos(event->scenePos().x(), sceneRect().y());
-			break;
-			case STRING_EDITION:
-				m_editionAxis->setPos(sceneRect().x(), event->scenePos().y());
-			break;
-			default:
-			break;
-		}
+		if (m_editionMode == FRET_EDITION)
+			m_editionAxis->setPos(event->scenePos().x(), sceneRect().y());
+		else // STRING_EDITION
+			m_editionAxis->setPos(sceneRect().x(), event->scenePos().y());
 	}
 }
 
