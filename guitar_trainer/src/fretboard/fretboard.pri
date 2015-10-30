@@ -14,7 +14,8 @@ HEADERS += \
     fretboard/fretboardxmlwriter.h \
     fretboard/commandaddaxis.h \
     fretboard/commandremoveaxis.h \
-    fretboard/commandmoveaxis.h
+    fretboard/commandmoveaxis.h \
+    fretboard/fretboardeditionsceneloader.h
 
 SOURCES += \
     fretboard/fretboardscene.cpp \
@@ -28,7 +29,8 @@ SOURCES += \
     fretboard/fretboardxmlwriter.cpp \
     fretboard/commandaddaxis.cpp \
     fretboard/commandremoveaxis.cpp \
-    fretboard/commandmoveaxis.cpp
+    fretboard/commandmoveaxis.cpp \
+    fretboard/fretboardeditionsceneloader.cpp
 
 FORMS += \
     fretboard/fretboardeditionwindow.ui
