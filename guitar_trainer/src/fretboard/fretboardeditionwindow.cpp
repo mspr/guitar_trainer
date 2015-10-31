@@ -16,7 +16,6 @@ using namespace Fretboard;
 FretboardEditionWindow::FretboardEditionWindow(QWidget* parent)
 	: QMainWindow(parent)
 	, m_ui(new Ui::FretboardEditionWindow)
-	, m_sceneLoader(new FretboardEditionSceneLoader(*this))
 {
 	m_ui->setupUi(this);
 
@@ -43,12 +42,12 @@ FretboardEditionView* FretboardEditionWindow::editionView() const
 
 void FretboardEditionWindow::open()
 {
-	m_scene = m_sceneLoader->tryCreateSceneFromOpenFile();
+	m_scene = FretboardEditionSceneLoader::tryCreateSceneFromOpenFile();
 	if (m_scene != nullptr)
-		onSceneCreation();
+		initScene();
 }
 
-void FretboardEditionWindow::onSceneCreation()
+void FretboardEditionWindow::initScene()
 {
 	Q_ASSERT_X(m_scene != nullptr, "onSceneCreation()", "nullptr");
 
@@ -93,13 +92,12 @@ void FretboardEditionWindow::switchToEditionMode()
 	}
 }
 
-/*
 void FretboardEditionWindow::dragEnterEvent(QDragEnterEvent* event)
 {
 	if (event->mimeData()->urls().count() == 1)
 	{
 		const QString fileName = event->mimeData()->urls().first().toLocalFile();
-		if (FretboardFileValidator::isSupported(fileName))
+		if (FretboardEditionSceneLoader::isSupported(fileName))
 			event->acceptProposedAction();
 	}
 
@@ -113,11 +111,10 @@ void FretboardEditionWindow::dropEvent(QDropEvent* event)
 	const QString fileName = event->mimeData()->urls().first().toLocalFile();
 	m_scene = FretboardEditionSceneLoader::tryCreateSceneFromFile(fileName);
 	if (m_scene != nullptr)
-		onSceneCreation();
+		initScene();
 
 	QMainWindow::dropEvent(event);
 }
-*/
 
 void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
 {

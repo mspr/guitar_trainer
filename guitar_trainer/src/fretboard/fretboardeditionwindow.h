@@ -8,7 +8,6 @@ namespace Ui { class FretboardEditionWindow; }
 namespace Fretboard
 {
 	class FretboardEditionView;
-	class FretboardEditionSceneLoader;
 	class FretboardEditionScene;
 
 	class FretboardEditionWindow : public QMainWindow
@@ -20,10 +19,8 @@ namespace Fretboard
 			~FretboardEditionWindow();
 
 		protected:
-			/*
 			virtual void dragEnterEvent(QDragEnterEvent* event) override;
 			virtual void dropEvent(QDropEvent* event) override;
-			*/
 			virtual void keyPressEvent(QKeyEvent* event) override;
 			virtual void closeEvent(QCloseEvent* event) override;
 
@@ -33,14 +30,13 @@ namespace Fretboard
 
 		private slots:
 			void open();
-			void onSceneCreation();
+			void initScene();
 			void save();
 			void switchToSelectionMode();
 			void switchToEditionMode();
 
 		private:
 			Ui::FretboardEditionWindow* m_ui;
-			QScopedPointer<FretboardEditionSceneLoader> m_sceneLoader;
 			FretboardEditionScene* m_scene;
 	};
 
