@@ -2,6 +2,7 @@
 #include "ui_fretboardeditionwindow.h"
 #include "fretboardeditionview.h"
 #include "fretboardeditionscene.h"
+#include "fretboardeditionsceneloader.h"
 
 #include <QFileDialog>
 #include <QKeyEvent>
@@ -15,6 +16,7 @@ using namespace Fretboard;
 FretboardEditionWindow::FretboardEditionWindow(QWidget* parent)
 	: QMainWindow(parent)
 	, m_ui(new Ui::FretboardEditionWindow)
+	, m_sceneLoader(new FretboardEditionSceneLoader(*this))
 {
 	m_ui->setupUi(this);
 
@@ -41,30 +43,22 @@ FretboardEditionView* FretboardEditionWindow::editionView() const
 
 void FretboardEditionWindow::open()
 {
-	const QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("Xml Files (*.xml)"));
-	if (!fileName.isNull())
-		tryCreateScene(fileName);
+	m_scene = m_sceneLoader->tryCreateSceneFromOpenFile();
+	if (m_scene != nullptr)
+		onSceneCreation();
 }
 
-bool FretboardEditionWindow::tryCreateScene(const QString& fileName)
+void FretboardEditionWindow::onSceneCreation()
 {
-	bool created = false;
+	Q_ASSERT_X(m_scene != nullptr, "onSceneCreation()", "nullptr");
 
-	m_scene = FretboardEditionScene::tryLoad(fileName);
-	if (m_scene != nullptr)
-	{
-		m_scene->setParent(this);
-		editionView()->setScene(m_scene);
-		editionView()->setMouseTracking(true);
-		//m_scene->setFocus();
+	m_scene->setParent(this);
+	editionView()->setScene(m_scene);
+	editionView()->setMouseTracking(true);
+	//m_scene->setFocus();
 
-		m_ui->editionAct->setEnabled(true);
-		m_ui->selectionAct->setEnabled(true);
-
-		created = true;
-	}
-
-	return created;
+	m_ui->editionAct->setEnabled(true);
+	m_ui->selectionAct->setEnabled(true);
 }
 
 void FretboardEditionWindow::save()
@@ -99,12 +93,13 @@ void FretboardEditionWindow::switchToEditionMode()
 	}
 }
 
+/*
 void FretboardEditionWindow::dragEnterEvent(QDragEnterEvent* event)
 {
 	if (event->mimeData()->urls().count() == 1)
 	{
 		const QString fileName = event->mimeData()->urls().first().toLocalFile();
-		if (QFileInfo(fileName).suffix() == "xml")
+		if (FretboardFileValidator::isSupported(fileName))
 			event->acceptProposedAction();
 	}
 
@@ -116,11 +111,13 @@ void FretboardEditionWindow::dropEvent(QDropEvent* event)
 	Q_ASSERT_X(event->mimeData()->urls().count() == 1, "dropEvent()", "");
 
 	const QString fileName = event->mimeData()->urls().first().toLocalFile();
-	if (QFileInfo(fileName).suffix() == "xml")
-		tryCreateScene(fileName);
+	m_scene = FretboardEditionSceneLoader::tryCreateSceneFromFile(fileName);
+	if (m_scene != nullptr)
+		onSceneCreation();
 
 	QMainWindow::dropEvent(event);
 }
+*/
 
 void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
 {
