@@ -1,5 +1,5 @@
-#include "testnote.h"
-#include "testinterval.h"
+#include "music/testnote.h"
+#include "music/testinterval.h"
 
 #include <QTest>
 

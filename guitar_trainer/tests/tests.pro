@@ -5,6 +5,8 @@
 #-------------------------------------------------
 
 include(../defaults.pri)
+include(music/music.pri)
+include(fretboard/fretboard.pri)
 
 TEMPLATE = app
 
@@ -16,10 +18,6 @@ CONFIG -= app_bundle
 LIBS += -L../src -lguitar_trainer
 
 SOURCES += \
-    main.cpp \
-    testnote.cpp \
-    testinterval.cpp
+    main.cpp
 
 HEADERS += \
-    testnote.h \
-    testinterval.h
