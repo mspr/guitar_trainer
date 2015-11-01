@@ -1,5 +1,6 @@
 #include "fretboardaxis.h"
 
+#include <QApplication>
 #include <QPen>
 #include <QDebug>
 
@@ -12,6 +13,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 {
 	setPen(QPen(m_defaultColor, 4));
 	setFlag(ItemIsFocusable);
+	setAcceptHoverEvents(true);
 }
 
 void FretboardAxis::focusInEvent(QFocusEvent* event)
@@ -33,6 +35,24 @@ void FretboardAxis::focusOutEvent(QFocusEvent* event)
 	setPen(pen);
 
 	QGraphicsLineItem::focusOutEvent(event);
+}
+
+void FretboardAxis::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+	qWarning() << "FretboardAxis::hoverEnterEvent";
+
+	QApplication::setOverrideCursor(Qt::PointingHandCursor);
+
+	QGraphicsLineItem::hoverEnterEvent(event);
+}
+
+void FretboardAxis::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+	qWarning() << "FretboardAxis::hoverLeaveEvent";
+
+	QApplication::restoreOverrideCursor();
+
+	QGraphicsLineItem::hoverLeaveEvent(event);
 }
 
 void FretboardAxis::mousePressEvent(QGraphicsSceneMouseEvent* event)
