@@ -11,6 +11,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	, m_selectionColor(Qt::red)
 {
 	setPen(QPen(m_defaultColor, 4));
+	setFlag(ItemIsFocusable);
 }
 
 void FretboardAxis::focusInEvent(QFocusEvent* event)
@@ -36,5 +37,7 @@ void FretboardAxis::focusOutEvent(QFocusEvent* event)
 
 void FretboardAxis::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+	qWarning() << "FretboardAxis::mousePressEvent";
+
 	QGraphicsLineItem::mousePressEvent(event);
 }
