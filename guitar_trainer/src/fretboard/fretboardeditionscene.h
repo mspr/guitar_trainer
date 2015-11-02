@@ -37,6 +37,7 @@ namespace Fretboard
 
 			void switchToSelectionMode();
 			void switchToEditionMode();
+			bool isInSelectionMode() const;
 
 			void addAxis(FretboardAxis* axis);
 			void removeAxis(FretboardAxis* axis);

@@ -106,6 +106,11 @@ void FretboardEditionScene::switchToEditionMode()
 	}
 }
 
+bool FretboardEditionScene::isInSelectionMode() const
+{
+	return m_usageMode == SELECTION_MODE;
+}
+
 void FretboardEditionScene::save(const QString& fileName)
 {
 	QFile file(fileName);

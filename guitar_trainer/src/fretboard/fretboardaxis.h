@@ -5,6 +5,8 @@
 
 namespace Fretboard
 {
+	class FretboardEditionScene;
+
 	class FretboardAxis : public QGraphicsLineItem
 	{
 		public:
@@ -16,6 +18,10 @@ namespace Fretboard
 			virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
 			virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+
+		private:
+			FretboardEditionScene* getScene() const;
 
 		private:
 			QColor m_defaultColor;

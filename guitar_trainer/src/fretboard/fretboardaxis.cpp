@@ -1,4 +1,5 @@
 #include "fretboardaxis.h"
+#include "fretboardeditionscene.h"
 
 #include <QApplication>
 #include <QPen>
@@ -16,9 +17,15 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	setAcceptHoverEvents(true);
 }
 
+FretboardEditionScene* FretboardAxis::getScene() const
+{
+	FretboardEditionScene* scene = dynamic_cast<FretboardEditionScene*>(this->scene());
+	Q_ASSERT_X(scene != nullptr, "mousePressEvent()", "nullptr");
+	return scene;
+}
+
 void FretboardAxis::focusInEvent(QFocusEvent* event)
 {
-	qWarning() << "FretboardAxis::focusInEvent";
 	QPen pen = this->pen();
 	pen.setColor(m_selectionColor);
 	setPen(pen);
@@ -28,8 +35,6 @@ void FretboardAxis::focusInEvent(QFocusEvent* event)
 
 void FretboardAxis::focusOutEvent(QFocusEvent* event)
 {
-	qWarning() << "FretboardAxis::focusOutEvent";
-
 	QPen pen = this->pen();
 	pen.setColor(m_defaultColor);
 	setPen(pen);
@@ -39,8 +44,6 @@ void FretboardAxis::focusOutEvent(QFocusEvent* event)
 
 void FretboardAxis::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-	qWarning() << "FretboardAxis::hoverEnterEvent";
-
 	QApplication::setOverrideCursor(Qt::PointingHandCursor);
 
 	QGraphicsLineItem::hoverEnterEvent(event);
@@ -48,8 +51,6 @@ void FretboardAxis::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 
 void FretboardAxis::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
-	qWarning() << "FretboardAxis::hoverLeaveEvent";
-
 	QApplication::restoreOverrideCursor();
 
 	QGraphicsLineItem::hoverLeaveEvent(event);
@@ -59,5 +60,18 @@ void FretboardAxis::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	qWarning() << "FretboardAxis::mousePressEvent";
 
+	if (getScene()->isInSelectionMode())
+		QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+
 	QGraphicsLineItem::mousePressEvent(event);
+}
+
+void FretboardAxis::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+	qWarning() << "FretboardAxis::mouseReleaseEvent";
+
+	if (getScene()->isInSelectionMode())
+		QApplication::setOverrideCursor(Qt::PointingHandCursor);
+
+	QGraphicsLineItem::mouseReleaseEvent(event);
 }
