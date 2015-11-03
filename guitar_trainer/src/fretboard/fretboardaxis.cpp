@@ -2,6 +2,7 @@
 #include "fretboardeditionscene.h"
 
 #include <QApplication>
+#include <QGraphicsSceneMouseEvent>
 #include <QPen>
 #include <QDebug>
 
@@ -13,7 +14,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	, m_selectionColor(Qt::red)
 {
 	setPen(QPen(m_defaultColor, 4));
-	setFlag(ItemIsFocusable);
+	setFlags(ItemIsFocusable | ItemIsMovable | ItemSendsGeometryChanges);
 	setAcceptHoverEvents(true);
 }
 
@@ -61,7 +62,10 @@ void FretboardAxis::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	qWarning() << "FretboardAxis::mousePressEvent";
 
 	if (getScene()->isInSelectionMode())
-		QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+	{
+		if (event->buttons() & Qt::LeftButton)
+			QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+	}
 
 	QGraphicsLineItem::mousePressEvent(event);
 }
@@ -74,4 +78,16 @@ void FretboardAxis::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 		QApplication::setOverrideCursor(Qt::PointingHandCursor);
 
 	QGraphicsLineItem::mouseReleaseEvent(event);
+}
+
+QVariant FretboardAxis::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+	if (change == ItemPositionChange)
+	{
+		QPointF newPos = value.toPointF();
+		qWarning() << "ItemPositionChange " << scenePos();
+		qWarning() << "ItemPositionChange " << newPos;
+	}
+
+	return QGraphicsLineItem::itemChange(change, value);
 }

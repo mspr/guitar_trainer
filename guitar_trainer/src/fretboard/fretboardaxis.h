@@ -19,6 +19,7 @@ namespace Fretboard
 			virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
 		private:
 			FretboardEditionScene* getScene() const;

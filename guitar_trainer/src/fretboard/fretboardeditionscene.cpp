@@ -242,8 +242,6 @@ void FretboardEditionScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void FretboardEditionScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
 {
-	qWarning() << "mouseMoveEdition " << m_editionMode;
-
 	Q_ASSERT_X(m_usageMode == EDITION_MODE, "mouseMoveEdition()", "The scene is not in edition mode.");
 	Q_ASSERT_X(m_editionAxis != nullptr, "switchToStringMode()", "nullptr");
 
@@ -258,7 +256,5 @@ void FretboardEditionScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
 
 void FretboardEditionScene::mouseMoveSelection(QGraphicsSceneMouseEvent* event)
 {
-	qWarning() << "mouseMoveSelection";
-
 	Q_ASSERT_X(m_usageMode == SELECTION_MODE, "mouseMoveSelection()", "The scene is not in selection mode.");
 }
