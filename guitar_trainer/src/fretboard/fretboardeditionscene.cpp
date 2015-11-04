@@ -83,8 +83,18 @@ void FretboardEditionScene::switchToSelectionMode()
 			m_editionAxis = nullptr;
 		}
 
+		setAxesMovable(true);
+
 		m_usageMode = SELECTION_MODE;
 	}
+}
+
+void FretboardEditionScene::setAxesMovable(const bool movable)
+{
+	foreach (FretboardAxis* fret, m_fretAxis)
+		fret->setFlag(QGraphicsItem::ItemIsMovable, movable);
+	foreach (FretboardAxis* string, m_stringAxis)
+		string->setFlag(QGraphicsItem::ItemIsMovable, movable);
 }
 
 void FretboardEditionScene::switchToEditionMode()
@@ -100,6 +110,8 @@ void FretboardEditionScene::switchToEditionMode()
 
 			m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
 			addItem(m_editionAxis);
+
+			setAxesMovable(false);
 		}
 
 		m_usageMode = EDITION_MODE;

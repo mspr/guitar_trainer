@@ -49,6 +49,7 @@ namespace Fretboard
 								const QHash<uint, double>& yByString,
 								const QHash<uint, double>& xByFret);
 
+			void setAxesMovable(const bool movable);
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 

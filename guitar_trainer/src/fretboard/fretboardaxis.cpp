@@ -14,7 +14,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	, m_selectionColor(Qt::red)
 {
 	setPen(QPen(m_defaultColor, 4));
-	setFlags(ItemIsFocusable | ItemIsMovable | ItemSendsGeometryChanges);
+	setFlags(ItemIsFocusable | ItemSendsGeometryChanges);
 	setAcceptHoverEvents(true);
 }
 
