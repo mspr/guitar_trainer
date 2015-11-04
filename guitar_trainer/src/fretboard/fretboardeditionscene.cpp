@@ -108,8 +108,8 @@ void FretboardEditionScene::switchToEditionMode()
 			else // STRING_EDITION
 				m_editionAxis = new FretboardAxis(QLineF(0, 0, sceneRect().width(), 0));
 
-			m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
 			addItem(m_editionAxis);
+			m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
 
 			setAxesMovable(false);
 		}
