@@ -29,6 +29,6 @@ void CommandAddAxis::undo()
 void CommandAddAxis::redo()
 {
 	m_axis = new FretboardAxis(m_line);
-	m_axis->setPos(m_scenePos);
 	m_scene->addAxis(m_axis);
+	m_axis->setPos(m_scenePos);
 }

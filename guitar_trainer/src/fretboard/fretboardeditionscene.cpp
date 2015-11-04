@@ -110,6 +110,7 @@ void FretboardEditionScene::switchToEditionMode()
 
 			addItem(m_editionAxis);
 			m_editionAxis->setPos(sceneRect().x(), sceneRect().y());
+			m_editionAxis->setFlag(QGraphicsItem::ItemSendsGeometryChanges, false);
 
 			setAxesMovable(false);
 		}
@@ -210,8 +211,11 @@ void FretboardEditionScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
 	}
 	else
 	{
-		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEvent()", "nullptr");
+		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEdition()", "nullptr");
+
+		qWarning() << "mousePressEdition before push cmd add in stack";
 		m_undoStack->push(new CommandAddAxis(m_editionAxis->scenePos(), m_editionAxis->line(), this));
+		qWarning() << "mousePressEdition after push cmd add in stack";
 	}
 }
 
