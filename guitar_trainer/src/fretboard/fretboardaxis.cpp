@@ -21,7 +21,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 FretboardEditionScene* FretboardAxis::getScene() const
 {
 	FretboardEditionScene* scene = dynamic_cast<FretboardEditionScene*>(this->scene());
-	Q_ASSERT_X(scene != nullptr, "mousePressEvent()", "nullptr");
+	Q_ASSERT_X(scene != nullptr, "getScene()", "nullptr");
 	return scene;
 }
 
@@ -85,8 +85,14 @@ QVariant FretboardAxis::itemChange(GraphicsItemChange change, const QVariant& va
 	if (change == ItemPositionChange)
 	{
 		QPointF newPos = value.toPointF();
-		qWarning() << "ItemPositionChange " << scenePos();
-		qWarning() << "ItemPositionChange " << newPos;
+
+		FretboardEditionScene* scene = getScene();
+		if (scene->isInFretMode())
+			newPos.setY(scenePos().y());
+		else if (scene->isInStringMode())
+			newPos.setX(scenePos().x());
+
+		return newPos;
 	}
 
 	return QGraphicsLineItem::itemChange(change, value);

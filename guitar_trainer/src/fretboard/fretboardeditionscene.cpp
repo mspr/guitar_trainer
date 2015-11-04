@@ -11,16 +11,18 @@
 
 using namespace Fretboard;
 
-FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
-																						 const QPixmap& imagePix,
-																						 const QHash<uint, double>& yByString,
-																						 const QHash<uint, double>& xByFret,
-																						 QObject* parent)
+FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* parent)
 	: FretboardScene(parent)
 	, m_editionMode(FRET_EDITION)
 	, m_editionAxis(nullptr)
 	, m_imagePath(imagePath)
 	, m_undoStack(new QUndoStack(this))
+{
+}
+
+void FretboardEditionScene::init(const QPixmap& imagePix,
+																 const QHash<uint, double>& yByString,
+																 const QHash<uint, double>& xByFret)
 {
 	addPixmap(imagePix);
 
@@ -33,8 +35,8 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 	for (; it != yByString.end(); ++it)
 	{
 		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, sceneRect().width(), 0));
-		axis->setPos(sceneRect().x(), it.value());
 		addItem(axis);
+		axis->setPos(sceneRect().x(), it.value());
 		m_stringAxis.append(axis);
 	}
 
@@ -42,15 +44,15 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 	for (; it != xByFret.end(); ++it)
 	{
 		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
-		axis->setPos(it.value(), sceneRect().y());
 		addItem(axis);
+		axis->setPos(it.value(), sceneRect().y());
 		m_fretAxis.append(axis);
 	}
 
 	switchToSelectionMode();
 }
 
-/*static*/ FretboardEditionScene* FretboardEditionScene::tryLoad(const QString& fileName)
+/*static*/ FretboardEditionScene* FretboardEditionScene::tryCreate(const QString& fileName)
 {
 	FretboardEditionScene* scene = nullptr;
 
@@ -60,10 +62,8 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath,
 		QPixmap pix;
 		if (pix.load(xmlReader.imagePath()))
 		{
-			scene = new FretboardEditionScene(xmlReader.imagePath(),
-																				pix,
-																				xmlReader.yByString(),
-																				xmlReader.xByFret());
+			scene = new FretboardEditionScene(xmlReader.imagePath());
+			scene->init(pix, xmlReader.yByString(), xmlReader.xByFret());
 		}
 		else
 			qWarning() << QString("Impossible to load fretboard image %1.").arg(xmlReader.imagePath());
@@ -109,6 +109,16 @@ void FretboardEditionScene::switchToEditionMode()
 bool FretboardEditionScene::isInSelectionMode() const
 {
 	return m_usageMode == SELECTION_MODE;
+}
+
+bool FretboardEditionScene::isInFretMode() const
+{
+	return m_editionMode == FRET_EDITION;
+}
+
+bool FretboardEditionScene::isInStringMode() const
+{
+	return m_editionMode == STRING_EDITION;
 }
 
 void FretboardEditionScene::save(const QString& fileName)

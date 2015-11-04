@@ -26,18 +26,16 @@ namespace Fretboard
 		};
 
 		public:
-			FretboardEditionScene(const QString& imagePath,
-														const QPixmap& imagePix,
-														const QHash<uint, double>& yByString,
-														const QHash<uint, double>& xByFret,
-														QObject* parent = 0);
+			FretboardEditionScene(const QString& imagePath, QObject* parent = 0);
 
-			static FretboardEditionScene* tryLoad(const QString& fileName);
+			static FretboardEditionScene* tryCreate(const QString& fileName);
 			void save(const QString& fileName);
 
 			void switchToSelectionMode();
 			void switchToEditionMode();
 			bool isInSelectionMode() const;
+			bool isInFretMode() const;
+			bool isInStringMode() const;
 
 			void addAxis(FretboardAxis* axis);
 			void removeAxis(FretboardAxis* axis);
@@ -47,6 +45,10 @@ namespace Fretboard
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 
 		private:
+			void init(const QPixmap& imagePix,
+								const QHash<uint, double>& yByString,
+								const QHash<uint, double>& xByFret);
+
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 

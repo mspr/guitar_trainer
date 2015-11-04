@@ -20,7 +20,7 @@ using namespace Fretboard;
 	FretboardEditionScene* scene = nullptr;
 
 	if (!fileName.isNull())
-		scene = FretboardEditionScene::tryLoad(fileName);
+		scene = FretboardEditionScene::tryCreate(fileName);
 
 	return scene;
 }
