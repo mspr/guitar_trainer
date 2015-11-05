@@ -50,6 +50,8 @@ namespace Fretboard
 								const QHash<uint, double>& yByString,
 								const QHash<uint, double>& xByFret);
 
+			void createAxisMarker();
+
 			void setAxesMovable(const bool movable);
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
@@ -64,7 +66,7 @@ namespace Fretboard
 		private:
 			UsageMode m_usageMode;
 			EditionMode m_editionMode;
-			FretboardAxis* m_editionAxis;
+			FretboardAxis* m_axisMarker;
 			QString m_imagePath;
 			QList<FretboardAxis*> m_stringAxis;
 			QList<FretboardAxis*> m_fretAxis;
