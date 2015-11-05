@@ -8,6 +8,7 @@ CommandAddAxis::CommandAddAxis(const QPointF& scenePos,
 															 const QLineF& line,
 															 FretboardEditionScene* scene)
 	: m_scene(scene)
+	, m_axis(nullptr)
 	, m_scenePos(scenePos)
 	, m_line(line)
 {
@@ -23,11 +24,14 @@ CommandAddAxis::CommandAddAxis(const QPointF& scenePos,
 void CommandAddAxis::undo()
 {
 	m_scene->removeAxis(m_axis);
+	delete m_axis;
 	m_axis = nullptr;
 }
 
 void CommandAddAxis::redo()
 {
+	Q_ASSERT_X(m_axis == nullptr, "redo()", "nullptr");
+
 	m_axis = new FretboardAxis(m_line);
 	m_scene->addAxis(m_axis);
 	m_axis->setPos(m_scenePos);

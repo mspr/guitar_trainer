@@ -43,6 +43,7 @@ namespace Fretboard
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+			virtual void keyPressEvent(QKeyEvent* event) override;
 
 		private:
 			void init(const QPixmap& imagePix,
@@ -52,6 +53,8 @@ namespace Fretboard
 			void setAxesMovable(const bool movable);
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
+
+			QList<FretboardAxis*> selectedAxes() const;
 
 			void mousePressEdition(QGraphicsSceneMouseEvent* event);
 			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);

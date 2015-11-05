@@ -3,8 +3,10 @@
 #include "fretboardxmlwriter.h"
 #include "fretboardaxis.h"
 #include "commandaddaxis.h"
+#include "commandremoveaxis.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QKeyEvent>
 #include <QUndoStack>
 #include <QFile>
 #include <QDebug>
@@ -184,8 +186,6 @@ void FretboardEditionScene::removeAxis(FretboardAxis* axis)
 		m_stringAxis.removeOne(axis);
 
 	removeItem(axis);
-
-	delete axis;
 }
 
 void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -212,10 +212,7 @@ void FretboardEditionScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
 	else
 	{
 		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEdition()", "nullptr");
-
-		qWarning() << "mousePressEdition before push cmd add in stack";
 		m_undoStack->push(new CommandAddAxis(m_editionAxis->scenePos(), m_editionAxis->line(), this));
-		qWarning() << "mousePressEdition after push cmd add in stack";
 	}
 }
 
@@ -283,4 +280,30 @@ void FretboardEditionScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
 void FretboardEditionScene::mouseMoveSelection(QGraphicsSceneMouseEvent* event)
 {
 	Q_ASSERT_X(m_usageMode == SELECTION_MODE, "mouseMoveSelection()", "The scene is not in selection mode.");
+}
+
+void FretboardEditionScene::keyPressEvent(QKeyEvent* event)
+{
+	QGraphicsScene::keyPressEvent(event);
+
+	if (event->key() == Qt::Key_Delete)
+	{
+		qWarning() << "FretboardEditionScene::keyPressEvent()";
+		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEdition()", "nullptr");
+		m_undoStack->push(new CommandRemoveAxis(selectedAxes(), this));
+	}
+}
+
+QList<FretboardAxis*> FretboardEditionScene::selectedAxes() const
+{
+	QList<FretboardAxis*> selectedAxes;
+
+	foreach (QGraphicsItem* selectedItem, selectedItems())
+	{
+		FretboardAxis* selectedAxis = qgraphicsitem_cast<FretboardAxis*>(selectedItem);
+		Q_ASSERT_X(selectedAxis != nullptr, "selectedAxes()", "nullptr");
+		selectedAxes.append(selectedAxis);
+	}
+
+	return selectedAxes;
 }
