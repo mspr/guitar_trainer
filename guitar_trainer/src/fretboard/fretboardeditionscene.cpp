@@ -1,7 +1,6 @@
 #include "fretboardeditionscene.h"
 #include "fretboardxmlreader.h"
 #include "fretboardxmlwriter.h"
-#include "fretboardaxis.h"
 #include "commandaddaxis.h"
 #include "commandremoveaxis.h"
 
@@ -16,7 +15,7 @@ using namespace Fretboard;
 FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* parent)
 	: FretboardScene(parent)
 	, m_editionMode(FRET_EDITION)
-	, m_axisMarker(nullptr)
+	, m_axisMarker(new FretboardAxis())
 	, m_imagePath(imagePath)
 	, m_undoStack(new QUndoStack(this))
 {
@@ -54,20 +53,20 @@ void FretboardEditionScene::init(const QPixmap& imagePix,
 	switchToSelectionMode();
 }
 
-void FretboardEditionScene::createAxisMarker()
+void FretboardEditionScene::activateAxisMarker()
 {
 	Q_ASSERT_X(m_usageMode == EDITION_MODE, "createAxisMarker()", "The scene is not in edition mode.");
 	Q_ASSERT_X(m_axisMarker == nullptr, "createAxisMarker()", "nullptr");
 
 	if (m_editionMode == FRET_EDITION)
-		m_axisMarker = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
+		m_axisMarker->setLine(0, 0, 0, sceneRect().height());
 	else // STRING_EDITION
-		m_axisMarker = new FretboardAxis(QLineF(0, 0, sceneRect().width(), 0));
+		m_axisMarker->setLine(0, 0, sceneRect().width(), 0);
 
 	m_axisMarker->setFlag(QGraphicsItem::ItemSendsGeometryChanges, false);
 	m_axisMarker->setPos(sceneRect().x(), sceneRect().y());
 
-	addItem(m_axisMarker);
+	addItem(m_axisMarker.data());
 }
 
 /*static*/ FretboardEditionScene* FretboardEditionScene::tryCreate(const QString& fileName)
@@ -94,13 +93,7 @@ void FretboardEditionScene::switchToSelectionMode()
 {
 	if (m_usageMode != SELECTION_MODE)
 	{
-		if (m_axisMarker != nullptr)
-		{
-			removeItem(m_axisMarker);
-			delete m_axisMarker;
-			m_axisMarker = nullptr;
-		}
-
+		removeItem(m_axisMarker.data());
 		setAxesMovable(true);
 
 		m_usageMode = SELECTION_MODE;
@@ -121,7 +114,7 @@ void FretboardEditionScene::switchToEditionMode()
 	{
 		if (m_axisMarker == nullptr)
 		{
-			createAxisMarker();
+			activateAxisMarker();
 			setAxesMovable(false);
 		}
 

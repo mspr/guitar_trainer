@@ -2,13 +2,12 @@
 #define FRETBOARDEDITIONSCENE_H
 
 #include "fretboardscene.h"
+#include "fretboardaxis.h"
 
 class QUndoStack;
 
 namespace Fretboard
 {
-	class FretboardAxis;
-
 	class FretboardEditionScene : public FretboardScene
 	{
 		Q_OBJECT
@@ -50,7 +49,7 @@ namespace Fretboard
 								const QHash<uint, double>& yByString,
 								const QHash<uint, double>& xByFret);
 
-			void createAxisMarker();
+			void activateAxisMarker();
 
 			void setAxesMovable(const bool movable);
 			void switchToFretMode(const QPointF& scenePos);
@@ -66,7 +65,7 @@ namespace Fretboard
 		private:
 			UsageMode m_usageMode;
 			EditionMode m_editionMode;
-			FretboardAxis* m_axisMarker;
+			QScopedPointer<FretboardAxis> m_axisMarker;
 			QString m_imagePath;
 			QList<FretboardAxis*> m_stringAxis;
 			QList<FretboardAxis*> m_fretAxis;

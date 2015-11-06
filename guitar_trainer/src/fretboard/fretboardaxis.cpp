@@ -8,6 +8,16 @@
 
 using namespace Fretboard;
 
+FretboardAxis::FretboardAxis(QGraphicsItem* parent)
+	: QGraphicsLineItem(parent)
+	, m_defaultColor(Qt::cyan)
+	, m_selectionColor(Qt::red)
+{
+	setPen(QPen(m_defaultColor, 4));
+	setFlags(ItemIsFocusable | ItemSendsGeometryChanges);
+	setAcceptHoverEvents(true);
+}
+
 FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	: QGraphicsLineItem(line, parent)
 	, m_defaultColor(Qt::cyan)

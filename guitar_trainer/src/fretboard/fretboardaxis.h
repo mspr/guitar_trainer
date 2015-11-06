@@ -10,6 +10,7 @@ namespace Fretboard
 	class FretboardAxis : public QGraphicsLineItem
 	{
 		public:
+			FretboardAxis(QGraphicsItem* parent = 0);
 			FretboardAxis(const QLineF& line, QGraphicsItem* parent = 0);
 
 		protected:
