@@ -29,7 +29,7 @@ OutputWindow::~OutputWindow()
 
 void OutputWindow::showMessage(QtMsgType type, const QString& msg)
 {
-	QGridLayout* layout = dynamic_cast<QGridLayout*>(m_ui->scrollAreaWidgetContents->layout());
+	QGridLayout* layout = qobject_cast<QGridLayout*>(m_ui->scrollAreaWidgetContents->layout());
 	Q_ASSERT_X(layout != nullptr, "showMessage()", "nullptr");
 	const int rowIdx = layout->rowCount();
 

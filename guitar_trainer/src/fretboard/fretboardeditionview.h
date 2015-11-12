@@ -7,6 +7,8 @@ namespace Fretboard
 {
 	class FretboardEditionView : public FretboardView
 	{
+		Q_OBJECT
+
 		public:
 			FretboardEditionView(QWidget* parent);
 	};

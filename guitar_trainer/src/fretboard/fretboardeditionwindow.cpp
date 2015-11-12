@@ -35,7 +35,7 @@ FretboardEditionWindow::~FretboardEditionWindow()
 
 FretboardEditionView* FretboardEditionWindow::editionView() const
 {
-	FretboardEditionView* fretboardView = dynamic_cast<FretboardEditionView*>(centralWidget());
+	FretboardEditionView* fretboardView = qobject_cast<FretboardEditionView*>(centralWidget());
 	Q_ASSERT_X(fretboardView != nullptr, "editionView()", "nullptr");
 	return fretboardView;
 }

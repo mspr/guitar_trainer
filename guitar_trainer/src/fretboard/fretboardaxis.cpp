@@ -30,7 +30,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 
 FretboardEditionScene* FretboardAxis::getScene() const
 {
-	FretboardEditionScene* scene = dynamic_cast<FretboardEditionScene*>(this->scene());
+	FretboardEditionScene* scene = qobject_cast<FretboardEditionScene*>(this->scene());
 	Q_ASSERT_X(scene != nullptr, "getScene()", "nullptr");
 	return scene;
 }
