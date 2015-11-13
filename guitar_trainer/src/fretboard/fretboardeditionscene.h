@@ -12,16 +12,16 @@ namespace Fretboard
 	{
 		Q_OBJECT
 
-		enum UsageMode
+		enum class UsageMode
 		{
-			SELECTION_MODE,
-			EDITION_MODE
+			SELECTION,
+			EDITION
 		};
 
-		enum EditionMode
+		enum class EditionMode
 		{
-			FRET_EDITION,
-			STRING_EDITION
+			FRET,
+			STRING
 		};
 
 		enum class AxisType
