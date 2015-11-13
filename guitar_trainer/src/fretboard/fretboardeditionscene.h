@@ -46,6 +46,10 @@ namespace Fretboard
 			void addAxis(FretboardAxis* axis);
 			void removeAxis(FretboardAxis* axis);
 
+			QList<FretboardAxis*> selectedAxes() const;
+			QList<FretboardAxis*> selectedFrets() const;
+			QList<FretboardAxis*> selectedStrings() const;
+
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
@@ -62,7 +66,7 @@ namespace Fretboard
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 
-			QList<FretboardAxis*> selectedAxes(const AxisType axisType = AxisType::ALL) const;
+			QList<FretboardAxis*> selectedAxes(const AxisType axisType) const;
 
 			void mousePressEdition(QGraphicsSceneMouseEvent* event);
 			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);

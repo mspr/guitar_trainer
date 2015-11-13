@@ -295,6 +295,21 @@ void FretboardEditionScene::keyPressEvent(QKeyEvent* event)
 	}
 }
 
+QList<FretboardAxis*> FretboardEditionScene::selectedAxes() const
+{
+	return selectedAxes(AxisType::ALL);
+}
+
+QList<FretboardAxis*> FretboardEditionScene::selectedFrets() const
+{
+	return selectedAxes(AxisType::FRET);
+}
+
+QList<FretboardAxis*> FretboardEditionScene::selectedStrings() const
+{
+	return selectedAxes(AxisType::STRING);
+}
+
 QList<FretboardAxis*> FretboardEditionScene::selectedAxes(const AxisType axisType) const
 {
 	QList<FretboardAxis*> selectedAxes;
