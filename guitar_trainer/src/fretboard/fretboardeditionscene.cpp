@@ -295,15 +295,32 @@ void FretboardEditionScene::keyPressEvent(QKeyEvent* event)
 	}
 }
 
-QList<FretboardAxis*> FretboardEditionScene::selectedAxes() const
+QList<FretboardAxis*> FretboardEditionScene::selectedAxes(const AxisType axisType) const
 {
 	QList<FretboardAxis*> selectedAxes;
+
+	std::function<bool(FretboardAxis* axis)> isConsideredThroughAxisType;
+	switch (axisType)
+	{
+		case AxisType::FRET:
+			isConsideredThroughAxisType = [this](FretboardAxis* axis) -> bool { return m_fretAxis.contains(axis); };
+		break;
+		case AxisType::STRING:
+			isConsideredThroughAxisType = [this](FretboardAxis* axis)->bool { return m_stringAxis.contains(axis); };
+		break;
+		case AxisType::ALL:
+		default:
+			isConsideredThroughAxisType = [this](FretboardAxis* axis)->bool { Q_UNUSED(axis); return true; };
+		break;
+	}
 
 	foreach (QGraphicsItem* selectedItem, selectedItems())
 	{
 		FretboardAxis* selectedAxis = qgraphicsitem_cast<FretboardAxis*>(selectedItem);
 		Q_ASSERT_X(selectedAxis != nullptr, "selectedAxes()", "nullptr");
-		selectedAxes.append(selectedAxis);
+
+		if (isConsideredThroughAxisType(selectedAxis))
+			selectedAxes.append(selectedAxis);
 	}
 
 	return selectedAxes;

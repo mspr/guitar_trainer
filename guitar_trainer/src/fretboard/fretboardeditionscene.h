@@ -24,6 +24,13 @@ namespace Fretboard
 			STRING_EDITION
 		};
 
+		enum class AxisType
+		{
+			FRET,
+			STRING,
+			ALL
+		};
+
 		public:
 			FretboardEditionScene(const QString& imagePath, QObject* parent = 0);
 
@@ -55,7 +62,7 @@ namespace Fretboard
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 
-			QList<FretboardAxis*> selectedAxes() const;
+			QList<FretboardAxis*> selectedAxes(const AxisType axisType = AxisType::ALL) const;
 
 			void mousePressEdition(QGraphicsSceneMouseEvent* event);
 			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);
