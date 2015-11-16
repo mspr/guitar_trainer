@@ -3,23 +3,36 @@
 
 using namespace Fretboard;
 
-CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxis*>& selectedAxes, FretboardEditionScene* scene)
+CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxis*>& selectedFrets,
+																		 const QList<FretboardAxis*>& selectedStrings,
+																		 FretboardEditionScene* scene)
 	: m_scene(scene)
-	, m_selectedAxes(selectedAxes)
+	, m_fretsToRemove(selectedFrets)
+	, m_stringsToRemove(selectedStrings)
 {
 	Q_ASSERT_X(m_scene != nullptr, "CommandRemoveAxis()", "nullptr");
 }
 
+CommandRemoveAxis::~CommandRemoveAxis()
+{
+	qDeleteAll(m_fretsToRemove);
+	m_fretsToRemove.clear();
+	qDeleteAll(m_stringsToRemove);
+	m_stringsToRemove.clear();
+}
+
 void CommandRemoveAxis::undo()
 {
-	/*
-	foreach (FretboardAxis* axis, m_selectedAxes)
-		m_scene->addAxis(axis); // TODO frets or strings ?
-		*/
+	foreach (FretboardAxis* fret, m_fretsToRemove)
+		m_scene->addFret(fret);
+	foreach (FretboardAxis* string, m_stringsToRemove)
+		m_scene->addString(string);
 }
 
 void CommandRemoveAxis::redo()
 {
-	foreach (FretboardAxis* axis, m_selectedAxes)
-		m_scene->removeAxis(axis); // TODO Delete axes somewhere is needed..
+	foreach (FretboardAxis* fret, m_fretsToRemove)
+		m_scene->removeFret(fret);
+	foreach (FretboardAxis* string, m_stringsToRemove)
+		m_scene->removeString(string);
 }

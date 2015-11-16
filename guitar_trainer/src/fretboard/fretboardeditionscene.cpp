@@ -122,6 +122,11 @@ void FretboardEditionScene::switchToEditionMode()
 	}
 }
 
+FretboardEditionScene::EditionMode FretboardEditionScene::editionMode() const
+{
+	return m_editionMode;
+}
+
 bool FretboardEditionScene::isInSelectionMode() const
 {
 	return m_usageMode == UsageMode::SELECTION;
@@ -165,6 +170,23 @@ void FretboardEditionScene::save(const QString& fileName)
 	}
 }
 
+void FretboardEditionScene::addFret(FretboardAxis* fret)
+{
+	Q_ASSERT_X(fret != nullptr, "addFret()", "nullptr");
+
+	addItem(fret);
+	m_fretAxis.append(fret);
+}
+
+void FretboardEditionScene::addString(FretboardAxis* string)
+{
+	Q_ASSERT_X(string != nullptr, "addString()", "nullptr");
+
+	addItem(string);
+	m_stringAxis.append(string);
+}
+
+/*
 void FretboardEditionScene::addAxis(FretboardAxis* axis)
 {
 	Q_ASSERT_X(axis != nullptr, "addAxis()", "nullptr");
@@ -177,16 +199,31 @@ void FretboardEditionScene::addAxis(FretboardAxis* axis)
 	else // EditionMode::STRING
 		m_stringAxis.append(axis);
 }
-
+*/
 void FretboardEditionScene::removeAxis(FretboardAxis* axis)
 {
 	Q_ASSERT_X(axis != nullptr, "removeAxis()", "nullptr");
-	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "removeAxis()", "The scene is not in edition mode.");
 
 	if (!m_fretAxis.removeOne(axis))
 		m_stringAxis.removeOne(axis);
 
 	removeItem(axis);
+}
+
+void FretboardEditionScene::removeFret(FretboardAxis* fret)
+{
+	Q_ASSERT_X(fret != nullptr, "removeFret()", "nullptr");
+
+	m_fretAxis.removeOne(fret);
+	removeItem(fret);
+}
+
+void FretboardEditionScene::removeString(FretboardAxis* string)
+{
+	Q_ASSERT_X(string != nullptr, "removeString()", "nullptr");
+
+	m_stringAxis.removeOne(string);
+	removeItem(string);
 }
 
 void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -291,7 +328,7 @@ void FretboardEditionScene::keyPressEvent(QKeyEvent* event)
 	{
 		qWarning() << "FretboardEditionScene::keyPressEvent()";
 		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEdition()", "nullptr");
-		m_undoStack->push(new CommandRemoveAxis(selectedAxes(), this));
+		m_undoStack->push(new CommandRemoveAxis(selectedFrets(), selectedStrings(), this));
 	}
 }
 

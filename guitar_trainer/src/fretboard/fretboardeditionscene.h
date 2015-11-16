@@ -12,24 +12,26 @@ namespace Fretboard
 	{
 		Q_OBJECT
 
-		enum class UsageMode
-		{
-			SELECTION,
-			EDITION
-		};
+		private:
+			enum class UsageMode
+			{
+				SELECTION,
+				EDITION
+			};
 
-		enum class EditionMode
-		{
-			FRET,
-			STRING
-		};
+			enum class AxisType
+			{
+				FRET,
+				STRING,
+				ALL
+			};
 
-		enum class AxisType
-		{
-			FRET,
-			STRING,
-			ALL
-		};
+		public:
+			enum class EditionMode
+			{
+				FRET,
+				STRING
+			};
 
 		public:
 			FretboardEditionScene(const QString& imagePath, QObject* parent = 0);
@@ -39,12 +41,17 @@ namespace Fretboard
 
 			void switchToSelectionMode();
 			void switchToEditionMode();
+			EditionMode editionMode() const;
 			bool isInSelectionMode() const;
 			bool isInFretMode() const;
 			bool isInStringMode() const;
 
-			void addAxis(FretboardAxis* axis);
+			//void addAxis(FretboardAxis* axis);
+			void addFret(FretboardAxis* fret);
+			void addString(FretboardAxis* string);
 			void removeAxis(FretboardAxis* axis);
+			void removeFret(FretboardAxis* fret);
+			void removeString(FretboardAxis* string);
 
 			QList<FretboardAxis*> selectedAxes() const;
 			QList<FretboardAxis*> selectedFrets() const;
