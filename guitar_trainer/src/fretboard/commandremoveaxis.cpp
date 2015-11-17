@@ -15,6 +15,7 @@ CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxis*>& selectedFrets,
 
 CommandRemoveAxis::~CommandRemoveAxis()
 {
+	// TODO don't delete axes if undo has been called
 	qDeleteAll(m_fretsToRemove);
 	m_fretsToRemove.clear();
 	qDeleteAll(m_stringsToRemove);
