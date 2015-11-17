@@ -14,7 +14,7 @@ FretboardAxis::FretboardAxis(QGraphicsItem* parent)
 	, m_selectionColor(Qt::red)
 {
 	setPen(QPen(m_defaultColor, 4));
-	setFlags(ItemIsFocusable | ItemSendsGeometryChanges);
+	setFlags(ItemIsFocusable | ItemSendsGeometryChanges | ItemIsSelectable);
 	setAcceptHoverEvents(true);
 }
 
@@ -24,7 +24,7 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	, m_selectionColor(Qt::red)
 {
 	setPen(QPen(m_defaultColor, 4));
-	setFlags(ItemIsFocusable | ItemSendsGeometryChanges);
+	setFlags(ItemIsFocusable | ItemSendsGeometryChanges | ItemIsSelectable);
 	setAcceptHoverEvents(true);
 }
 
@@ -33,24 +33,6 @@ FretboardEditionScene* FretboardAxis::getScene() const
 	FretboardEditionScene* scene = qobject_cast<FretboardEditionScene*>(this->scene());
 	Q_ASSERT_X(scene != nullptr, "getScene()", "nullptr");
 	return scene;
-}
-
-void FretboardAxis::focusInEvent(QFocusEvent* event)
-{
-	QPen pen = this->pen();
-	pen.setColor(m_selectionColor);
-	setPen(pen);
-
-	QGraphicsLineItem::focusInEvent(event);
-}
-
-void FretboardAxis::focusOutEvent(QFocusEvent* event)
-{
-	QPen pen = this->pen();
-	pen.setColor(m_defaultColor);
-	setPen(pen);
-
-	QGraphicsLineItem::focusOutEvent(event);
 }
 
 void FretboardAxis::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
@@ -103,6 +85,13 @@ QVariant FretboardAxis::itemChange(GraphicsItemChange change, const QVariant& va
 			newPos.setX(scenePos().x());
 
 		return newPos;
+	}
+	else if (change == ItemSelectedChange)
+	{
+		const QColor penColor = (value.toBool() ? m_selectionColor : m_defaultColor);
+		QPen pen = this->pen();
+		pen.setColor(penColor);
+		setPen(pen);
 	}
 
 	return QGraphicsLineItem::itemChange(change, value);

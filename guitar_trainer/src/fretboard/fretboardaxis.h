@@ -14,8 +14,6 @@ namespace Fretboard
 			FretboardAxis(const QLineF& line, QGraphicsItem* parent = 0);
 
 		protected:
-			virtual void focusInEvent(QFocusEvent* event) override;
-			virtual void focusOutEvent(QFocusEvent* event) override;
 			virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
 			virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
