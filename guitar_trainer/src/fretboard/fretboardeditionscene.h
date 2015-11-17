@@ -46,7 +46,6 @@ namespace Fretboard
 			bool isInFretMode() const;
 			bool isInStringMode() const;
 
-			//void addAxis(FretboardAxis* axis);
 			void addFret(FretboardAxis* fret);
 			void addString(FretboardAxis* string);
 			void removeAxis(FretboardAxis* axis);

@@ -19,6 +19,8 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* 
 	, m_imagePath(imagePath)
 	, m_undoStack(new QUndoStack(this))
 {
+	m_axisMarker->setFlag(QGraphicsItem::ItemSendsGeometryChanges, false);
+	m_axisMarker->setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
 void FretboardEditionScene::init(const QPixmap& imagePix,
@@ -63,7 +65,6 @@ void FretboardEditionScene::activateAxisMarker()
 	else // STRING_EDITION
 		m_axisMarker->setLine(0, 0, sceneRect().width(), 0);
 
-	m_axisMarker->setFlag(QGraphicsItem::ItemSendsGeometryChanges, false);
 	m_axisMarker->setPos(sceneRect().x(), sceneRect().y());
 
 	addItem(m_axisMarker.data());
@@ -186,20 +187,6 @@ void FretboardEditionScene::addString(FretboardAxis* string)
 	m_stringAxis.append(string);
 }
 
-/*
-void FretboardEditionScene::addAxis(FretboardAxis* axis)
-{
-	Q_ASSERT_X(axis != nullptr, "addAxis()", "nullptr");
-	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "addAxis()", "The scene is not in edition mode.");
-
-	addItem(axis);
-
-	if (m_editionMode == EditionMode::FRET)
-		m_fretAxis.append(axis);
-	else // EditionMode::STRING
-		m_stringAxis.append(axis);
-}
-*/
 void FretboardEditionScene::removeAxis(FretboardAxis* axis)
 {
 	Q_ASSERT_X(axis != nullptr, "removeAxis()", "nullptr");
