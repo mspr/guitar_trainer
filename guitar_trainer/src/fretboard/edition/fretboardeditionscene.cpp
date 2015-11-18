@@ -27,15 +27,16 @@ void FretboardEditionScene::init(const QPixmap& imagePix,
 																 const QHash<uint, double>& yByString,
 																 const QHash<uint, double>& xByFret)
 {
-	addPixmap(imagePix);
+	FretboardScene::init(imagePix, yByString, xByFret);
 
-	setSceneRect(imagePix.rect().x(),
-							 imagePix.rect().y(),
-							 imagePix.rect().x() + imagePix.rect().width(),
-							 imagePix.rect().y() + imagePix.rect().height());
+	initAxes();
+	switchToSelectionMode();
+}
 
-	QHash<uint, double>::const_iterator it = yByString.begin();
-	for (; it != yByString.end(); ++it)
+void FretboardEditionScene::initAxes()
+{
+	QHash<uint, double>::const_iterator it = m_yByString.begin();
+	for (; it != m_yByString.end(); ++it)
 	{
 		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, sceneRect().width(), 0));
 		addItem(axis);
@@ -43,16 +44,14 @@ void FretboardEditionScene::init(const QPixmap& imagePix,
 		m_stringAxis.append(axis);
 	}
 
-	it = xByFret.begin();
-	for (; it != xByFret.end(); ++it)
+	it = m_xByFret.begin();
+	for (; it != m_xByFret.end(); ++it)
 	{
 		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
 		addItem(axis);
 		axis->setPos(it.value(), sceneRect().y());
 		m_fretAxis.append(axis);
 	}
-
-	switchToSelectionMode();
 }
 
 void FretboardEditionScene::activateAxisMarker()

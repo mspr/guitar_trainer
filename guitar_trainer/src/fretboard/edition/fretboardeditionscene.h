@@ -62,9 +62,11 @@ namespace Fretboard
 			virtual void keyPressEvent(QKeyEvent* event) override;
 
 		private:
-			void init(const QPixmap& imagePix,
-								const QHash<uint, double>& yByString,
-								const QHash<uint, double>& xByFret);
+			virtual void init(const QPixmap& imagePix,
+												const QHash<uint, double>& yByString,
+												const QHash<uint, double>& xByFret) override;
+
+			void initAxes();
 
 			void activateAxisMarker();
 
