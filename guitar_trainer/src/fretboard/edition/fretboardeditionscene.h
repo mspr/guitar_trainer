@@ -1,7 +1,7 @@
 #ifndef FRETBOARDEDITIONSCENE_H
 #define FRETBOARDEDITIONSCENE_H
 
-#include "fretboardscene.h"
+#include "fretboard/fretboardscene.h"
 #include "fretboardaxis.h"
 
 class QUndoStack;

@@ -7,30 +7,30 @@ HEADERS += \
     fretboard/fretboardxmlreader.h \
     fretboard/fretboardview.h \
     fretboard/fretboardnote.h \
-    fretboard/fretboardaxis.h \
-    fretboard/fretboardeditionwindow.h \
-    fretboard/fretboardeditionscene.h \
-    fretboard/fretboardeditionview.h \
+    fretboard/edition/fretboardaxis.h \
+    fretboard/edition/fretboardeditionwindow.h \
+    fretboard/edition/fretboardeditionscene.h \
+    fretboard/edition/fretboardeditionview.h \
     fretboard/fretboardxmlwriter.h \
-    fretboard/commandaddaxis.h \
-    fretboard/commandremoveaxis.h \
-    fretboard/commandmoveaxis.h \
-    fretboard/fretboardeditionsceneloader.h
+    fretboard/edition/commandaddaxis.h \
+    fretboard/edition/commandremoveaxis.h \
+    fretboard/edition/commandmoveaxis.h \
+    fretboard/edition/fretboardeditionsceneloader.h
 
 SOURCES += \
     fretboard/fretboardscene.cpp \
     fretboard/fretboardxmlreader.cpp \
     fretboard/fretboardview.cpp \
     fretboard/fretboardnote.cpp \
-    fretboard/fretboardaxis.cpp \
-    fretboard/fretboardeditionwindow.cpp \
-    fretboard/fretboardeditionscene.cpp \
-    fretboard/fretboardeditionview.cpp \
+    fretboard/edition/fretboardaxis.cpp \
+    fretboard/edition/fretboardeditionwindow.cpp \
+    fretboard/edition/fretboardeditionscene.cpp \
+    fretboard/edition/fretboardeditionview.cpp \
     fretboard/fretboardxmlwriter.cpp \
-    fretboard/commandaddaxis.cpp \
-    fretboard/commandremoveaxis.cpp \
-    fretboard/commandmoveaxis.cpp \
-    fretboard/fretboardeditionsceneloader.cpp
+    fretboard/edition/commandaddaxis.cpp \
+    fretboard/edition/commandremoveaxis.cpp \
+    fretboard/edition/commandmoveaxis.cpp \
+    fretboard/edition/fretboardeditionsceneloader.cpp
 
 FORMS += \
-    fretboard/fretboardeditionwindow.ui
+    fretboard/edition/fretboardeditionwindow.ui

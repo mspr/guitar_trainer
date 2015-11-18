@@ -1,7 +1,7 @@
 #ifndef FRETBOARDEDITIONVIEW_H
 #define FRETBOARDEDITIONVIEW_H
 
-#include "fretboardview.h"
+#include "fretboard/fretboardview.h"
 
 namespace Fretboard
 {

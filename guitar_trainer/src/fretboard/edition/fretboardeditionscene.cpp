@@ -1,6 +1,6 @@
 #include "fretboardeditionscene.h"
-#include "fretboardxmlreader.h"
-#include "fretboardxmlwriter.h"
+#include "fretboard/fretboardxmlreader.h"
+#include "fretboard/fretboardxmlwriter.h"
 #include "commandaddaxis.h"
 #include "commandremoveaxis.h"
 
