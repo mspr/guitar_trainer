@@ -5,6 +5,8 @@
 
 namespace Fretboard
 {
+	class FretboardNote;
+
 	class FretboardScene : public QGraphicsScene
 	{
 		public:
@@ -28,6 +30,7 @@ namespace Fretboard
 		protected:
 			QHash<uint, double> m_xByFret;
 			QHash<uint, double> m_yByString;
+			QHash<QPoint, FretboardNote*> m_noteByFretboardPos;
 	};
 
 } // Fretboard

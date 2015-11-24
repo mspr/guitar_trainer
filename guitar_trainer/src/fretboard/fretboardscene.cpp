@@ -34,7 +34,12 @@ void FretboardScene::initFretAndStringPositions(const QHash<uint, double>& xByFr
 
 void FretboardScene::addNote(const QPointF& pos)
 {
+	const uint nearestFret = getNearestFret(pos);
+	const uint nearestString = getNearestString(pos);
 
+
+
+	//FretboardNote* note = new FretboardNote();
 }
 
 uint FretboardScene::getNearestId(const QHash<uint, double>& posById, const double value) const

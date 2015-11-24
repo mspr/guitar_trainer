@@ -4,6 +4,7 @@
 #include <QFile>
 
 using namespace Fretboard;
+using namespace Music;
 
 FretboardXmlReader::FretboardXmlReader(QObject* parent)
 	: QObject(parent)
@@ -22,7 +23,7 @@ bool FretboardXmlReader::handle(const QString& fileName)
 			if (!fretboardElm.isNull())
 			{
 				m_imagePath = fretboardElm.attribute("imagePath");
-				m_tuning = fretboardElm.attribute("tuning");
+				m_tuning = Note::tuning(fretboardElm.attribute("tuning"));
 
 				const QDomElement stringsElm = fretboardElm.firstChildElement("strings");
 				if (!stringsElm.isNull())
@@ -63,6 +64,11 @@ bool FretboardXmlReader::handle(const QString& fileName)
 QString FretboardXmlReader::imagePath() const
 {
 	return m_imagePath;
+}
+
+QList<Music::Note::ENote> FretboardXmlReader::tuning() const
+{
+	return m_tuning;
 }
 
 QHash<uint, double> FretboardXmlReader::yByString() const
