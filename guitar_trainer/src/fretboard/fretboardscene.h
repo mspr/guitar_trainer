@@ -20,6 +20,11 @@ namespace Fretboard
 			void initFretAndStringPositions(const QHash<uint, double>& xByFret,
 																			const QHash<uint, double>& yByString);
 
+			void addNote(const QPointF& pos);
+			uint getNearestId(const QHash<uint, double>& posById, const double value) const;
+			uint getNearestString(const QPointF& pos) const;
+			uint getNearestFret(const QPointF& pos) const;
+
 		protected:
 			QHash<uint, double> m_xByFret;
 			QHash<uint, double> m_yByString;
