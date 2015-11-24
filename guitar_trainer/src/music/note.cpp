@@ -40,3 +40,14 @@ const QHash<Note::ENote, QString> Note::s_strByNote = Note::initStrByNote();
 {
 	return s_strByNote.values();
 }
+
+/*static*/ QList<Note::ENote> Note::tuning(const QString& tuningStr)
+{
+	QList<ENote> tuning;
+
+	const QStringList noteStrList = tuningStr.split(';');
+	foreach (const QString noteStr, noteStrList)
+		tuning.append(Note::toNote(noteStr));
+
+	return tuning;
+}

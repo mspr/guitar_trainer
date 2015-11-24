@@ -29,6 +29,7 @@ namespace Music
 			static QString toString(ENote note);
 			static ENote toNote(const QString& noteStr);
 			static QStringList notes();
+			static QList<ENote> tuning(const QString& tuningStr);
 
 		private:
 			static QHash<Note::ENote, QString> initStrByNote();
