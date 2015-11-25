@@ -30,6 +30,7 @@ namespace Fretboard
 			uint getNearestId(const QHash<uint, double>& posById, const double value) const;
 			uint getNearestString(const QPointF& pos) const;
 			uint getNearestFret(const QPointF& pos) const;
+			Music::Note::ENote getNote(const uint string, const uint fret) const;
 
 		protected:
 			QList<Music::Note::ENote> m_tuning;

@@ -1,6 +1,8 @@
 #include "fretboardscene.h"
+#include "fretboardnote.h"
 
 using namespace Fretboard;
+using namespace Music;
 
 FretboardScene::FretboardScene(QObject* parent)
 	: QGraphicsScene(parent)
@@ -44,9 +46,8 @@ void FretboardScene::addNote(const QPointF& pos)
 	const uint nearestFret = getNearestFret(pos);
 	const uint nearestString = getNearestString(pos);
 
-
-
-	//FretboardNote* note = new FretboardNote();
+	//FretboardNote* note = new FretboardNote(getNote(nearestString, nearestFret));
+	//addItem(note);
 }
 
 uint FretboardScene::getNearestId(const QHash<uint, double>& posById, const double value) const
@@ -78,4 +79,10 @@ uint FretboardScene::getNearestString(const QPointF& pos) const
 uint FretboardScene::getNearestFret(const QPointF& pos) const
 {
 	return getNearestId(m_xByFret, pos.x());
+}
+
+Note::ENote FretboardScene::getNote(const uint string, const uint fret) const
+{
+	const Note::ENote openStringNote = m_tuning.at(string);
+	return Note::getNoteFrom(openStringNote, fret);
 }
