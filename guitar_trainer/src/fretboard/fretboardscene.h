@@ -3,6 +3,8 @@
 
 #include <QGraphicsScene>
 
+#include "music/note.h"
+
 namespace Fretboard
 {
 	class FretboardNote;
@@ -14,11 +16,13 @@ namespace Fretboard
 
 		protected:
 			virtual void init(const QPixmap& imagePix,
+												const QList<Music::Note::ENote>& tuning,
 												const QHash<uint, double>& yByString,
 												const QHash<uint, double>& xByFret);
 
 		private:
 			void initBackground(const QPixmap& imagePix);
+			void initTuning(const QList<Music::Note::ENote>& tuning);
 			void initFretAndStringPositions(const QHash<uint, double>& xByFret,
 																			const QHash<uint, double>& yByString);
 
@@ -28,6 +32,7 @@ namespace Fretboard
 			uint getNearestFret(const QPointF& pos) const;
 
 		protected:
+			QList<Music::Note::ENote> m_tuning;
 			QHash<uint, double> m_xByFret;
 			QHash<uint, double> m_yByString;
 			QHash<QPoint, FretboardNote*> m_noteByFretboardPos;

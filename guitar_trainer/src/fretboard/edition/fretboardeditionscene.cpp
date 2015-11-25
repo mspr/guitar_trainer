@@ -24,10 +24,11 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* 
 }
 
 void FretboardEditionScene::init(const QPixmap& imagePix,
+																 const QList<Music::Note::ENote>& tuning,
 																 const QHash<uint, double>& yByString,
 																 const QHash<uint, double>& xByFret)
 {
-	FretboardScene::init(imagePix, yByString, xByFret);
+	FretboardScene::init(imagePix, tuning, yByString, xByFret);
 
 	initAxes();
 	switchToSelectionMode();
@@ -80,7 +81,7 @@ void FretboardEditionScene::activateAxisMarker()
 		if (pix.load(xmlReader.imagePath()))
 		{
 			scene = new FretboardEditionScene(xmlReader.imagePath());
-			scene->init(pix, xmlReader.yByString(), xmlReader.xByFret());
+			scene->init(pix, xmlReader.tuning(), xmlReader.yByString(), xmlReader.xByFret());
 		}
 		else
 			qWarning() << QString("Impossible to load fretboard image %1.").arg(xmlReader.imagePath());

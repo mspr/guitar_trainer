@@ -8,10 +8,12 @@ FretboardScene::FretboardScene(QObject* parent)
 }
 
 void FretboardScene::init(const QPixmap& imagePix,
+													const QList<Music::Note::ENote>& tuning,
 													const QHash<uint, double>& yByString,
 													const QHash<uint, double>& xByFret)
 {
 	initBackground(imagePix);
+	initTuning(tuning);
 	initFretAndStringPositions(xByFret, yByString);
 }
 
@@ -23,6 +25,11 @@ void FretboardScene::initBackground(const QPixmap& imagePix)
 							 imagePix.rect().y(),
 							 imagePix.rect().x() + imagePix.rect().width(),
 							 imagePix.rect().y() + imagePix.rect().height());
+}
+
+void FretboardScene::initTuning(const QList<Music::Note::ENote>& tuning)
+{
+	m_tuning = tuning;
 }
 
 void FretboardScene::initFretAndStringPositions(const QHash<uint, double>& xByFret,
