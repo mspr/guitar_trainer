@@ -51,3 +51,8 @@ const QHash<Note::ENote, QString> Note::s_strByNote = Note::initStrByNote();
 
 	return tuning;
 }
+
+/*static*/ Note::ENote Note::getNoteFrom(const ENote fromNote, const uint semiToneNumber)
+{
+	return ENote(((int)fromNote + semiToneNumber)%(int)NOTE_COUNT);
+}
