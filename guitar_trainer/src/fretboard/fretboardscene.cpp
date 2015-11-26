@@ -11,6 +11,10 @@ FretboardScene::FretboardScene(QObject* parent)
 {
 }
 
+FretboardScene::~FretboardScene()
+{
+}
+
 void FretboardScene::init(const QPixmap& imagePix,
 													const QList<Music::Note::ENote>& tuning,
 													const QHash<uint, double>& yByString,

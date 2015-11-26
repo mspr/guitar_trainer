@@ -13,6 +13,7 @@ namespace Fretboard
 	{
 		public:
 			FretboardScene(QObject* parent = 0);
+			virtual ~FretboardScene();
 
 		protected:
 			virtual void init(const QPixmap& imagePix,

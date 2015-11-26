@@ -35,6 +35,7 @@ namespace Fretboard
 
 		public:
 			FretboardEditionScene(const QString& imagePath, QObject* parent = 0);
+			virtual ~FretboardEditionScene() override;
 
 			static FretboardEditionScene* tryCreate(const QString& fileName);
 			void save(const QString& fileName);
@@ -87,8 +88,8 @@ namespace Fretboard
 			EditionMode m_editionMode;
 			QScopedPointer<FretboardAxis> m_axisMarker;
 			QString m_imagePath;
-			QList<FretboardAxis*> m_stringAxis;
-			QList<FretboardAxis*> m_fretAxis;
+			QList<FretboardAxis*> m_stringAxes;
+			QList<FretboardAxis*> m_fretAxes;
 			QUndoStack* m_undoStack;
 	};
 

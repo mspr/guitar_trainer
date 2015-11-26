@@ -23,6 +23,14 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* 
 	m_axisMarker->setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
+FretboardEditionScene::~FretboardEditionScene()
+{
+	qDeleteAll(m_fretAxes);
+	m_fretAxes.clear();
+	qDeleteAll(m_stringAxes);
+	m_stringAxes.clear();
+}
+
 void FretboardEditionScene::init(const QPixmap& imagePix,
 																 const QList<Music::Note::ENote>& tuning,
 																 const QHash<uint, double>& yByString,
@@ -42,7 +50,7 @@ void FretboardEditionScene::initAxes()
 		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, sceneRect().width(), 0));
 		addItem(axis);
 		axis->setPos(sceneRect().x(), it.value());
-		m_stringAxis.append(axis);
+		m_stringAxes.append(axis);
 	}
 
 	it = m_xByFret.begin();
@@ -51,7 +59,7 @@ void FretboardEditionScene::initAxes()
 		FretboardAxis* axis = new FretboardAxis(QLineF(0, 0, 0, sceneRect().height()));
 		addItem(axis);
 		axis->setPos(it.value(), sceneRect().y());
-		m_fretAxis.append(axis);
+		m_fretAxes.append(axis);
 	}
 }
 
@@ -103,9 +111,9 @@ void FretboardEditionScene::switchToSelectionMode()
 
 void FretboardEditionScene::setAxesMovable(const bool movable)
 {
-	foreach (FretboardAxis* fret, m_fretAxis)
+	foreach (FretboardAxis* fret, m_fretAxes)
 		fret->setFlag(QGraphicsItem::ItemIsMovable, movable);
-	foreach (FretboardAxis* string, m_stringAxis)
+	foreach (FretboardAxis* string, m_stringAxes)
 		string->setFlag(QGraphicsItem::ItemIsMovable, movable);
 }
 
@@ -153,12 +161,12 @@ void FretboardEditionScene::save(const QString& fileName)
 		writer.writeStartFretboard(m_imagePath);
 
 		writer.writeStartStrings();
-		foreach (const QGraphicsItem* axis, m_stringAxis)
+		foreach (const QGraphicsItem* axis, m_stringAxes)
 			writer.writeString(axis->y());
 		writer.writeEndStrings();
 
 		writer.writeStartFrets();
-		foreach (const QGraphicsItem* axis, m_fretAxis)
+		foreach (const QGraphicsItem* axis, m_fretAxes)
 			writer.writeFret(axis->x());
 		writer.writeEndFrets();
 
@@ -176,7 +184,7 @@ void FretboardEditionScene::addFret(FretboardAxis* fret)
 	Q_ASSERT_X(fret != nullptr, "addFret()", "nullptr");
 
 	addItem(fret);
-	m_fretAxis.append(fret);
+	m_fretAxes.append(fret);
 }
 
 void FretboardEditionScene::addString(FretboardAxis* string)
@@ -184,15 +192,15 @@ void FretboardEditionScene::addString(FretboardAxis* string)
 	Q_ASSERT_X(string != nullptr, "addString()", "nullptr");
 
 	addItem(string);
-	m_stringAxis.append(string);
+	m_stringAxes.append(string);
 }
 
 void FretboardEditionScene::removeAxis(FretboardAxis* axis)
 {
 	Q_ASSERT_X(axis != nullptr, "removeAxis()", "nullptr");
 
-	if (!m_fretAxis.removeOne(axis))
-		m_stringAxis.removeOne(axis);
+	if (!m_fretAxes.removeOne(axis))
+		m_stringAxes.removeOne(axis);
 
 	removeItem(axis);
 }
@@ -201,7 +209,7 @@ void FretboardEditionScene::removeFret(FretboardAxis* fret)
 {
 	Q_ASSERT_X(fret != nullptr, "removeFret()", "nullptr");
 
-	m_fretAxis.removeOne(fret);
+	m_fretAxes.removeOne(fret);
 	removeItem(fret);
 }
 
@@ -209,7 +217,7 @@ void FretboardEditionScene::removeString(FretboardAxis* string)
 {
 	Q_ASSERT_X(string != nullptr, "removeString()", "nullptr");
 
-	m_stringAxis.removeOne(string);
+	m_stringAxes.removeOne(string);
 	removeItem(string);
 }
 
@@ -342,10 +350,10 @@ QList<FretboardAxis*> FretboardEditionScene::selectedAxes(const AxisType axisTyp
 	switch (axisType)
 	{
 		case AxisType::FRET:
-			isConsideredThroughAxisType = [this](FretboardAxis* axis) -> bool { return m_fretAxis.contains(axis); };
+			isConsideredThroughAxisType = [this](FretboardAxis* axis) -> bool { return m_fretAxes.contains(axis); };
 		break;
 		case AxisType::STRING:
-			isConsideredThroughAxisType = [this](FretboardAxis* axis)->bool { return m_stringAxis.contains(axis); };
+			isConsideredThroughAxisType = [this](FretboardAxis* axis)->bool { return m_stringAxes.contains(axis); };
 		break;
 		case AxisType::ALL:
 		default:
