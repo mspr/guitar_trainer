@@ -1,8 +1,8 @@
-#include "fretboardeditionwindow.h"
-#include "ui_fretboardeditionwindow.h"
-#include "fretboardeditionview.h"
-#include "fretboardeditionscene.h"
-#include "fretboardeditionsceneloader.h"
+#include "fretboardeditwindow.h"
+#include "ui_fretboardeditwindow.h"
+#include "fretboardeditview.h"
+#include "fretboardeditscene.h"
+#include "fretboardeditsceneloader.h"
 
 #include <QFileDialog>
 #include <QKeyEvent>
@@ -13,13 +13,13 @@
 
 using namespace Fretboard;
 
-FretboardEditionWindow::FretboardEditionWindow(QWidget* parent)
+FretboardEditWindow::FretboardEditWindow(QWidget* parent)
 	: QMainWindow(parent)
-	, m_ui(new Ui::FretboardEditionWindow)
+	, m_ui(new Ui::FretboardEditWindow)
 {
 	m_ui->setupUi(this);
 
-	FretboardEditionView* fretboardView = new FretboardEditionView(this);
+	FretboardEditView* fretboardView = new FretboardEditView(this);
 	setCentralWidget(fretboardView);
 
 	setAcceptDrops(true);
@@ -28,26 +28,26 @@ FretboardEditionWindow::FretboardEditionWindow(QWidget* parent)
 	m_ui->selectionAct->setDisabled(true);
 }
 
-FretboardEditionWindow::~FretboardEditionWindow()
+FretboardEditWindow::~FretboardEditWindow()
 {
 	delete m_ui;
 }
 
-FretboardEditionView* FretboardEditionWindow::editionView() const
+FretboardEditView* FretboardEditWindow::editionView() const
 {
-	FretboardEditionView* fretboardView = qobject_cast<FretboardEditionView*>(centralWidget());
+	FretboardEditView* fretboardView = qobject_cast<FretboardEditView*>(centralWidget());
 	Q_ASSERT_X(fretboardView != nullptr, "editionView()", "nullptr");
 	return fretboardView;
 }
 
-void FretboardEditionWindow::open()
+void FretboardEditWindow::open()
 {
-	m_scene = FretboardEditionSceneLoader::tryCreateSceneFromOpenFile();
+	m_scene = FretboardEditSceneLoader::tryCreateSceneFromOpenFile();
 	if (m_scene != nullptr)
 		initScene();
 }
 
-void FretboardEditionWindow::initScene()
+void FretboardEditWindow::initScene()
 {
 	Q_ASSERT_X(m_scene != nullptr, "onSceneCreation()", "nullptr");
 
@@ -60,7 +60,7 @@ void FretboardEditionWindow::initScene()
 	m_ui->selectionAct->setEnabled(true);
 }
 
-void FretboardEditionWindow::save()
+void FretboardEditWindow::save()
 {
 	const QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr("Xml Files (*.xml)"));
 	if (!fileName.isNull())
@@ -70,7 +70,7 @@ void FretboardEditionWindow::save()
 	}
 }
 
-void FretboardEditionWindow::switchToSelectionMode()
+void FretboardEditWindow::switchToSelectionMode()
 {
 	if (m_scene != nullptr)
 	{
@@ -81,7 +81,7 @@ void FretboardEditionWindow::switchToSelectionMode()
 	}
 }
 
-void FretboardEditionWindow::switchToEditionMode()
+void FretboardEditWindow::switchToEditionMode()
 {
 	if (m_scene != nullptr)
 	{
@@ -92,31 +92,31 @@ void FretboardEditionWindow::switchToEditionMode()
 	}
 }
 
-void FretboardEditionWindow::dragEnterEvent(QDragEnterEvent* event)
+void FretboardEditWindow::dragEnterEvent(QDragEnterEvent* event)
 {
 	if (event->mimeData()->urls().count() == 1)
 	{
 		const QString fileName = event->mimeData()->urls().first().toLocalFile();
-		if (FretboardEditionSceneLoader::isSupported(fileName))
+		if (FretboardEditSceneLoader::isSupported(fileName))
 			event->acceptProposedAction();
 	}
 
 	QMainWindow::dragEnterEvent(event);
 }
 
-void FretboardEditionWindow::dropEvent(QDropEvent* event)
+void FretboardEditWindow::dropEvent(QDropEvent* event)
 {
 	Q_ASSERT_X(event->mimeData()->urls().count() == 1, "dropEvent()", "");
 
 	const QString fileName = event->mimeData()->urls().first().toLocalFile();
-	m_scene = FretboardEditionSceneLoader::tryCreateSceneFromFile(fileName);
+	m_scene = FretboardEditSceneLoader::tryCreateSceneFromFile(fileName);
 	if (m_scene != nullptr)
 		initScene();
 
 	QMainWindow::dropEvent(event);
 }
 
-void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
+void FretboardEditWindow::keyPressEvent(QKeyEvent* event)
 {
 	QMainWindow::keyPressEvent(event);
 
@@ -124,7 +124,7 @@ void FretboardEditionWindow::keyPressEvent(QKeyEvent* event)
 		close();
 }
 
-void FretboardEditionWindow::closeEvent(QCloseEvent* event)
+void FretboardEditWindow::closeEvent(QCloseEvent* event)
 {
 	/*
 	const QMessageBox::StandardButton reply = QMessageBox::question(this,

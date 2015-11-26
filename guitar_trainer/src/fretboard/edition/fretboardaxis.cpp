@@ -1,5 +1,5 @@
 #include "fretboardaxis.h"
-#include "fretboardeditionscene.h"
+#include "fretboardeditscene.h"
 
 #include <QApplication>
 #include <QGraphicsSceneMouseEvent>
@@ -28,9 +28,9 @@ FretboardAxis::FretboardAxis(const QLineF& line, QGraphicsItem* parent)
 	setAcceptHoverEvents(true);
 }
 
-FretboardEditionScene* FretboardAxis::getScene() const
+FretboardEditScene* FretboardAxis::getScene() const
 {
-	FretboardEditionScene* scene = qobject_cast<FretboardEditionScene*>(this->scene());
+	FretboardEditScene* scene = qobject_cast<FretboardEditScene*>(this->scene());
 	Q_ASSERT_X(scene != nullptr, "getScene()", "nullptr");
 	return scene;
 }
@@ -78,7 +78,7 @@ QVariant FretboardAxis::itemChange(GraphicsItemChange change, const QVariant& va
 	{
 		QPointF newPos = value.toPointF();
 
-		FretboardEditionScene* scene = getScene();
+		FretboardEditScene* scene = getScene();
 		if (scene->isInFretMode())
 			newPos.setY(scenePos().y());
 		else if (scene->isInStringMode())

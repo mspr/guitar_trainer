@@ -1,12 +1,12 @@
 #include "commandaddaxis.h"
-#include "fretboardeditionscene.h"
+#include "fretboardeditscene.h"
 #include "fretboardaxis.h"
 
 using namespace Fretboard;
 
 CommandAddAxis::CommandAddAxis(const QPointF& scenePos,
 															 const QLineF& line,
-															 FretboardEditionScene* scene)
+															 FretboardEditScene* scene)
 	: m_scene(scene)
 	, m_axis(nullptr)
 	, m_scenePos(scenePos)
@@ -36,9 +36,9 @@ void CommandAddAxis::redo()
 
 	m_axis = new FretboardAxis(m_line);
 
-	if (m_editionMode == FretboardEditionScene::EditionMode::FRET)
+	if (m_editionMode == FretboardEditScene::EditionMode::FRET)
 		m_scene->addFret(m_axis);
-	else if (m_editionMode == FretboardEditionScene::EditionMode::STRING)
+	else if (m_editionMode == FretboardEditScene::EditionMode::STRING)
 		m_scene->addString(m_axis);
 
 	m_axis->setPos(m_scenePos);

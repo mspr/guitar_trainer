@@ -1,11 +1,11 @@
-#include "fretboardeditionsceneloader.h"
-#include "fretboardeditionscene.h"
+#include "fretboardeditsceneloader.h"
+#include "fretboardeditscene.h"
 
 #include <QFileDialog>
 
 using namespace Fretboard;
 
-/*static*/ FretboardEditionScene* FretboardEditionSceneLoader::tryCreateSceneFromOpenFile()
+/*static*/ FretboardEditScene* FretboardEditSceneLoader::tryCreateSceneFromOpenFile()
 {
 	const QString fileName = QFileDialog::getOpenFileName(nullptr,
 																												QObject::tr("Open File"),
@@ -15,22 +15,22 @@ using namespace Fretboard;
 	return tryCreateSceneFromFile(fileName);
 }
 
-/*static*/ FretboardEditionScene* FretboardEditionSceneLoader::tryCreateSceneFromFile(const QString& fileName)
+/*static*/ FretboardEditScene* FretboardEditSceneLoader::tryCreateSceneFromFile(const QString& fileName)
 {
-	FretboardEditionScene* scene = nullptr;
+	FretboardEditScene* scene = nullptr;
 
 	if (!fileName.isNull())
-		scene = FretboardEditionScene::tryCreate(fileName);
+		scene = FretboardEditScene::tryCreate(fileName);
 
 	return scene;
 }
 
-/*static*/ bool FretboardEditionSceneLoader::isSupported(const QString& fileName)
+/*static*/ bool FretboardEditSceneLoader::isSupported(const QString& fileName)
 {
 	return isImage(fileName) || QFileInfo(fileName).suffix() == "xml";
 }
 
-/*static*/ bool FretboardEditionSceneLoader::isImage(const QString& fileName)
+/*static*/ bool FretboardEditSceneLoader::isImage(const QString& fileName)
 {
 	return QFileInfo(fileName).suffix() == "png" || QFileInfo(fileName).suffix() == "jpg";
 }

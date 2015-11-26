@@ -1,11 +1,11 @@
 #include "commandremoveaxis.h"
-#include "fretboardeditionscene.h"
+#include "fretboardeditscene.h"
 
 using namespace Fretboard;
 
 CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxis*>& selectedFrets,
 																		 const QList<FretboardAxis*>& selectedStrings,
-																		 FretboardEditionScene* scene)
+																		 FretboardEditScene* scene)
 	: m_scene(scene)
 	, m_fretsToRemove(selectedFrets)
 	, m_stringsToRemove(selectedStrings)

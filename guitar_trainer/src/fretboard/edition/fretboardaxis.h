@@ -5,7 +5,7 @@
 
 namespace Fretboard
 {
-	class FretboardEditionScene;
+	class FretboardEditScene;
 
 	class FretboardAxis : public QGraphicsLineItem
 	{
@@ -21,7 +21,7 @@ namespace Fretboard
 			virtual QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
 		private:
-			FretboardEditionScene* getScene() const;
+			FretboardEditScene* getScene() const;
 
 		private:
 			QColor m_defaultColor;

@@ -1,7 +1,7 @@
 #ifndef COMMANDADDAXIS_H
 #define COMMANDADDAXIS_H
 
-#include "fretboardeditionscene.h"
+#include "fretboardeditscene.h"
 
 #include <QUndoCommand>
 #include <QLineF>
@@ -15,14 +15,14 @@ namespace Fretboard
 		public:
 			CommandAddAxis(const QPointF& scenePos,
 										 const QLineF& line,
-										 FretboardEditionScene* scene);
+										 FretboardEditScene* scene);
 
 			virtual void undo() override;
 			virtual void redo() override;
 
 		private:
-			FretboardEditionScene* m_scene;
-			FretboardEditionScene::EditionMode m_editionMode;
+			FretboardEditScene* m_scene;
+			FretboardEditScene::EditionMode m_editionMode;
 			FretboardAxis* m_axis;
 			QPointF m_scenePos;
 			QLineF m_line;

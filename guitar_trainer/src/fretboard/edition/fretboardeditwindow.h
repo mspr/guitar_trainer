@@ -1,22 +1,22 @@
-#ifndef FRETBOARDEDITIONWINDOW_H
-#define FRETBOARDEDITIONWINDOW_H
+#ifndef FRETBOARDEDITWINDOW_H
+#define FRETBOARDEDITWINDOW_H
 
 #include <QMainWindow>
 
-namespace Ui { class FretboardEditionWindow; }
+namespace Ui { class FretboardEditWindow; }
 
 namespace Fretboard
 {
-	class FretboardEditionView;
-	class FretboardEditionScene;
+	class FretboardEditView;
+	class FretboardEditScene;
 
-	class FretboardEditionWindow : public QMainWindow
+	class FretboardEditWindow : public QMainWindow
 	{
 		Q_OBJECT
 
 		public:
-			explicit FretboardEditionWindow(QWidget* parent = 0);
-			~FretboardEditionWindow();
+			explicit FretboardEditWindow(QWidget* parent = 0);
+			~FretboardEditWindow();
 
 		protected:
 			virtual void dragEnterEvent(QDragEnterEvent* event) override;
@@ -25,7 +25,7 @@ namespace Fretboard
 			virtual void closeEvent(QCloseEvent* event) override;
 
 		private:
-			FretboardEditionView* editionView() const;
+			FretboardEditView* editionView() const;
 			bool tryCreateScene(const QString& fileName);
 
 		private slots:
@@ -36,10 +36,10 @@ namespace Fretboard
 			void switchToEditionMode();
 
 		private:
-			Ui::FretboardEditionWindow* m_ui;
-			FretboardEditionScene* m_scene;
+			Ui::FretboardEditWindow* m_ui;
+			FretboardEditScene* m_scene;
 	};
 
 } // Fretboard
 
-#endif // FRETBOARDEDITIONWINDOW_H
+#endif // FRETBOARDEDITWINDOW_H

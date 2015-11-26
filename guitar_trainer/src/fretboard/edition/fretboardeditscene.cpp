@@ -1,4 +1,4 @@
-#include "fretboardeditionscene.h"
+#include "fretboardeditscene.h"
 #include "fretboard/fretboardxmlreader.h"
 #include "fretboard/fretboardxmlwriter.h"
 #include "commandaddaxis.h"
@@ -12,7 +12,7 @@
 
 using namespace Fretboard;
 
-FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* parent)
+FretboardEditScene::FretboardEditScene(const QString& imagePath, QObject* parent)
 	: FretboardScene(parent)
 	, m_editionMode(EditionMode::FRET)
 	, m_axisMarker(new FretboardAxis())
@@ -23,7 +23,7 @@ FretboardEditionScene::FretboardEditionScene(const QString& imagePath, QObject* 
 	m_axisMarker->setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
-FretboardEditionScene::~FretboardEditionScene()
+FretboardEditScene::~FretboardEditScene()
 {
 	qDeleteAll(m_fretAxes);
 	m_fretAxes.clear();
@@ -31,10 +31,10 @@ FretboardEditionScene::~FretboardEditionScene()
 	m_stringAxes.clear();
 }
 
-void FretboardEditionScene::init(const QPixmap& imagePix,
-																 const QList<Music::Note::ENote>& tuning,
-																 const QHash<uint, double>& yByString,
-																 const QHash<uint, double>& xByFret)
+void FretboardEditScene::init(const QPixmap& imagePix,
+															const QList<Music::Note::ENote>& tuning,
+															const QHash<uint, double>& yByString,
+															const QHash<uint, double>& xByFret)
 {
 	FretboardScene::init(imagePix, tuning, yByString, xByFret);
 
@@ -42,7 +42,7 @@ void FretboardEditionScene::init(const QPixmap& imagePix,
 	switchToSelectionMode();
 }
 
-void FretboardEditionScene::initAxes()
+void FretboardEditScene::initAxes()
 {
 	QHash<uint, double>::const_iterator it = m_yByString.begin();
 	for (; it != m_yByString.end(); ++it)
@@ -63,7 +63,7 @@ void FretboardEditionScene::initAxes()
 	}
 }
 
-void FretboardEditionScene::activateAxisMarker()
+void FretboardEditScene::activateAxisMarker()
 {
 	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "createAxisMarker()", "The scene is not in edition mode.");
 	Q_ASSERT_X(m_axisMarker == nullptr, "createAxisMarker()", "nullptr");
@@ -78,9 +78,9 @@ void FretboardEditionScene::activateAxisMarker()
 	addItem(m_axisMarker.data());
 }
 
-/*static*/ FretboardEditionScene* FretboardEditionScene::tryCreate(const QString& fileName)
+/*static*/ FretboardEditScene* FretboardEditScene::tryCreate(const QString& fileName)
 {
-	FretboardEditionScene* scene = nullptr;
+	FretboardEditScene* scene = nullptr;
 
 	FretboardXmlReader xmlReader;
 	if (xmlReader.handle(fileName))
@@ -88,7 +88,7 @@ void FretboardEditionScene::activateAxisMarker()
 		QPixmap pix;
 		if (pix.load(xmlReader.imagePath()))
 		{
-			scene = new FretboardEditionScene(xmlReader.imagePath());
+			scene = new FretboardEditScene(xmlReader.imagePath());
 			scene->init(pix, xmlReader.tuning(), xmlReader.yByString(), xmlReader.xByFret());
 		}
 		else
@@ -98,7 +98,7 @@ void FretboardEditionScene::activateAxisMarker()
 	return scene;
 }
 
-void FretboardEditionScene::switchToSelectionMode()
+void FretboardEditScene::switchToSelectionMode()
 {
 	if (m_usageMode != UsageMode::SELECTION)
 	{
@@ -109,7 +109,7 @@ void FretboardEditionScene::switchToSelectionMode()
 	}
 }
 
-void FretboardEditionScene::setAxesMovable(const bool movable)
+void FretboardEditScene::setAxesMovable(const bool movable)
 {
 	foreach (FretboardAxis* fret, m_fretAxes)
 		fret->setFlag(QGraphicsItem::ItemIsMovable, movable);
@@ -117,7 +117,7 @@ void FretboardEditionScene::setAxesMovable(const bool movable)
 		string->setFlag(QGraphicsItem::ItemIsMovable, movable);
 }
 
-void FretboardEditionScene::switchToEditionMode()
+void FretboardEditScene::switchToEditionMode()
 {
 	if (m_usageMode != UsageMode::EDITION)
 	{
@@ -131,27 +131,27 @@ void FretboardEditionScene::switchToEditionMode()
 	}
 }
 
-FretboardEditionScene::EditionMode FretboardEditionScene::editionMode() const
+FretboardEditScene::EditionMode FretboardEditScene::editionMode() const
 {
 	return m_editionMode;
 }
 
-bool FretboardEditionScene::isInSelectionMode() const
+bool FretboardEditScene::isInSelectionMode() const
 {
 	return m_usageMode == UsageMode::SELECTION;
 }
 
-bool FretboardEditionScene::isInFretMode() const
+bool FretboardEditScene::isInFretMode() const
 {
 	return m_editionMode == EditionMode::FRET;
 }
 
-bool FretboardEditionScene::isInStringMode() const
+bool FretboardEditScene::isInStringMode() const
 {
 	return m_editionMode == EditionMode::STRING;
 }
 
-void FretboardEditionScene::save(const QString& fileName)
+void FretboardEditScene::save(const QString& fileName)
 {
 	QFile file(fileName);
 	if (file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -179,7 +179,7 @@ void FretboardEditionScene::save(const QString& fileName)
 	}
 }
 
-void FretboardEditionScene::addFret(FretboardAxis* fret)
+void FretboardEditScene::addFret(FretboardAxis* fret)
 {
 	Q_ASSERT_X(fret != nullptr, "addFret()", "nullptr");
 
@@ -187,7 +187,7 @@ void FretboardEditionScene::addFret(FretboardAxis* fret)
 	m_fretAxes.append(fret);
 }
 
-void FretboardEditionScene::addString(FretboardAxis* string)
+void FretboardEditScene::addString(FretboardAxis* string)
 {
 	Q_ASSERT_X(string != nullptr, "addString()", "nullptr");
 
@@ -195,7 +195,7 @@ void FretboardEditionScene::addString(FretboardAxis* string)
 	m_stringAxes.append(string);
 }
 
-void FretboardEditionScene::removeAxis(FretboardAxis* axis)
+void FretboardEditScene::removeAxis(FretboardAxis* axis)
 {
 	Q_ASSERT_X(axis != nullptr, "removeAxis()", "nullptr");
 
@@ -205,7 +205,7 @@ void FretboardEditionScene::removeAxis(FretboardAxis* axis)
 	removeItem(axis);
 }
 
-void FretboardEditionScene::removeFret(FretboardAxis* fret)
+void FretboardEditScene::removeFret(FretboardAxis* fret)
 {
 	Q_ASSERT_X(fret != nullptr, "removeFret()", "nullptr");
 
@@ -213,7 +213,7 @@ void FretboardEditionScene::removeFret(FretboardAxis* fret)
 	removeItem(fret);
 }
 
-void FretboardEditionScene::removeString(FretboardAxis* string)
+void FretboardEditScene::removeString(FretboardAxis* string)
 {
 	Q_ASSERT_X(string != nullptr, "removeString()", "nullptr");
 
@@ -221,7 +221,7 @@ void FretboardEditionScene::removeString(FretboardAxis* string)
 	removeItem(string);
 }
 
-void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
+void FretboardEditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mousePressEvent(event);
 
@@ -231,7 +231,7 @@ void FretboardEditionScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 		mousePressSelection(event);
 }
 
-void FretboardEditionScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
+void FretboardEditScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
 {
 	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "mousePressEdition()", "The scene is not in edition mode.");
 
@@ -249,12 +249,12 @@ void FretboardEditionScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
 	}
 }
 
-void FretboardEditionScene::mousePressSelection(QGraphicsSceneMouseEvent* event)
+void FretboardEditScene::mousePressSelection(QGraphicsSceneMouseEvent* event)
 {
 	Q_ASSERT_X(m_usageMode == UsageMode::SELECTION, "mousePressSelection()", "The scene is not in selection mode.");
 }
 
-void FretboardEditionScene::switchToFretMode(const QPointF& scenePos)
+void FretboardEditScene::switchToFretMode(const QPointF& scenePos)
 {
 	qWarning() << "switchToFretMode";
 
@@ -270,7 +270,7 @@ void FretboardEditionScene::switchToFretMode(const QPointF& scenePos)
 	m_editionMode = EditionMode::FRET;
 }
 
-void FretboardEditionScene::switchToStringMode(const QPointF& scenePos)
+void FretboardEditScene::switchToStringMode(const QPointF& scenePos)
 {
 	qWarning() << "switchToStringMode";
 
@@ -286,7 +286,7 @@ void FretboardEditionScene::switchToStringMode(const QPointF& scenePos)
 	m_editionMode = EditionMode::STRING;
 }
 
-void FretboardEditionScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+void FretboardEditScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mouseMoveEvent(event);
 
@@ -296,7 +296,7 @@ void FretboardEditionScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 		mouseMoveSelection(event);
 }
 
-void FretboardEditionScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
+void FretboardEditScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
 {
 	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "mouseMoveEdition()", "The scene is not in edition mode.");
 	Q_ASSERT_X(m_axisMarker != nullptr, "switchToStringMode()", "nullptr");
@@ -310,12 +310,12 @@ void FretboardEditionScene::mouseMoveEdition(QGraphicsSceneMouseEvent* event)
 	}
 }
 
-void FretboardEditionScene::mouseMoveSelection(QGraphicsSceneMouseEvent* event)
+void FretboardEditScene::mouseMoveSelection(QGraphicsSceneMouseEvent* event)
 {
 	Q_ASSERT_X(m_usageMode == UsageMode::SELECTION, "mouseMoveSelection()", "The scene is not in selection mode.");
 }
 
-void FretboardEditionScene::keyPressEvent(QKeyEvent* event)
+void FretboardEditScene::keyPressEvent(QKeyEvent* event)
 {
 	QGraphicsScene::keyPressEvent(event);
 
@@ -327,22 +327,22 @@ void FretboardEditionScene::keyPressEvent(QKeyEvent* event)
 	}
 }
 
-QList<FretboardAxis*> FretboardEditionScene::selectedAxes() const
+QList<FretboardAxis*> FretboardEditScene::selectedAxes() const
 {
 	return selectedAxes(AxisType::ALL);
 }
 
-QList<FretboardAxis*> FretboardEditionScene::selectedFrets() const
+QList<FretboardAxis*> FretboardEditScene::selectedFrets() const
 {
 	return selectedAxes(AxisType::FRET);
 }
 
-QList<FretboardAxis*> FretboardEditionScene::selectedStrings() const
+QList<FretboardAxis*> FretboardEditScene::selectedStrings() const
 {
 	return selectedAxes(AxisType::STRING);
 }
 
-QList<FretboardAxis*> FretboardEditionScene::selectedAxes(const AxisType axisType) const
+QList<FretboardAxis*> FretboardEditScene::selectedAxes(const AxisType axisType) const
 {
 	QList<FretboardAxis*> selectedAxes;
 

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "fretboard/edition/fretboardeditionwindow.h"
+#include "fretboard/edition/fretboardeditwindow.h"
 #include "output/outputwindow.h"
 
 #include <QResizeEvent>
@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::startEdition()
 {
-	FretboardEditionWindow* editionWindow = new FretboardEditionWindow(this);
+	FretboardEditWindow* editionWindow = new FretboardEditWindow(this);
 	editionWindow->show();
 }
 

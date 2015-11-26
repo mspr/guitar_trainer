@@ -1,5 +1,5 @@
-#ifndef FRETBOARDEDITIONSCENE_H
-#define FRETBOARDEDITIONSCENE_H
+#ifndef FRETBOARDEDITSCENE_H
+#define FRETBOARDEDITSCENE_H
 
 #include "fretboard/fretboardscene.h"
 #include "fretboardaxis.h"
@@ -8,7 +8,7 @@ class QUndoStack;
 
 namespace Fretboard
 {
-	class FretboardEditionScene : public FretboardScene
+	class FretboardEditScene : public FretboardScene
 	{
 		Q_OBJECT
 
@@ -34,10 +34,10 @@ namespace Fretboard
 			};
 
 		public:
-			FretboardEditionScene(const QString& imagePath, QObject* parent = 0);
-			virtual ~FretboardEditionScene() override;
+			FretboardEditScene(const QString& imagePath, QObject* parent = 0);
+			virtual ~FretboardEditScene() override;
 
-			static FretboardEditionScene* tryCreate(const QString& fileName);
+			static FretboardEditScene* tryCreate(const QString& fileName);
 			void save(const QString& fileName);
 
 			void switchToSelectionMode();
@@ -95,4 +95,4 @@ namespace Fretboard
 
 } // Fretboard
 
-#endif // FRETBOARDEDITIONSCENE_H
+#endif // FRETBOARDEDITSCENE_H
