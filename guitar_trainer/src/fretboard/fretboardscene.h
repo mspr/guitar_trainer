@@ -21,6 +21,8 @@ namespace Fretboard
 												const QHash<uint, double>& yByString,
 												const QHash<uint, double>& xByFret);
 
+			virtual void clear();
+
 		private:
 			void initBackground(const QPixmap& imagePix);
 			void initTuning(const QList<Music::Note::ENote>& tuning);
@@ -32,6 +34,8 @@ namespace Fretboard
 			uint getNearestString(const QPointF& pos) const;
 			uint getNearestFret(const QPointF& pos) const;
 			Music::Note::ENote getNote(const QPair<uint, uint>& fretboardPos) const;
+
+			void clearNotes();
 
 		protected:
 			QList<Music::Note::ENote> m_tuning;

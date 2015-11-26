@@ -13,6 +13,7 @@ FretboardScene::FretboardScene(QObject* parent)
 
 FretboardScene::~FretboardScene()
 {
+	clear();
 }
 
 void FretboardScene::init(const QPixmap& imagePix,
@@ -101,4 +102,15 @@ Note::ENote FretboardScene::getNote(const QPair<uint, uint>& fretboardPos) const
 {
 	const Note::ENote openStringNote = m_tuning.at(fretboardPos.first);
 	return Note::getNoteFrom(openStringNote, fretboardPos.second);
+}
+
+void FretboardScene::clear()
+{
+	clearNotes();
+}
+
+void FretboardScene::clearNotes()
+{
+	qDeleteAll(m_noteByFretboardPos); // TODO Check if it works
+	m_noteByFretboardPos.clear();
 }

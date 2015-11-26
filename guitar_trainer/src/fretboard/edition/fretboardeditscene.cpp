@@ -25,10 +25,6 @@ FretboardEditScene::FretboardEditScene(const QString& imagePath, QObject* parent
 
 FretboardEditScene::~FretboardEditScene()
 {
-	qDeleteAll(m_fretAxes);
-	m_fretAxes.clear();
-	qDeleteAll(m_stringAxes);
-	m_stringAxes.clear();
 }
 
 void FretboardEditScene::init(const QPixmap& imagePix,
@@ -219,6 +215,20 @@ void FretboardEditScene::removeString(FretboardAxis* string)
 
 	m_stringAxes.removeOne(string);
 	removeItem(string);
+}
+
+void FretboardEditScene::clear()
+{
+	FretboardScene::clear();
+	clearAxes();
+}
+
+void FretboardEditScene::clearAxes()
+{
+	qDeleteAll(m_fretAxes);
+	m_fretAxes.clear();
+	qDeleteAll(m_stringAxes);
+	m_stringAxes.clear();
 }
 
 void FretboardEditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)

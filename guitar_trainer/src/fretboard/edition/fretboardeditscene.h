@@ -62,6 +62,8 @@ namespace Fretboard
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void keyPressEvent(QKeyEvent* event) override;
 
+			virtual void clear() override;
+
 		private:
 			virtual void init(const QPixmap& imagePix,
 												const QList<Music::Note::ENote>& tuning,
@@ -77,6 +79,8 @@ namespace Fretboard
 			void switchToStringMode(const QPointF& scenePos);
 
 			QList<FretboardAxis*> selectedAxes(const AxisType axisType) const;
+
+			void clearAxes();
 
 			void mousePressEdition(QGraphicsSceneMouseEvent* event);
 			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);
