@@ -10,7 +10,7 @@ namespace Fretboard
 	class FretboardNote : public QGraphicsEllipseItem
 	{
 		public:
-			FretboardNote(Music::Note::ENote note, QGraphicsItem* parent);
+			FretboardNote(Music::Note::ENote note, QGraphicsItem* parent = 0);
 
 		private:
 			Music::Note::ENote m_note;

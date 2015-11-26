@@ -1,6 +1,8 @@
 #include "fretboardscene.h"
 #include "fretboardnote.h"
 
+#include <QDebug>
+
 using namespace Fretboard;
 using namespace Music;
 
@@ -41,13 +43,23 @@ void FretboardScene::initFretAndStringPositions(const QHash<uint, double>& xByFr
 	m_yByString = yByString;
 }
 
-void FretboardScene::addNote(const QPointF& pos)
+bool FretboardScene::tryAddNote(const QPointF& pos)
 {
-	const uint nearestFret = getNearestFret(pos);
-	const uint nearestString = getNearestString(pos);
+	bool noteAdded = false;
 
-	//FretboardNote* note = new FretboardNote(getNote(nearestString, nearestFret));
-	//addItem(note);
+	const QPair<uint, uint> fretboardPos = qMakePair(getNearestString(pos), getNearestFret(pos));
+	if (m_noteByFretboardPos.find(fretboardPos) == m_noteByFretboardPos.end())
+	{
+		FretboardNote* note = new FretboardNote(getNote(fretboardPos));
+		addItem(note);
+		m_noteByFretboardPos.insert(fretboardPos, note);
+
+		noteAdded = true;
+	}
+	else
+		qWarning() << QString("A note already exist at fret %1 on string %2").arg(fretboardPos.second, fretboardPos.first);
+
+	return noteAdded;
 }
 
 uint FretboardScene::getNearestId(const QHash<uint, double>& posById, const double value) const
@@ -81,8 +93,8 @@ uint FretboardScene::getNearestFret(const QPointF& pos) const
 	return getNearestId(m_xByFret, pos.x());
 }
 
-Note::ENote FretboardScene::getNote(const uint string, const uint fret) const
+Note::ENote FretboardScene::getNote(const QPair<uint, uint>& fretboardPos) const
 {
-	const Note::ENote openStringNote = m_tuning.at(string);
-	return Note::getNoteFrom(openStringNote, fret);
+	const Note::ENote openStringNote = m_tuning.at(fretboardPos.first);
+	return Note::getNoteFrom(openStringNote, fretboardPos.second);
 }
