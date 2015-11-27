@@ -9,6 +9,9 @@ namespace Fretboard
 	{
 		public:
 			FretboardPlayScene();
+
+		protected:
+			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 	};
 
 } // Fretboard

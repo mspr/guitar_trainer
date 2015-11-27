@@ -21,6 +21,9 @@ namespace Fretboard
 												const QHash<uint, double>& yByString,
 												const QHash<uint, double>& xByFret);
 
+			bool tryAddNote(const QPointF& pos);
+			bool tryRemoveNote(const QPointF& pos);
+
 			virtual void clear();
 
 		private:
@@ -29,7 +32,6 @@ namespace Fretboard
 			void initFretAndStringPositions(const QHash<uint, double>& xByFret,
 																			const QHash<uint, double>& yByString);
 
-			bool tryAddNote(const QPointF& pos);
 			uint getNearestId(const QHash<uint, double>& posById, const double value) const;
 			uint getNearestString(const QPointF& pos) const;
 			uint getNearestFret(const QPointF& pos) const;

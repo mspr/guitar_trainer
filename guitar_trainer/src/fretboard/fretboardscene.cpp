@@ -58,13 +58,28 @@ bool FretboardScene::tryAddNote(const QPointF& pos)
 		FretboardNote* note = new FretboardNote(getNote(fretboardPos));
 		addItem(note);
 		m_noteByFretboardPos.insert(fretboardPos, note);
-
 		noteAdded = true;
 	}
 	else
 		qWarning() << QString("A note already exist at fret %1 on string %2").arg(fretboardPos.second, fretboardPos.first);
 
 	return noteAdded;
+}
+
+bool FretboardScene::tryRemoveNote(const QPointF& pos)
+{
+	bool noteRemoved = false;
+
+	const QPair<uint, uint> fretboardPos = qMakePair(getNearestString(pos), getNearestFret(pos));
+	const QHash<QPair<uint, uint>, FretboardNote*>::iterator it = m_noteByFretboardPos.find(fretboardPos);
+	if (it != m_noteByFretboardPos.end())
+	{
+		delete it.value();
+		m_noteByFretboardPos.erase(it);
+		noteRemoved = true;
+	}
+
+	return noteRemoved;
 }
 
 uint FretboardScene::getNearestId(const QHash<uint, double>& posById, const double value) const
