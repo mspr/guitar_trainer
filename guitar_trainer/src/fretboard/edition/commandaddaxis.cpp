@@ -1,6 +1,6 @@
 #include "commandaddaxis.h"
 #include "fretboardeditscene.h"
-#include "fretboardaxis.h"
+#include "fretboardaxiseditable.h"
 
 using namespace Fretboard;
 
@@ -34,7 +34,7 @@ void CommandAddAxis::redo()
 {
 	Q_ASSERT_X(m_axis == nullptr, "redo()", "nullptr");
 
-	m_axis = new FretboardAxis(m_line);
+	m_axis = new FretboardAxisEditable(m_line);
 
 	if (m_editionMode == FretboardEditScene::EditionMode::FRET)
 		m_scene->addFret(m_axis);

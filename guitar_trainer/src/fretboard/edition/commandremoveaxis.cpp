@@ -1,10 +1,11 @@
 #include "commandremoveaxis.h"
 #include "fretboardeditscene.h"
+#include "fretboardaxiseditable.h"
 
 using namespace Fretboard;
 
-CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxis*>& selectedFrets,
-																		 const QList<FretboardAxis*>& selectedStrings,
+CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxisEditable*>& selectedFrets,
+																		 const QList<FretboardAxisEditable*>& selectedStrings,
 																		 FretboardEditScene* scene)
 	: m_scene(scene)
 	, m_fretsToRemove(selectedFrets)
@@ -24,16 +25,16 @@ CommandRemoveAxis::~CommandRemoveAxis()
 
 void CommandRemoveAxis::undo()
 {
-	foreach (FretboardAxis* fret, m_fretsToRemove)
+	foreach (FretboardAxisEditable* fret, m_fretsToRemove)
 		m_scene->addFret(fret);
-	foreach (FretboardAxis* string, m_stringsToRemove)
+	foreach (FretboardAxisEditable* string, m_stringsToRemove)
 		m_scene->addString(string);
 }
 
 void CommandRemoveAxis::redo()
 {
-	foreach (FretboardAxis* fret, m_fretsToRemove)
+	foreach (FretboardAxisEditable* fret, m_fretsToRemove)
 		m_scene->removeFret(fret);
-	foreach (FretboardAxis* string, m_stringsToRemove)
+	foreach (FretboardAxisEditable* string, m_stringsToRemove)
 		m_scene->removeString(string);
 }

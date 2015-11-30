@@ -2,12 +2,14 @@
 #define FRETBOARDEDITSCENE_H
 
 #include "fretboard/fretboardscene.h"
-#include "fretboardaxis.h"
+#include "fretboardaxiseditor.h"
 
 class QUndoStack;
 
 namespace Fretboard
 {
+	class FretboardAxisEditable;
+
 	class FretboardEditScene : public FretboardScene
 	{
 		Q_OBJECT
@@ -47,15 +49,15 @@ namespace Fretboard
 			bool isInFretMode() const;
 			bool isInStringMode() const;
 
-			void addFret(FretboardAxis* fret);
-			void addString(FretboardAxis* string);
-			void removeAxis(FretboardAxis* axis);
-			void removeFret(FretboardAxis* fret);
-			void removeString(FretboardAxis* string);
+			void addFret(FretboardAxisEditable* fret);
+			void addString(FretboardAxisEditable* string);
+			void removeAxis(FretboardAxisEditable* axis);
+			void removeFret(FretboardAxisEditable* fret);
+			void removeString(FretboardAxisEditable* string);
 
-			QList<FretboardAxis*> selectedAxes() const;
-			QList<FretboardAxis*> selectedFrets() const;
-			QList<FretboardAxis*> selectedStrings() const;
+			QList<FretboardAxisEditable*> selectedAxes() const;
+			QList<FretboardAxisEditable*> selectedFrets() const;
+			QList<FretboardAxisEditable*> selectedStrings() const;
 
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
@@ -72,13 +74,13 @@ namespace Fretboard
 
 			void initAxes();
 
-			void activateAxisMarker();
+			void activateAxisEditor();
 
 			void setAxesMovable(const bool movable);
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 
-			QList<FretboardAxis*> selectedAxes(const AxisType axisType) const;
+			QList<FretboardAxisEditable*> selectedAxes(const AxisType axisType) const;
 
 			void clearAxes();
 
@@ -90,10 +92,10 @@ namespace Fretboard
 		private:
 			UsageMode m_usageMode;
 			EditionMode m_editionMode;
-			QScopedPointer<FretboardAxis> m_axisMarker;
+			QScopedPointer<FretboardAxisEditor> m_axisEditor;
 			QString m_imagePath;
-			QList<FretboardAxis*> m_stringAxes;
-			QList<FretboardAxis*> m_fretAxes;
+			QList<FretboardAxisEditable*> m_stringAxes;
+			QList<FretboardAxisEditable*> m_fretAxes;
 			QUndoStack* m_undoStack;
 	};
 
