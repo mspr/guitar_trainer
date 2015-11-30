@@ -61,8 +61,8 @@ void FretboardEditScene::initAxes()
 
 void FretboardEditScene::activateAxisMarker()
 {
-	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "createAxisMarker()", "The scene is not in edition mode.");
-	Q_ASSERT_X(m_axisMarker == nullptr, "createAxisMarker()", "nullptr");
+	Q_ASSERT_X(m_usageMode == UsageMode::EDITION, "activateAxisMarker()", "The scene is not in edition mode.");
+	Q_ASSERT_X(m_axisMarker.data() != nullptr, "activateAxisMarker()", "nullptr");
 
 	if (m_editionMode == EditionMode::FRET)
 		m_axisMarker->setLine(0, 0, 0, sceneRect().height());
@@ -98,10 +98,12 @@ void FretboardEditScene::switchToSelectionMode()
 {
 	if (m_usageMode != UsageMode::SELECTION)
 	{
-		removeItem(m_axisMarker.data());
-		setAxesMovable(true);
-
 		m_usageMode = UsageMode::SELECTION;
+
+		if (items().contains(m_axisMarker.data()))
+			removeItem(m_axisMarker.data());
+
+		setAxesMovable(true);
 	}
 }
 
@@ -117,13 +119,10 @@ void FretboardEditScene::switchToEditionMode()
 {
 	if (m_usageMode != UsageMode::EDITION)
 	{
-		if (m_axisMarker == nullptr)
-		{
-			activateAxisMarker();
-			setAxesMovable(false);
-		}
-
 		m_usageMode = UsageMode::EDITION;
+
+		activateAxisMarker();
+		setAxesMovable(false);
 	}
 }
 
