@@ -53,7 +53,7 @@ void FretboardAxisEditable::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void FretboardAxisEditable::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
 	if (getScene()->isInSelectionMode())
-		QApplication::setOverrideCursor(Qt::PointingHandCursor);
+		QApplication::restoreOverrideCursor();
 
 	FretboardAxis::mouseReleaseEvent(event);
 }
