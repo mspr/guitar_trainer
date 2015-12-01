@@ -19,3 +19,9 @@ QT += \
     widgets \
 
 SOURCES += main.cpp
+
+RESOURCES += \
+    app.qrc
+
+OTHER_FILES += \
+    app.qss

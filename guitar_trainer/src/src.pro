@@ -20,11 +20,13 @@ QT += \
 
 SOURCES += \
     mainwindow.cpp \
-    messagehandler.cpp
+    messagehandler.cpp \
+    application.cpp
 
 HEADERS += \
     mainwindow.h \
-    messagehandler.h
+    messagehandler.h \
+    application.h
 
 FORMS += \
     mainwindow.ui
