@@ -52,6 +52,7 @@ void FretboardEditWindow::initScene()
 	Q_ASSERT_X(m_scene != nullptr, "onSceneCreation()", "nullptr");
 
 	m_scene->setParent(this);
+	connect(m_scene, SIGNAL(cleanChanged(bool)), SLOT(setWindowModified(bool)));
 	editionView()->setScene(m_scene);
 	editionView()->setMouseTracking(true);
 	//m_scene->setFocus();

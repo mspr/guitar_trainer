@@ -59,6 +59,9 @@ namespace Fretboard
 			QList<FretboardAxisEditable*> selectedFrets() const;
 			QList<FretboardAxisEditable*> selectedStrings() const;
 
+		signals:
+			void cleanChanged(bool clean);
+
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 			virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
@@ -72,6 +75,7 @@ namespace Fretboard
 												const QHash<uint, double>& yByString,
 												const QHash<uint, double>& xByFret) override;
 
+			void initCommandStack();
 			void initAxes();
 
 			void activateAxisEditor();
@@ -93,10 +97,10 @@ namespace Fretboard
 			UsageMode m_usageMode;
 			EditionMode m_editionMode;
 			QScopedPointer<FretboardAxisEditor> m_axisEditor;
+			QScopedPointer<QUndoStack> m_undoStack;
 			QString m_imagePath;
 			QList<FretboardAxisEditable*> m_stringAxes;
 			QList<FretboardAxisEditable*> m_fretAxes;
-			QUndoStack* m_undoStack;
 	};
 
 } // Fretboard

@@ -18,8 +18,8 @@ FretboardEditScene::FretboardEditScene(const QString& imagePath, QObject* parent
 	, m_editionMode(EditionMode::FRET)
 	, m_axisEditor(new FretboardAxisEditor())
 	, m_imagePath(imagePath)
-	, m_undoStack(new QUndoStack(this))
 {
+	initCommandStack();
 }
 
 FretboardEditScene::~FretboardEditScene()
@@ -35,6 +35,12 @@ void FretboardEditScene::init(const QPixmap& imagePix,
 
 	initAxes();
 	switchToSelectionMode();
+}
+
+void FretboardEditScene::initCommandStack()
+{
+	m_undoStack.reset(new QUndoStack(this));
+	connect(m_undoStack.data(), SIGNAL(cleanChanged(bool)), SIGNAL(cleanChanged(bool)));
 }
 
 void FretboardEditScene::initAxes()
@@ -254,7 +260,6 @@ void FretboardEditScene::mousePressEdition(QGraphicsSceneMouseEvent* event)
 	}
 	else
 	{
-		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEdition()", "nullptr");
 		m_undoStack->push(new CommandAddAxis(m_axisEditor->scenePos(), m_axisEditor->line(), this));
 	}
 }
@@ -329,10 +334,18 @@ void FretboardEditScene::keyPressEvent(QKeyEvent* event)
 {
 	QGraphicsScene::keyPressEvent(event);
 
-	if (event->key() == Qt::Key_Delete)
+	if (event->modifiers().testFlag(Qt::ControlModifier))
+	{
+		if (event->key() == Qt::Key_Z)
+			m_undoStack->undo();
+		else if (event->key() == Qt::Key_Y)
+			m_undoStack->redo();
+		else if (event->key() == Qt::Key_Z)
+			m_undoStack->clear();
+	}
+	else if (event->key() == Qt::Key_Delete)
 	{
 		qWarning() << "FretboardEditionScene::keyPressEvent()";
-		Q_ASSERT_X(m_undoStack != nullptr, "mousePressEdition()", "nullptr");
 		m_undoStack->push(new CommandRemoveAxis(selectedFrets(), selectedStrings(), this));
 	}
 }
