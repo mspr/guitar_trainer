@@ -67,6 +67,12 @@ QVariant FretboardAxisEditable::itemChange(GraphicsItemChange change, const QVar
 		pen.setColor(penColor);
 		setPen(pen);
 	}
+	else if (change == ItemSceneHasChanged)
+	{
+		QGraphicsScene* scene = value.value<QGraphicsScene*>();
+		if (scene == nullptr)
+			QApplication::restoreOverrideCursor();
+	}
 
 	return FretboardAxis::itemChange(change, value);
 }

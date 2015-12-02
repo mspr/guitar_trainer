@@ -19,6 +19,8 @@ FretboardEditWindow::FretboardEditWindow(QWidget* parent)
 {
 	m_ui->setupUi(this);
 
+	setWindowTitle("MainWindow [*]");
+
 	FretboardEditView* fretboardView = new FretboardEditView(this);
 	setCentralWidget(fretboardView);
 
@@ -52,7 +54,7 @@ void FretboardEditWindow::initScene()
 	Q_ASSERT_X(m_scene != nullptr, "onSceneCreation()", "nullptr");
 
 	m_scene->setParent(this);
-	connect(m_scene, SIGNAL(cleanChanged(bool)), SLOT(setWindowModified(bool)));
+	connect(m_scene, SIGNAL(modified(bool)), SLOT(setWindowModified(bool)));
 	editionView()->setScene(m_scene);
 	editionView()->setMouseTracking(true);
 	//m_scene->setFocus();

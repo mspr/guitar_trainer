@@ -40,7 +40,12 @@ void FretboardEditScene::init(const QPixmap& imagePix,
 void FretboardEditScene::initCommandStack()
 {
 	m_undoStack.reset(new QUndoStack(this));
-	connect(m_undoStack.data(), SIGNAL(cleanChanged(bool)), SIGNAL(cleanChanged(bool)));
+	connect(m_undoStack.data(), SIGNAL(cleanChanged(bool)), SLOT(onCleanChanged(bool)));
+}
+
+void FretboardEditScene::onCleanChanged(bool clean)
+{
+	emit modified(!clean);
 }
 
 void FretboardEditScene::initAxes()

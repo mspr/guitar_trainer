@@ -23,6 +23,7 @@ namespace Fretboard
 			FretboardEditScene* m_scene;
 			QList<FretboardAxisEditable*> m_fretsToRemove;
 			QList<FretboardAxisEditable*> m_stringsToRemove;
+			QList<FretboardAxisEditable*> m_axesToDelete;
 	};
 
 } // Fretboard

@@ -16,10 +16,8 @@ CommandRemoveAxis::CommandRemoveAxis(const QList<FretboardAxisEditable*>& select
 
 CommandRemoveAxis::~CommandRemoveAxis()
 {
-	// TODO don't delete axes if undo has been called
-	qDeleteAll(m_fretsToRemove);
+	qDeleteAll(m_axesToDelete);
 	m_fretsToRemove.clear();
-	qDeleteAll(m_stringsToRemove);
 	m_stringsToRemove.clear();
 }
 
@@ -29,6 +27,8 @@ void CommandRemoveAxis::undo()
 		m_scene->addFret(fret);
 	foreach (FretboardAxisEditable* string, m_stringsToRemove)
 		m_scene->addString(string);
+
+	m_axesToDelete.clear();
 }
 
 void CommandRemoveAxis::redo()
@@ -37,4 +37,7 @@ void CommandRemoveAxis::redo()
 		m_scene->removeFret(fret);
 	foreach (FretboardAxisEditable* string, m_stringsToRemove)
 		m_scene->removeString(string);
+
+	m_axesToDelete.append(m_fretsToRemove);
+	m_axesToDelete.append(m_stringsToRemove);
 }

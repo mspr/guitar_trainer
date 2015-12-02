@@ -60,7 +60,7 @@ namespace Fretboard
 			QList<FretboardAxisEditable*> selectedStrings() const;
 
 		signals:
-			void cleanChanged(bool clean);
+			void modified(bool modified);
 
 		protected:
 			virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
@@ -92,6 +92,9 @@ namespace Fretboard
 			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);
 			void mousePressSelection(QGraphicsSceneMouseEvent* event);
 			void mouseMoveSelection(QGraphicsSceneMouseEvent* event);
+
+		private slots:
+			void onCleanChanged(bool clean);
 
 		private:
 			UsageMode m_usageMode;
