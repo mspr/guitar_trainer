@@ -8,8 +8,6 @@
 
 namespace Fretboard
 {
-	class FretboardAxisEditable;
-
 	class CommandAddAxis : public QUndoCommand
 	{
 		public:
@@ -17,13 +15,8 @@ namespace Fretboard
 										 const QLineF& line,
 										 FretboardEditScene* scene);
 
-			virtual void undo() override;
-			virtual void redo() override;
-
-		private:
+		protected:
 			FretboardEditScene* m_scene;
-			FretboardEditScene::EditionMode m_editionMode;
-			FretboardAxisEditable* m_axis;
 			QPointF m_scenePos;
 			QLineF m_line;
 	};

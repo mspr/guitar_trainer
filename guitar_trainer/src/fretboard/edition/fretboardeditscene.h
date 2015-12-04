@@ -9,6 +9,8 @@ class QUndoStack;
 namespace Fretboard
 {
 	class FretboardAxisEditable;
+	class FretboardAxisFret;
+	class FretboardAxisString;
 
 	class FretboardEditScene : public FretboardScene
 	{
@@ -49,15 +51,15 @@ namespace Fretboard
 			bool isInFretMode() const;
 			bool isInStringMode() const;
 
-			void addFret(FretboardAxisEditable* fret);
-			void addString(FretboardAxisEditable* string);
-			void removeAxis(FretboardAxisEditable* axis);
-			void removeFret(FretboardAxisEditable* fret);
-			void removeString(FretboardAxisEditable* string);
+			void addFret(FretboardAxisFret* fret);
+			void addString(FretboardAxisString* string);
+			void removeFret(FretboardAxisFret* fret);
+			void removeString(FretboardAxisString* string);
 
-			QList<FretboardAxisEditable*> selectedAxes() const;
-			QList<FretboardAxisEditable*> selectedFrets() const;
-			QList<FretboardAxisEditable*> selectedStrings() const;
+			template <typename T>
+			QList<T*> selectedAxes() const;
+			QList<FretboardAxisFret*> selectedFrets() const;
+			QList<FretboardAxisString*> selectedStrings() const;
 
 		signals:
 			void modified(bool modified);
@@ -102,8 +104,8 @@ namespace Fretboard
 			QScopedPointer<FretboardAxisEditor> m_axisEditor;
 			QScopedPointer<QUndoStack> m_undoStack;
 			QString m_imagePath;
-			QList<FretboardAxisEditable*> m_stringAxes;
-			QList<FretboardAxisEditable*> m_fretAxes;
+			QList<FretboardAxisString*> m_stringAxes;
+			QList<FretboardAxisFret*> m_fretAxes;
 	};
 
 } // Fretboard

@@ -7,12 +7,14 @@ namespace Fretboard
 {
 	class FretboardEditScene;
 	class FretboardAxisEditable;
+	class FretboardAxisFret;
+	class FretboardAxisString;
 
 	class CommandRemoveAxis : public QUndoCommand
 	{
 		public:
-			CommandRemoveAxis(const QList<FretboardAxisEditable*>& selectedFrets,
-												const QList<FretboardAxisEditable*>& selectedStrings,
+			CommandRemoveAxis(const QList<FretboardAxisFret*>& selectedFrets,
+												const QList<FretboardAxisString*>& selectedStrings,
 												FretboardEditScene* scene);
 			~CommandRemoveAxis();
 
@@ -21,8 +23,8 @@ namespace Fretboard
 
 		private:
 			FretboardEditScene* m_scene;
-			QList<FretboardAxisEditable*> m_fretsToRemove;
-			QList<FretboardAxisEditable*> m_stringsToRemove;
+			QList<FretboardAxisFret*> m_fretsToRemove;
+			QList<FretboardAxisString*> m_stringsToRemove;
 			QList<FretboardAxisEditable*> m_axesToDelete;
 	};
 

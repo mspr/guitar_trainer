@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QGraphicsSceneMouseEvent>
 #include <QPen>
+#include <QDebug>
 
 using namespace Fretboard;
 
@@ -60,6 +61,8 @@ void FretboardAxisEditable::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 QVariant FretboardAxisEditable::itemChange(GraphicsItemChange change, const QVariant& value)
 {
+	qWarning() << "itemChange " << change;
+
 	if (change == ItemSelectedChange)
 	{
 		const QColor penColor = (value.toBool() ? m_selectionColor : m_defaultColor);
