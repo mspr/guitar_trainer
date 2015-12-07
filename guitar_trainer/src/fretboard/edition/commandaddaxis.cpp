@@ -3,12 +3,11 @@
 
 using namespace Fretboard;
 
-CommandAddAxis::CommandAddAxis(const QPointF& scenePos,
-															 const QLineF& line,
+CommandAddAxis::CommandAddAxis(const FretboardAxisBuilder* axisBuilder,
 															 FretboardEditScene* scene)
 	: m_scene(scene)
-	, m_scenePos(scenePos)
-	, m_line(line)
+	, m_axisBuilder(axisBuilder)
 {
 	Q_ASSERT_X(m_scene != nullptr, "CommandAddAxis()", "nullptr");
+	Q_ASSERT_X(m_axisBuilder != nullptr, "CommandAddAxis()", "nullptr");
 }

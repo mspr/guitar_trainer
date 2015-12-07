@@ -2,15 +2,13 @@
 #define FRETBOARDEDITSCENE_H
 
 #include "fretboard/fretboardscene.h"
-#include "fretboardaxiseditor.h"
+#include "fretboardaxisbuilder.h"
 
 class QUndoStack;
 
 namespace Fretboard
 {
-	class FretboardAxisEditable;
-	class FretboardAxisFret;
-	class FretboardAxisString;
+	class FretboardAxis;
 
 	class FretboardEditScene : public FretboardScene
 	{
@@ -80,20 +78,16 @@ namespace Fretboard
 			void initCommandStack();
 			void initAxes();
 
-			void activateAxisEditor();
-
 			void setAxesMovable(const bool movable);
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 
-			QList<FretboardAxisEditable*> selectedAxes(const AxisType axisType) const;
+			QList<FretboardAxis*> selectedAxes(const AxisType axisType) const;
 
 			void clearAxes();
 
 			void mousePressEdition(QGraphicsSceneMouseEvent* event);
-			void mouseMoveEdition(QGraphicsSceneMouseEvent* event);
 			void mousePressSelection(QGraphicsSceneMouseEvent* event);
-			void mouseMoveSelection(QGraphicsSceneMouseEvent* event);
 
 		private slots:
 			void onCleanChanged(bool clean);
@@ -101,7 +95,7 @@ namespace Fretboard
 		private:
 			UsageMode m_usageMode;
 			EditionMode m_editionMode;
-			QScopedPointer<FretboardAxisEditor> m_axisEditor;
+			QScopedPointer<FretboardAxisBuilder> m_axisBuilder;
 			QScopedPointer<QUndoStack> m_undoStack;
 			QString m_imagePath;
 			QList<FretboardAxisString*> m_stringAxes;

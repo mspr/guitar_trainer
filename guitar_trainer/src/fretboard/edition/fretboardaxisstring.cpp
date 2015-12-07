@@ -3,11 +3,11 @@
 using namespace Fretboard;
 
 FretboardAxisString::FretboardAxisString(QGraphicsItem* parent)
-	: FretboardAxisEditable(parent)
+	: FretboardAxis(parent)
 {
 }
 
 FretboardAxisString::FretboardAxisString(const QLineF& line, QGraphicsItem* parent)
-	: FretboardAxisEditable(line, parent)
+	: FretboardAxis(line, parent)
 {
 }

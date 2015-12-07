@@ -6,7 +6,7 @@
 namespace Fretboard
 {
 	class FretboardEditScene;
-	class FretboardAxisEditable;
+	class FretboardAxis;
 	class FretboardAxisFret;
 	class FretboardAxisString;
 
@@ -25,7 +25,7 @@ namespace Fretboard
 			FretboardEditScene* m_scene;
 			QList<FretboardAxisFret*> m_fretsToRemove;
 			QList<FretboardAxisString*> m_stringsToRemove;
-			QList<FretboardAxisEditable*> m_axesToDelete;
+			QList<FretboardAxis*> m_axesToDelete;
 	};
 
 } // Fretboard

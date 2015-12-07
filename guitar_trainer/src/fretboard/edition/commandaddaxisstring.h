@@ -10,8 +10,7 @@ namespace Fretboard
 	class CommandAddAxisString : public CommandAddAxis
 	{
 		public:
-			CommandAddAxisString(const QPointF& scenePos,
-													 const QLineF& line,
+			CommandAddAxisString(const FretboardAxisBuilder* axisBuilder,
 													 FretboardEditScene* scene);
 
 			virtual void redo() override;

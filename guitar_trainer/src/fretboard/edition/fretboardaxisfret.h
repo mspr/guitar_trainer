@@ -1,11 +1,11 @@
 #ifndef FRETBOARDAXISFRET_H
 #define FRETBOARDAXISFRET_H
 
-#include "fretboardaxiseditable.h"
+#include "fretboardaxis.h"
 
 namespace Fretboard
 {
-	class FretboardAxisFret : public FretboardAxisEditable
+	class FretboardAxisFret : public FretboardAxis
 	{
 		public:
 			FretboardAxisFret(QGraphicsItem* parent = 0);

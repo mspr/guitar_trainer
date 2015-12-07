@@ -4,19 +4,20 @@
 #include "fretboardeditscene.h"
 
 #include <QUndoCommand>
-#include <QLineF>
 
 namespace Fretboard
 {
+	class FretboardAxisBuilder;
+
 	class CommandAddAxis : public QUndoCommand
 	{
 		public:
-			CommandAddAxis(const QPointF& scenePos,
-										 const QLineF& line,
+			CommandAddAxis(const FretboardAxisBuilder* axisBuilder,
 										 FretboardEditScene* scene);
 
 		protected:
 			FretboardEditScene* m_scene;
+			const FretboardAxisBuilder* m_axisBuilder;
 			QPointF m_scenePos;
 			QLineF m_line;
 	};

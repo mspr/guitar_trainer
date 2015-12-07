@@ -1,7 +1,7 @@
 #include "commandremoveaxis.h"
 #include "fretboardeditscene.h"
-#include "fretboardaxisfret.h"
 #include "fretboardaxisstring.h"
+#include "fretboardaxisfret.h"
 
 using namespace Fretboard;
 
