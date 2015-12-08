@@ -47,7 +47,11 @@ void FretboardAxis::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	if (getScene()->isInSelectionMode())
 	{
 		if (event->buttons() & Qt::LeftButton)
-			QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+		{
+			if (QApplication::overrideCursor() != nullptr &&
+					QApplication::overrideCursor()->shape() != Qt::ClosedHandCursor)
+				QApplication::setOverrideCursor(Qt::ClosedHandCursor);
+		}
 	}
 
 	QGraphicsLineItem::mousePressEvent(event);
@@ -63,8 +67,6 @@ void FretboardAxis::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 
 QVariant FretboardAxis::itemChange(GraphicsItemChange change, const QVariant& value)
 {
-	qWarning() << "itemChange " << change;
-
 	if (change == ItemSelectedChange)
 	{
 		const QColor penColor = (value.toBool() ? m_selectionColor : m_defaultColor);
@@ -72,11 +74,25 @@ QVariant FretboardAxis::itemChange(GraphicsItemChange change, const QVariant& va
 		pen.setColor(penColor);
 		setPen(pen);
 	}
+	else if (change == ItemPositionChange)
+	{
+		QPointF newPos = value.toPointF();
+
+		FretboardEditScene* scene = getScene();
+		if (scene->isInFretMode())
+			newPos.setY(scenePos().y());
+		else if (scene->isInStringMode())
+			newPos.setX(scenePos().x());
+
+		return newPos;
+	}
 	else if (change == ItemSceneHasChanged)
 	{
 		QGraphicsScene* scene = value.value<QGraphicsScene*>();
 		if (scene == nullptr)
+		{
 			QApplication::restoreOverrideCursor();
+		}
 	}
 
 	return QGraphicsLineItem::itemChange(change, value);

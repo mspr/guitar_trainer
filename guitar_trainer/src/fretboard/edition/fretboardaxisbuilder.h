@@ -3,6 +3,7 @@
 
 #include <QScopedPointer>
 #include <QPointF>
+#include <QLineF>
 
 namespace Fretboard
 {
@@ -21,8 +22,10 @@ namespace Fretboard
 			void switchToFretMode(const QPointF& scenePos);
 			void switchToStringMode(const QPointF& scenePos);
 
-			FretboardAxisFret* buildFret() const;
-			FretboardAxisString* buildString() const;
+			FretboardAxisFret* buildFretFromMarker() const;
+			FretboardAxisFret* buildFret(const QLineF& line, const QPointF& scenePos) const;
+			FretboardAxisString* buildStringFromMarker() const;
+			FretboardAxisString* buildString(const QLineF& line, const QPointF& scenePos) const;
 
 		private:
 			void initMarkers();

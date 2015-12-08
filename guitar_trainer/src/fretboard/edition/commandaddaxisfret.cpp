@@ -28,6 +28,6 @@ void CommandAddAxisFret::redo()
 {
 	Q_ASSERT_X(m_fret == nullptr, "redo()", "nullptr");
 
-	m_fret = m_axisBuilder->buildFret();
+	m_fret = m_axisBuilder->buildFretFromMarker();
 	m_scene->addFret(m_fret);
 }

@@ -37,8 +37,10 @@ void FretboardAxisBuilder::activate()
 
 void FretboardAxisBuilder::deactivate()
 {
-	m_scene->removeItem(m_fretMarker.data());
-	m_scene->removeItem(m_stringMarker.data());
+	if (m_scene->items().contains(m_fretMarker.data()))
+		m_scene->removeItem(m_fretMarker.data());
+	if (m_scene->items().contains(m_stringMarker.data()))
+		m_scene->removeItem(m_stringMarker.data());
 }
 
 void FretboardAxisBuilder::move(const QPointF& scenePos)
@@ -71,18 +73,40 @@ void FretboardAxisBuilder::switchToStringMode(const QPointF& scenePos)
 	m_scene->addItem(m_stringMarker.data());
 }
 
-FretboardAxisFret* FretboardAxisBuilder::buildFret() const
+FretboardAxisFret* FretboardAxisBuilder::buildFretFromMarker() const
 {
 	FretboardAxisFret* fret = new FretboardAxisFret(m_fretMarker.data()->line(), m_fretMarker.data()->parentItem());
+	fret->setPos(m_fretMarker->scenePos());
 	fret->setFlags(QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemIsSelectable);
 	fret->setAcceptHoverEvents(true);
 
 	return fret;
 }
 
-FretboardAxisString* FretboardAxisBuilder::buildString() const
+FretboardAxisFret* FretboardAxisBuilder::buildFret(const QLineF& line, const QPointF& scenePos) const
+{
+	FretboardAxisFret* fret = new FretboardAxisFret(line);
+	fret->setPos(scenePos);
+	fret->setFlags(QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemIsSelectable);
+	fret->setAcceptHoverEvents(true);
+
+	return fret;
+}
+
+FretboardAxisString* FretboardAxisBuilder::buildStringFromMarker() const
 {
 	FretboardAxisString* string = new FretboardAxisString(m_stringMarker.data()->line(), m_stringMarker.data()->parentItem());
+	string->setPos(m_stringMarker->scenePos());
+	string->setFlags(QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemIsSelectable);
+	string->setAcceptHoverEvents(true);
+
+	return string;
+}
+
+FretboardAxisString* FretboardAxisBuilder::buildString(const QLineF& line, const QPointF& scenePos) const
+{
+	FretboardAxisString* string = new FretboardAxisString(line);
+	string->setPos(scenePos);
 	string->setFlags(QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemIsSelectable);
 	string->setAcceptHoverEvents(true);
 

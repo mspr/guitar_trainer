@@ -17,6 +17,7 @@ using namespace Fretboard;
 
 FretboardEditScene::FretboardEditScene(const QString& imagePath, QObject* parent)
 	: FretboardScene(parent)
+	, m_usageMode(UsageMode::EDITION)
 	, m_editionMode(EditionMode::FRET)
 	, m_axisBuilder(new FretboardAxisBuilder(this))
 	, m_imagePath(imagePath)
@@ -55,19 +56,19 @@ void FretboardEditScene::initAxes()
 	QHash<uint, double>::const_iterator it = m_yByString.begin();
 	for (; it != m_yByString.end(); ++it)
 	{
-		FretboardAxisString* string = new FretboardAxisString(QLineF(0, 0, sceneRect().width(), 0));
-		addItem(string);
-		string->setPos(sceneRect().x(), it.value());
-		m_stringAxes.append(string);
+		QLineF line(0, 0, sceneRect().width(), 0);
+		QPointF scenePos(sceneRect().x(), it.value());
+		FretboardAxisString* string = m_axisBuilder->buildString(line, scenePos);
+		addString(string);
 	}
 
 	it = m_xByFret.begin();
 	for (; it != m_xByFret.end(); ++it)
 	{
-		FretboardAxisFret* fret = new FretboardAxisFret(QLineF(0, 0, 0, sceneRect().height()));
-		addItem(fret);
-		fret->setPos(it.value(), sceneRect().y());
-		m_fretAxes.append(fret);
+		QLineF line(0, 0, 0, sceneRect().height());
+		QPointF scenePos(it.value(), sceneRect().y());
+		FretboardAxisFret* fret = m_axisBuilder->buildFret(line, scenePos);
+		addFret(fret);
 	}
 }
 

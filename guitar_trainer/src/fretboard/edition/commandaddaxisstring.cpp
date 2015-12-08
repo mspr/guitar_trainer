@@ -28,6 +28,6 @@ void CommandAddAxisString::redo()
 {
 	Q_ASSERT_X(m_string == nullptr, "redo()", "nullptr");
 
-	m_string = m_axisBuilder->buildString();
+	m_string = m_axisBuilder->buildStringFromMarker();
 	m_scene->addString(m_string);
 }
