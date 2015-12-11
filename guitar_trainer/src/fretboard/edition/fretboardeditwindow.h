@@ -1,7 +1,7 @@
 #ifndef FRETBOARDEDITWINDOW_H
 #define FRETBOARDEDITWINDOW_H
 
-#include <QMainWindow>
+#include "fretboard/fretboardwindow.h"
 
 namespace Ui { class FretboardEditWindow; }
 
@@ -10,7 +10,7 @@ namespace Fretboard
 	class FretboardEditView;
 	class FretboardEditScene;
 
-	class FretboardEditWindow : public QMainWindow
+	class FretboardEditWindow : public FretboardWindow
 	{
 		Q_OBJECT
 
@@ -19,8 +19,6 @@ namespace Fretboard
 			~FretboardEditWindow();
 
 		protected:
-			virtual void dragEnterEvent(QDragEnterEvent* event) override;
-			virtual void dropEvent(QDropEvent* event) override;
 			virtual void keyPressEvent(QKeyEvent* event) override;
 			virtual void closeEvent(QCloseEvent* event) override;
 
@@ -29,7 +27,6 @@ namespace Fretboard
 			bool tryCreateScene(const QString& fileName);
 
 		private slots:
-			void open();
 			void initScene();
 			void save();
 			void switchToSelectionMode();
@@ -37,7 +34,7 @@ namespace Fretboard
 
 		private:
 			Ui::FretboardEditWindow* m_ui;
-			FretboardEditScene* m_scene;
+			QScopedPointer<FretboardEditScene> m_scene;
 	};
 
 } // Fretboard

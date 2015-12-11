@@ -2,19 +2,17 @@
 #include "ui_fretboardeditwindow.h"
 #include "fretboardeditview.h"
 #include "fretboardeditscene.h"
-#include "fretboardeditsceneloader.h"
+#include "fretboardeditscenebuilder.h"
 
 #include <QFileDialog>
 #include <QKeyEvent>
-#include <QDragMoveEvent>
-#include <QMimeData>
 #include <QMessageBox>
 #include <QDebug>
 
 using namespace Fretboard;
 
 FretboardEditWindow::FretboardEditWindow(QWidget* parent)
-	: QMainWindow(parent)
+	: FretboardWindow(parent)
 	, m_ui(new Ui::FretboardEditWindow)
 {
 	m_ui->setupUi(this);
@@ -42,20 +40,20 @@ FretboardEditView* FretboardEditWindow::editionView() const
 	return fretboardView;
 }
 
+/*
 void FretboardEditWindow::open()
 {
-	m_scene = FretboardEditSceneLoader::tryCreateSceneFromOpenFile();
-	if (m_scene != nullptr)
-		initScene();
+	const QString fileName = FretboardSceneFileValidator::getOpenFileName();
+	tryCreateScene(fileName);
 }
+*/
 
 void FretboardEditWindow::initScene()
 {
-	Q_ASSERT_X(m_scene != nullptr, "onSceneCreation()", "nullptr");
+	Q_ASSERT_X(m_scene != nullptr, "initScene()", "nullptr");
 
-	m_scene->setParent(this);
-	connect(m_scene, SIGNAL(modified(bool)), SLOT(setWindowModified(bool)));
-	editionView()->setScene(m_scene);
+	connect(m_scene.data(), SIGNAL(modified(bool)), SLOT(setWindowModified(bool)));
+	editionView()->setScene(m_scene.data());
 	editionView()->setMouseTracking(true);
 	//m_scene->setFocus();
 
@@ -95,33 +93,27 @@ void FretboardEditWindow::switchToEditionMode()
 	}
 }
 
-void FretboardEditWindow::dragEnterEvent(QDragEnterEvent* event)
+bool FretboardEditWindow::tryCreateScene(const QString& fileName)
 {
-	if (event->mimeData()->urls().count() == 1)
+	bool created = false;
+
+	FretboardEditSceneBuilder sceneBuilder;
+	FretboardEditScene* scene = sceneBuilder.tryCreateScene(fileName);
+	if (scene != nullptr)
 	{
-		const QString fileName = event->mimeData()->urls().first().toLocalFile();
-		if (FretboardEditSceneLoader::isSupported(fileName))
-			event->acceptProposedAction();
-	}
-
-	QMainWindow::dragEnterEvent(event);
-}
-
-void FretboardEditWindow::dropEvent(QDropEvent* event)
-{
-	Q_ASSERT_X(event->mimeData()->urls().count() == 1, "dropEvent()", "");
-
-	const QString fileName = event->mimeData()->urls().first().toLocalFile();
-	m_scene = FretboardEditSceneLoader::tryCreateSceneFromFile(fileName);
-	if (m_scene != nullptr)
+		m_scene.reset(scene);
 		initScene();
+		created = true;
+	}
+	else
+		qWarning() << "Impossible to create scene from file " << fileName;
 
-	QMainWindow::dropEvent(event);
+	return created;
 }
 
 void FretboardEditWindow::keyPressEvent(QKeyEvent* event)
 {
-	QMainWindow::keyPressEvent(event);
+	FretboardWindow::keyPressEvent(event);
 
 	if (event->key() == Qt::Key_Escape)
 		close();
@@ -139,5 +131,5 @@ void FretboardEditWindow::closeEvent(QCloseEvent* event)
 		save();
 		*/
 
-	QMainWindow::closeEvent(event);
+	FretboardWindow::closeEvent(event);
 }

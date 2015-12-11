@@ -24,6 +24,7 @@ class MainWindow : public QMainWindow
 		virtual void resizeEvent(QResizeEvent* event) override;
 
 	private slots:
+		void open();
 		void startEdition();
 		void quitApplication();
 

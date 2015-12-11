@@ -4,7 +4,8 @@
 
 using namespace Fretboard;
 
-FretboardPlayScene::FretboardPlayScene()
+FretboardPlayScene::FretboardPlayScene(QObject* parent)
+	: FretboardScene(parent)
 {
 }
 

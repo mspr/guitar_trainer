@@ -40,6 +40,11 @@ namespace Fretboard
 			virtual ~FretboardEditScene() override;
 
 			static FretboardEditScene* tryCreate(const QString& fileName);
+			virtual void init(const QPixmap& imagePix,
+												const QList<Music::Note::ENote>& tuning,
+												const QHash<uint, double>& yByString,
+												const QHash<uint, double>& xByFret) override;
+
 			void save(const QString& fileName);
 
 			void switchToSelectionMode();
@@ -70,11 +75,6 @@ namespace Fretboard
 			virtual void clear() override;
 
 		private:
-			virtual void init(const QPixmap& imagePix,
-												const QList<Music::Note::ENote>& tuning,
-												const QHash<uint, double>& yByString,
-												const QHash<uint, double>& xByFret) override;
-
 			void initCommandStack();
 			void initAxes();
 

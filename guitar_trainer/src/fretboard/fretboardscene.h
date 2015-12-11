@@ -15,12 +15,12 @@ namespace Fretboard
 			FretboardScene(QObject* parent = 0);
 			virtual ~FretboardScene();
 
-		protected:
 			virtual void init(const QPixmap& imagePix,
 												const QList<Music::Note::ENote>& tuning,
 												const QHash<uint, double>& yByString,
 												const QHash<uint, double>& xByFret);
 
+		protected:
 			bool tryAddNote(const QPointF& pos);
 			bool tryRemoveNote(const QPointF& pos);
 

@@ -24,6 +24,11 @@ MainWindow::~MainWindow()
 	delete m_ui;
 }
 
+void MainWindow::open()
+{
+
+}
+
 void MainWindow::startEdition()
 {
 	FretboardEditWindow* editionWindow = new FretboardEditWindow(this);
