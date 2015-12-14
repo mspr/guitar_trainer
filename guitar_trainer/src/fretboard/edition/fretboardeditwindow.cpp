@@ -16,6 +16,7 @@ FretboardEditWindow::FretboardEditWindow(QWidget* parent)
 	, m_ui(new Ui::FretboardEditWindow)
 {
 	m_ui->setupUi(this);
+	m_sceneBuilder.reset(new FretboardEditSceneBuilder());
 
 	setWindowTitle("MainWindow [*]");
 
@@ -33,29 +34,23 @@ FretboardEditWindow::~FretboardEditWindow()
 	delete m_ui;
 }
 
-FretboardEditView* FretboardEditWindow::editionView() const
+FretboardEditView* FretboardEditWindow::view() const
 {
-	FretboardEditView* fretboardView = qobject_cast<FretboardEditView*>(centralWidget());
-	Q_ASSERT_X(fretboardView != nullptr, "editionView()", "nullptr");
-	return fretboardView;
+	FretboardEditView* view = qobject_cast<FretboardEditView*>(centralWidget());
+	Q_ASSERT_X(view != nullptr, "view()", "nullptr");
+	return view;
 }
 
-/*
-void FretboardEditWindow::open()
+FretboardEditScene* FretboardEditWindow::scene() const
 {
-	const QString fileName = FretboardSceneFileValidator::getOpenFileName();
-	tryCreateScene(fileName);
+	FretboardEditScene* scene = qobject_cast<FretboardEditScene*>(m_scene.data());
+	Q_ASSERT_X(scene != nullptr, "scene()", "nullptr");
+	return scene;
 }
-*/
 
-void FretboardEditWindow::initScene()
+void FretboardEditWindow::initScene_impl()
 {
-	Q_ASSERT_X(m_scene != nullptr, "initScene()", "nullptr");
-
 	connect(m_scene.data(), SIGNAL(modified(bool)), SLOT(setWindowModified(bool)));
-	editionView()->setScene(m_scene.data());
-	editionView()->setMouseTracking(true);
-	//m_scene->setFocus();
 
 	m_ui->editionAct->setEnabled(true);
 	m_ui->selectionAct->setEnabled(true);
@@ -67,7 +62,7 @@ void FretboardEditWindow::save()
 	if (!fileName.isNull())
 	{
 		if (m_scene != nullptr)
-			m_scene->save(fileName);
+			scene()->save(fileName);
 	}
 }
 
@@ -75,7 +70,7 @@ void FretboardEditWindow::switchToSelectionMode()
 {
 	if (m_scene != nullptr)
 	{
-		m_scene->switchToSelectionMode();
+		scene()->switchToSelectionMode();
 
 		m_ui->selectionAct->setDisabled(true);
 		m_ui->editionAct->setEnabled(true);
@@ -86,29 +81,11 @@ void FretboardEditWindow::switchToEditionMode()
 {
 	if (m_scene != nullptr)
 	{
-		m_scene->switchToEditionMode();
+		scene()->switchToEditionMode();
 
 		m_ui->editionAct->setDisabled(true);
 		m_ui->selectionAct->setEnabled(true);
 	}
-}
-
-bool FretboardEditWindow::tryCreateScene(const QString& fileName)
-{
-	bool created = false;
-
-	FretboardEditSceneBuilder sceneBuilder;
-	FretboardEditScene* scene = sceneBuilder.tryCreateScene(fileName);
-	if (scene != nullptr)
-	{
-		m_scene.reset(scene);
-		initScene();
-		created = true;
-	}
-	else
-		qWarning() << "Impossible to create scene from file " << fileName;
-
-	return created;
 }
 
 void FretboardEditWindow::keyPressEvent(QKeyEvent* event)

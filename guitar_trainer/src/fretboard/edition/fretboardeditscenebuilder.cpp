@@ -4,6 +4,7 @@
 using namespace Fretboard;
 
 FretboardEditSceneBuilder::FretboardEditSceneBuilder()
+	: FretboardSceneBuilder()
 {
 }
 

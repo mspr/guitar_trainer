@@ -22,19 +22,18 @@ namespace Fretboard
 			virtual void keyPressEvent(QKeyEvent* event) override;
 			virtual void closeEvent(QCloseEvent* event) override;
 
-		private:
-			FretboardEditView* editionView() const;
-			bool tryCreateScene(const QString& fileName);
+			virtual void initScene_impl() override;
+
+			FretboardEditView* view() const;
+			FretboardEditScene* scene() const;
 
 		private slots:
-			void initScene();
 			void save();
 			void switchToSelectionMode();
 			void switchToEditionMode();
 
 		private:
 			Ui::FretboardEditWindow* m_ui;
-			QScopedPointer<FretboardEditScene> m_scene;
 	};
 
 } // Fretboard

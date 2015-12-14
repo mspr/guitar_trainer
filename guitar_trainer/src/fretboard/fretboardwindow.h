@@ -6,7 +6,8 @@
 namespace Fretboard
 {
 	class FretboardSceneBuilder;
-	//class FretboardScene;
+	class FretboardScene;
+	class FretboardView;
 
 	class FretboardWindow : public QMainWindow
 	{
@@ -18,12 +19,18 @@ namespace Fretboard
 			virtual void dragEnterEvent(QDragEnterEvent* event) override;
 			virtual void dropEvent(QDropEvent* event) override;
 
+			virtual void initScene_impl() = 0;
+
 		protected slots:
 			void open();
 
+		private:
+			bool tryCreateScene(const QString& fileName);
+			void initScene();
+
 		protected:
 			QScopedPointer<FretboardSceneBuilder> m_sceneBuilder;
-			//QScopedPointer<FretboardScene> m_scene;
+			QScopedPointer<FretboardScene> m_scene;
 	};
 
 } // Fretboard
