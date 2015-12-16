@@ -2,18 +2,12 @@
 #define INTERVALQUALIFICATION_H
 
 #include <QString>
+#include <QHash>
 
 namespace Music
 {
 	class IntervalQualification
 	{
-		public:
-			static QList<IntervalQualification>& intervalQualifications();
-
-		private:
-			static QList<IntervalQualification> initIntervalQualifications();
-			static QList<IntervalQualification> s_intervalQualifications;
-
 		public:
 			enum class Type
 			{
@@ -24,16 +18,20 @@ namespace Music
 				AUGMENTED
 			};
 
-			Type type() const;
-			QString name() const;
+		private:
+			static QHash<Type, QString> initIntervalQualifications();
 
 		private:
-			IntervalQualification(const Type type, const QString& name);
+			static QHash<Type, QString> s_intervalQualifications;
 
 		private:
-			Type m_type;
-			QString m_name;
+			IntervalQualification() = delete;
 	};
+
+	inline uint qHash(const IntervalQualification::Type &key)
+	{
+			return static_cast<int>(key);
+	}
 
 } // Music
 
