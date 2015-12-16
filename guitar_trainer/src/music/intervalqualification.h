@@ -18,6 +18,9 @@ namespace Music
 				AUGMENTED
 			};
 
+		public:
+			static QHash<Type, QString>& intervalQualifications();
+
 		private:
 			static QHash<Type, QString> initIntervalQualifications();
 

@@ -1,68 +1,52 @@
 #include "interval.h"
 
-#include <QStringList>
-
 using namespace Music;
 
-const QHash<Interval::EInterval, QString> Interval::s_strByInterval = Interval::initStrByInterval();
-
-/*static*/ QHash<Interval::EInterval, QString> Interval::initStrByInterval()
+QHash<Interval::Type, QString> Interval::initIntervalNames()
 {
-	QHash<EInterval, QString> strByInterval;
+	QHash<Type, QString> intervalNames;
 
-	strByInterval.insert(PERFECT_UNISON, "Perfect Unison");
-	strByInterval.insert(MINOR_SECOND, "Minor Second");
-	strByInterval.insert(MAJOR_SECOND, "Mahor Second");
-	strByInterval.insert(MINOR_THIRD, "Minor Third");
-	strByInterval.insert(MAJOR_THIRD, "Major Third");
-	strByInterval.insert(PERFECT_FOURTH, "Perfect Fourth");
-	strByInterval.insert(DIMINISHED_FIFTH, "Diminished Fifth");
-	strByInterval.insert(PERFECT_FIFTH, "Perfect Fifth");
-	strByInterval.insert(MINOR_SIXTH, "Minor Sixth");
-	strByInterval.insert(MAJOR_SIXTH, "Major Sixth");
-	strByInterval.insert(MINOR_SEVENTH, "Minor Seventh");
-	strByInterval.insert(MAJOR_SEVENTH, "Major Seventh");
-	strByInterval.insert(PERFECT_OCTAVE, "Perfect Octave");
-	strByInterval.insert(MINOR_NINTH, "Minor Ninth");
-	strByInterval.insert(MAJOR_NINTH, "Major Ninth");
-	strByInterval.insert(MINOR_TENTH, "Minor Tenth");
-	strByInterval.insert(MAJOR_TENTH, "Major Tenth");
-	strByInterval.insert(PERFECT_ELEVENTH, "Perfect Eleventh");
-	strByInterval.insert(DIMINISHED_TWELFTH, "Diminished Twelfth");
-	strByInterval.insert(PERFECT_TWELFTH, "Perfect Twelfth");
-	strByInterval.insert(MINOR_THIRTEENTH, "Minor Thirteenth");
-	strByInterval.insert(MAJOR_THIRTEENTH, "Major Thirteenth");
-	strByInterval.insert(MINOR_FOURTEENTH, "Minor Fourteenth");
-	strByInterval.insert(MAJOR_FOURTEENTH, "Major Fourteenth");
-	strByInterval.insert(PERFECT_FIFTEENTH, "Perfect Fifteenth");
-	strByInterval.insert(AUGMENTED_FIFTEENTH, "Augmented Fifteenth");
+	intervalNames.insert(Type::UNISON, "Unison");
+	intervalNames.insert(Type::SECOND, "Second");
+	intervalNames.insert(Type::THIRD, "Third");
+	intervalNames.insert(Type::FOURTH, "Fourth");
+	intervalNames.insert(Type::FIFTH, "Fifth");
+	intervalNames.insert(Type::SIXTH, "Sixth");
+	intervalNames.insert(Type::SEVENTH, "Seventh");
+	intervalNames.insert(Type::OCTAVE, "Octave");
 
-	return strByInterval;
+	return intervalNames;
 }
 
-/*static*/ QString Interval::toString(EInterval interval)
+QHash<Interval::Type, QList<IntervalQualification::Type> > Interval::initIntervalQualifications()
 {
-	return s_strByInterval.value(interval);
+	QHash<Type, QList<IntervalQualification::Type>> intervalQualifications;
+
+	QList<IntervalQualification::Type> qualPerf;
+	qualPerf.append(IntervalQualification::Type::PERFECT);
+
+	QList<IntervalQualification::Type> qualMinMajDimAug;
+	qualMinMajDimAug.append(IntervalQualification::Type::DIMINISHED);
+	qualMinMajDimAug.append(IntervalQualification::Type::MINOR);
+	qualMinMajDimAug.append(IntervalQualification::Type::MAJOR);
+	qualMinMajDimAug.append(IntervalQualification::Type::AUGMENTED);
+
+	QList<IntervalQualification::Type> qualPerfDimAug;
+	qualPerfDimAug.append(IntervalQualification::Type::DIMINISHED);
+	qualPerfDimAug.append(IntervalQualification::Type::PERFECT);
+	qualPerfDimAug.append(IntervalQualification::Type::AUGMENTED);
+
+	intervalQualifications.insert(Type::UNISON, qualPerf);
+	intervalQualifications.insert(Type::SECOND, qualMinMajDimAug);
+	intervalQualifications.insert(Type::THIRD, qualMinMajDimAug);
+	intervalQualifications.insert(Type::FOURTH, qualPerfDimAug);
+	intervalQualifications.insert(Type::FIFTH, qualPerfDimAug);
+	intervalQualifications.insert(Type::SIXTH, qualMinMajDimAug);
+	intervalQualifications.insert(Type::SEVENTH, qualMinMajDimAug);
+	intervalQualifications.insert(Type::OCTAVE, qualPerf);
+
+	return intervalQualifications;
 }
 
-/*static*/ Interval::EInterval Interval::toInterval(const QString& intervalStr)
-{
-	return s_strByInterval.key(intervalStr);
-}
-
-/*static*/ Interval::EInterval Interval::toInterval(const uint semiTone)
-{
-	Q_ASSERT_X(semiTone < 26, "toInterval()", "Semitone is too high to be supported.");
-
-	return (EInterval)semiTone;
-}
-
-/*static*/ uint Interval::toSemiTone(EInterval interval)
-{
-	return (uint)interval;
-}
-
-/*static*/ QStringList Interval::intervals()
-{
-	return s_strByInterval.values();
-}
+QHash<Interval::Type, QString> Interval::s_intervalNames = Interval::initIntervalNames();
+QHash<Interval::Type, QList<IntervalQualification::Type>> Interval::s_intervalQualifications = Interval::initIntervalQualifications();

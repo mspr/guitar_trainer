@@ -16,3 +16,8 @@ using namespace Music;
 }
 
 QHash<IntervalQualification::Type, QString> IntervalQualification::s_intervalQualifications = IntervalQualification::initIntervalQualifications();
+
+/*static*/ QHash<IntervalQualification::Type, QString>& IntervalQualification::intervalQualifications()
+{
+	return s_intervalQualifications;
+}
