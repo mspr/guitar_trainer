@@ -1,5 +1,4 @@
 QT += \
-    widgets \
     xml \
 
 HEADERS += \
@@ -25,7 +24,8 @@ HEADERS += \
     fretboard/play/fretboardplayscenebuilder.h \
     fretboard/edition/fretboardeditscenebuilder.h \
     fretboard/fretboardscenefilevalidator.h \
-    fretboard/fretboardwindow.h
+    fretboard/fretboardwindow.h \
+    fretboard/play/fretboardplaywindow.h
 
 SOURCES += \
     fretboard/fretboardscene.cpp \
@@ -50,7 +50,9 @@ SOURCES += \
     fretboard/play/fretboardplayscenebuilder.cpp \
     fretboard/edition/fretboardeditscenebuilder.cpp \
     fretboard/fretboardscenefilevalidator.cpp \
-    fretboard/fretboardwindow.cpp
+    fretboard/fretboardwindow.cpp \
+    fretboard/play/fretboardplaywindow.cpp
 
 FORMS += \
-    fretboard/edition/fretboardeditwindow.ui
+    fretboard/edition/fretboardeditwindow.ui \
+    fretboard/play/fretboardplaywindow.ui
