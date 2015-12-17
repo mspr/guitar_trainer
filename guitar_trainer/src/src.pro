@@ -8,6 +8,7 @@ include(../defaults.pri)
 include(music/music.pri)
 include(fretboard/fretboard.pri)
 include(output/output.pri)
+include(parameter/parameter.pri)
 
 TARGET = guitar_trainer
 TEMPLATE = lib
