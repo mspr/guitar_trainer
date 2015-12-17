@@ -2,7 +2,20 @@
 
 using namespace Music;
 
-/*static*/ QHash<IntervalQualification::Type, QString> IntervalQualification::initIntervalQualifications()
+/*static*/ QHash<IntervalQualification::Type, QString> IntervalQualification::initQualificationShortNames()
+{
+	QHash<Type, QString> qualifications;
+
+	qualifications.insert(Type::DIMINISHED, "dim");
+	qualifications.insert(Type::MINOR, "m");
+	qualifications.insert(Type::PERFECT, "j");
+	qualifications.insert(Type::MAJOR, "M");
+	qualifications.insert(Type::AUGMENTED, "aug");
+
+	return qualifications;
+}
+
+/*static*/ QHash<IntervalQualification::Type, QString> IntervalQualification::initQualificationFullNames()
 {
 	QHash<Type, QString> qualifications;
 
@@ -15,9 +28,15 @@ using namespace Music;
 	return qualifications;
 }
 
-QHash<IntervalQualification::Type, QString> IntervalQualification::s_intervalQualifications = IntervalQualification::initIntervalQualifications();
+QHash<IntervalQualification::Type, QString> IntervalQualification::s_qualificationShortNames = IntervalQualification::initQualificationShortNames();
+QHash<IntervalQualification::Type, QString> IntervalQualification::s_qualificationFullNames = IntervalQualification::initQualificationFullNames();
 
-/*static*/ QHash<IntervalQualification::Type, QString>& IntervalQualification::intervalQualifications()
+/*static*/ QHash<IntervalQualification::Type, QString>& IntervalQualification::qualificationShortNames()
 {
-	return s_intervalQualifications;
+	return s_qualificationShortNames;
+}
+
+/*static*/ QHash<IntervalQualification::Type, QString>& IntervalQualification::qualificationFullNames()
+{
+	return s_qualificationFullNames;
 }

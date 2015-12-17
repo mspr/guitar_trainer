@@ -20,12 +20,17 @@ namespace Music
 				OCTAVE
 			};
 
+		public:
+			static const QHash<Type, QString>& intervalShortNames();
+
 		private:
-			static QHash<Type, QString> initIntervalNames();
+			static QHash<Type, QString> initIntervalShortNames();
+			static QHash<Type, QString> initIntervalFullNames();
 			static QHash<Type, QList<IntervalQualification::Type>> initIntervalQualifications();
 
 		private:
-			static QHash<Type, QString> s_intervalNames;
+			static QHash<Type, QString> s_intervalShortNames;
+			static QHash<Type, QString> s_intervalFullNames;
 			static QHash<Type, QList<IntervalQualification::Type>> s_intervalQualifications;
 	};
 

@@ -2,7 +2,23 @@
 
 using namespace Music;
 
-QHash<Interval::Type, QString> Interval::initIntervalNames()
+/*static*/ QHash<Interval::Type, QString> Interval::initIntervalShortNames()
+{
+	QHash<Type, QString> intervalNames;
+
+	intervalNames.insert(Type::UNISON, "T");
+	intervalNames.insert(Type::SECOND, "2");
+	intervalNames.insert(Type::THIRD, "3");
+	intervalNames.insert(Type::FOURTH, "4");
+	intervalNames.insert(Type::FIFTH, "5");
+	intervalNames.insert(Type::SIXTH, "6");
+	intervalNames.insert(Type::SEVENTH, "7");
+	intervalNames.insert(Type::OCTAVE, "8v");
+
+	return intervalNames;
+}
+
+/*static*/ QHash<Interval::Type, QString> Interval::initIntervalFullNames()
 {
 	QHash<Type, QString> intervalNames;
 
@@ -18,7 +34,7 @@ QHash<Interval::Type, QString> Interval::initIntervalNames()
 	return intervalNames;
 }
 
-QHash<Interval::Type, QList<IntervalQualification::Type> > Interval::initIntervalQualifications()
+/*static*/ QHash<Interval::Type, QList<IntervalQualification::Type> > Interval::initIntervalQualifications()
 {
 	QHash<Type, QList<IntervalQualification::Type>> intervalQualifications;
 
@@ -48,5 +64,11 @@ QHash<Interval::Type, QList<IntervalQualification::Type> > Interval::initInterva
 	return intervalQualifications;
 }
 
-QHash<Interval::Type, QString> Interval::s_intervalNames = Interval::initIntervalNames();
+QHash<Interval::Type, QString> Interval::s_intervalShortNames = Interval::initIntervalShortNames();
+QHash<Interval::Type, QString> Interval::s_intervalFullNames = Interval::initIntervalFullNames();
 QHash<Interval::Type, QList<IntervalQualification::Type>> Interval::s_intervalQualifications = Interval::initIntervalQualifications();
+
+/*static*/ const QHash<Interval::Type, QString>& Interval::intervalShortNames()
+{
+	return s_intervalShortNames;
+}

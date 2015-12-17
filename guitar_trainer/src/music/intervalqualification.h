@@ -19,13 +19,16 @@ namespace Music
 			};
 
 		public:
-			static QHash<Type, QString>& intervalQualifications();
+			static QHash<Type, QString>& qualificationShortNames();
+			static QHash<Type, QString>& qualificationFullNames();
 
 		private:
-			static QHash<Type, QString> initIntervalQualifications();
+			static QHash<Type, QString> initQualificationShortNames();
+			static QHash<Type, QString> initQualificationFullNames();
 
 		private:
-			static QHash<Type, QString> s_intervalQualifications;
+			static QHash<Type, QString> s_qualificationShortNames;
+			static QHash<Type, QString> s_qualificationFullNames;
 
 		private:
 			IntervalQualification() = delete;
