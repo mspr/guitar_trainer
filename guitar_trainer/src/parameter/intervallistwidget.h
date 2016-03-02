@@ -1,11 +1,11 @@
 #ifndef INTERVALLISTWIDGET_H
 #define INTERVALLISTWIDGET_H
 
-#include <QListWidget>
+#include <QWidget>
 
 namespace Parameter
 {
-	class IntervalListWidget : public QListWidget
+	class IntervalListWidget : public QWidget
 	{
 		public:
 			IntervalListWidget(QWidget* parent = 0);

@@ -46,5 +46,25 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>createChordBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>ChordParameterWidget</receiver>
+   <slot>openChordEditor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>openChordEditor()</slot>
+ </slots>
 </ui>

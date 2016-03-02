@@ -2,6 +2,7 @@
 
 #include <QVBoxLayout>
 #include <QSlider>
+#include <QLabel>
 
 using namespace Parameter;
 
@@ -18,6 +19,16 @@ void IntervalSlider::setupUi()
 
 	QHBoxLayout* intervalNamesLyt = new QHBoxLayout();
 	intervalLyt->addLayout(intervalNamesLyt);
+
 	QSlider* slider = new QSlider(Qt::Horizontal);
+	slider->setTickPosition(QSlider::TicksBelow);
 	intervalLyt->addWidget(slider);
+
+	QHBoxLayout* demiToneScaleLyt = new QHBoxLayout();
+	intervalLyt->addLayout(demiToneScaleLyt);
+	for (int i=0; i<15; ++i)
+	{
+		QLabel* demiToneMarkerLbl = new QLabel(QString::number(i));
+		demiToneScaleLyt->addWidget(demiToneMarkerLbl);
+	}
 }
