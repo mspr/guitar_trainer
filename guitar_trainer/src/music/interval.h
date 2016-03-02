@@ -1,7 +1,9 @@
 #ifndef INTERVAL_H
 #define INTERVAL_H
 
-#include "intervalqualification.h"
+#include <QHash>
+#include <QMap>
+#include <QString>
 
 namespace Music
 {
@@ -22,16 +24,17 @@ namespace Music
 
 		public:
 			static const QHash<Type, QString>& intervalShortNames();
+			static const QMap<Interval::Type, QStringList>& intervalQualifications();
 
 		private:
 			static QHash<Type, QString> initIntervalShortNames();
 			static QHash<Type, QString> initIntervalFullNames();
-			static QHash<Type, QList<IntervalQualification::Type>> initIntervalQualifications();
+			static QMap<Type, QStringList> initIntervalQualifications();
 
 		private:
 			static QHash<Type, QString> s_intervalShortNames;
 			static QHash<Type, QString> s_intervalFullNames;
-			static QHash<Type, QList<IntervalQualification::Type>> s_intervalQualifications;
+			static QMap<Type, QStringList> s_intervalQualifications;
 	};
 
 	inline uint qHash(const Interval::Type &key)

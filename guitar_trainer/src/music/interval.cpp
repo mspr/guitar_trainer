@@ -1,4 +1,7 @@
 #include "interval.h"
+#include "intervalqualification.h"
+
+#include <QStringList>
 
 using namespace Music;
 
@@ -34,41 +37,69 @@ using namespace Music;
 	return intervalNames;
 }
 
-/*static*/ QHash<Interval::Type, QList<IntervalQualification::Type> > Interval::initIntervalQualifications()
+/*static*/ QMap<Interval::Type, QStringList> Interval::initIntervalQualifications()
 {
-	QHash<Type, QList<IntervalQualification::Type>> intervalQualifications;
+	QMap<Type, QStringList> intervalQualifications;
 
-	QList<IntervalQualification::Type> qualPerf;
-	qualPerf.append(IntervalQualification::Type::PERFECT);
+	const QString unisonShortName = s_intervalShortNames.value(Type::UNISON);
+	intervalQualifications.insert(Type::UNISON, QStringList() << unisonShortName);
 
-	QList<IntervalQualification::Type> qualMinMajDimAug;
-	qualMinMajDimAug.append(IntervalQualification::Type::DIMINISHED);
-	qualMinMajDimAug.append(IntervalQualification::Type::MINOR);
-	qualMinMajDimAug.append(IntervalQualification::Type::MAJOR);
-	qualMinMajDimAug.append(IntervalQualification::Type::AUGMENTED);
+	const QString secondShortName = s_intervalShortNames.value(Type::SECOND);
+	intervalQualifications.insert(Type::SECOND,
+																QStringList() << secondShortName + IntervalQualification::shortName(IntervalQualification::Type::DIMINISHED)
+																							<< secondShortName + IntervalQualification::shortName(IntervalQualification::Type::MINOR)
+																							<< secondShortName + IntervalQualification::shortName(IntervalQualification::Type::MAJOR)
+																							<< secondShortName + IntervalQualification::shortName(IntervalQualification::Type::AUGMENTED));
 
-	QList<IntervalQualification::Type> qualPerfDimAug;
-	qualPerfDimAug.append(IntervalQualification::Type::DIMINISHED);
-	qualPerfDimAug.append(IntervalQualification::Type::PERFECT);
-	qualPerfDimAug.append(IntervalQualification::Type::AUGMENTED);
+	const QString thirdShortName = s_intervalShortNames.value(Type::THIRD);
+	intervalQualifications.insert(Type::THIRD,
+																QStringList()	<< thirdShortName + IntervalQualification::shortName(IntervalQualification::Type::DIMINISHED)
+																							<< thirdShortName + IntervalQualification::shortName(IntervalQualification::Type::MINOR)
+																							<< thirdShortName + IntervalQualification::shortName(IntervalQualification::Type::MAJOR)
+																							<< thirdShortName + IntervalQualification::shortName(IntervalQualification::Type::AUGMENTED));
 
-	intervalQualifications.insert(Type::UNISON, qualPerf);
-	intervalQualifications.insert(Type::SECOND, qualMinMajDimAug);
-	intervalQualifications.insert(Type::THIRD, qualMinMajDimAug);
-	intervalQualifications.insert(Type::FOURTH, qualPerfDimAug);
-	intervalQualifications.insert(Type::FIFTH, qualPerfDimAug);
-	intervalQualifications.insert(Type::SIXTH, qualMinMajDimAug);
-	intervalQualifications.insert(Type::SEVENTH, qualMinMajDimAug);
-	intervalQualifications.insert(Type::OCTAVE, qualPerf);
+	const QString fourthShortName = s_intervalShortNames.value(Type::FOURTH);
+	intervalQualifications.insert(Type::FOURTH,
+																QStringList() << fourthShortName + IntervalQualification::shortName(IntervalQualification::Type::DIMINISHED)
+																							<< fourthShortName + IntervalQualification::shortName(IntervalQualification::Type::PERFECT)
+																							<< fourthShortName + IntervalQualification::shortName(IntervalQualification::Type::AUGMENTED));
+
+	const QString fifthShortName = s_intervalShortNames.value(Type::FIFTH);
+	intervalQualifications.insert(Type::FIFTH,
+																QStringList()	<< fifthShortName + IntervalQualification::shortName(IntervalQualification::Type::DIMINISHED)
+																							<< fifthShortName + IntervalQualification::shortName(IntervalQualification::Type::PERFECT)
+																							<< fifthShortName + IntervalQualification::shortName(IntervalQualification::Type::AUGMENTED));
+
+	const QString sixthShortName = s_intervalShortNames.value(Type::SIXTH);
+	intervalQualifications.insert(Type::SIXTH,
+																QStringList()	<< sixthShortName + IntervalQualification::shortName(IntervalQualification::Type::DIMINISHED)
+																							<< sixthShortName + IntervalQualification::shortName(IntervalQualification::Type::MINOR)
+																							<< sixthShortName + IntervalQualification::shortName(IntervalQualification::Type::MAJOR)
+																							<< sixthShortName + IntervalQualification::shortName(IntervalQualification::Type::AUGMENTED));
+
+	const QString seventhShortName = s_intervalShortNames.value(Type::SEVENTH);
+	intervalQualifications.insert(Type::SEVENTH,
+																QStringList()	<< seventhShortName + IntervalQualification::shortName(IntervalQualification::Type::DIMINISHED)
+																							<< seventhShortName + IntervalQualification::shortName(IntervalQualification::Type::MINOR)
+																							<< seventhShortName + IntervalQualification::shortName(IntervalQualification::Type::MAJOR)
+																							<< seventhShortName + IntervalQualification::shortName(IntervalQualification::Type::AUGMENTED));
+
+	const QString OctaveShortName = s_intervalShortNames.value(Type::OCTAVE);
+	intervalQualifications.insert(Type::OCTAVE, QStringList() << OctaveShortName);
 
 	return intervalQualifications;
 }
 
 QHash<Interval::Type, QString> Interval::s_intervalShortNames = Interval::initIntervalShortNames();
 QHash<Interval::Type, QString> Interval::s_intervalFullNames = Interval::initIntervalFullNames();
-QHash<Interval::Type, QList<IntervalQualification::Type>> Interval::s_intervalQualifications = Interval::initIntervalQualifications();
+QMap<Interval::Type, QStringList> Interval::s_intervalQualifications = Interval::initIntervalQualifications();
 
 /*static*/ const QHash<Interval::Type, QString>& Interval::intervalShortNames()
 {
 	return s_intervalShortNames;
+}
+
+/*static*/ const QMap<Interval::Type, QStringList>& Interval::intervalQualifications()
+{
+	return s_intervalQualifications;
 }

@@ -36,6 +36,11 @@ QHash<IntervalQualification::Type, QString> IntervalQualification::s_qualificati
 	return s_qualificationShortNames;
 }
 
+/*static*/ QString IntervalQualification::shortName(Type type)
+{
+	return s_qualificationShortNames.value(type);
+}
+
 /*static*/ QHash<IntervalQualification::Type, QString>& IntervalQualification::qualificationFullNames()
 {
 	return s_qualificationFullNames;

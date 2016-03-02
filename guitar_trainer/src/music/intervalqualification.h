@@ -21,6 +21,7 @@ namespace Music
 		public:
 			static QHash<Type, QString>& qualificationShortNames();
 			static QHash<Type, QString>& qualificationFullNames();
+			static QString shortName(Type);
 
 		private:
 			static QHash<Type, QString> initQualificationShortNames();
