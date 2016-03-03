@@ -32,9 +32,9 @@ namespace Fretboard
 			void initFretAndStringPositions(const QHash<uint, double>& xByFret,
 																			const QHash<uint, double>& yByString);
 
-			uint getNearestId(const QHash<uint, double>& posById, const double value) const;
-			uint getNearestString(const QPointF& pos) const;
-			uint getNearestFret(const QPointF& pos) const;
+			int getNearestId(const QHash<uint, double>& posById, const double value) const;
+			int getNearestString(const QPointF& pos) const;
+			int getNearestFret(const QPointF& pos) const;
 			Music::Note::ENote getNote(const QPair<uint, uint>& fretboardPos) const;
 
 			void clearNotes();

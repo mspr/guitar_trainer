@@ -52,16 +52,22 @@ bool FretboardScene::tryAddNote(const QPointF& pos)
 {
 	bool noteAdded = false;
 
-	const QPair<uint, uint> fretboardPos = qMakePair(getNearestString(pos), getNearestFret(pos));
-	if (m_noteByFretboardPos.find(fretboardPos) == m_noteByFretboardPos.end())
+	const int stringId = getNearestString(pos);
+	const int fretId = getNearestFret(pos);
+
+	if (stringId != -1 && fretId != -1)
 	{
-		FretboardNote* note = new FretboardNote(getNote(fretboardPos));
-		addItem(note);
-		m_noteByFretboardPos.insert(fretboardPos, note);
-		noteAdded = true;
+		const QPair<uint, uint> fretboardPos = qMakePair(stringId, fretId);
+		if (m_noteByFretboardPos.find(fretboardPos) == m_noteByFretboardPos.end())
+		{
+			FretboardNote* note = new FretboardNote(getNote(fretboardPos));
+			addItem(note);
+			m_noteByFretboardPos.insert(fretboardPos, note);
+			noteAdded = true;
+		}
+		else
+			qWarning() << QString("A note already exist at fret %1 on string %2").arg(fretboardPos.second, fretboardPos.first);
 	}
-	else
-		qWarning() << QString("A note already exist at fret %1 on string %2").arg(fretboardPos.second, fretboardPos.first);
 
 	return noteAdded;
 }
@@ -70,45 +76,54 @@ bool FretboardScene::tryRemoveNote(const QPointF& pos)
 {
 	bool noteRemoved = false;
 
-	const QPair<uint, uint> fretboardPos = qMakePair(getNearestString(pos), getNearestFret(pos));
-	const QHash<QPair<uint, uint>, FretboardNote*>::iterator it = m_noteByFretboardPos.find(fretboardPos);
-	if (it != m_noteByFretboardPos.end())
+	const int stringId = getNearestString(pos);
+	const int fretId = getNearestFret(pos);
+
+	if (stringId != -1 && fretId != -1)
 	{
-		delete it.value();
-		m_noteByFretboardPos.erase(it);
-		noteRemoved = true;
+		const QPair<uint, uint> fretboardPos = qMakePair(stringId, fretId);
+		const QHash<QPair<uint, uint>, FretboardNote*>::iterator it = m_noteByFretboardPos.find(fretboardPos);
+		if (it != m_noteByFretboardPos.end())
+		{
+			delete it.value();
+			m_noteByFretboardPos.erase(it);
+			noteRemoved = true;
+		}
 	}
 
 	return noteRemoved;
 }
 
-uint FretboardScene::getNearestId(const QHash<uint, double>& posById, const double value) const
+int FretboardScene::getNearestId(const QHash<uint, double>& posById, const double value) const
 {
-	uint nearestId;
+	int nearestId = -1;
 
-	QHash<uint, double>::const_iterator it = posById.begin();
-	int minDist = abs(value - it.value());
-	nearestId = it.key();
-
-	for (++it; it != posById.end(); ++it)
+	if (!posById.isEmpty())
 	{
-		const int dist = abs(value - it.value());
-		if (dist < minDist)
+		QHash<uint, double>::const_iterator it = posById.begin();
+		int minDist = abs(value - it.value());
+		nearestId = it.key();
+
+		for (++it; it != posById.end(); ++it)
 		{
-			minDist = dist;
-			nearestId = it.key();
+			const int dist = abs(value - it.value());
+			if (dist < minDist)
+			{
+				minDist = dist;
+				nearestId = it.key();
+			}
 		}
 	}
 
 	return nearestId;
 }
 
-uint FretboardScene::getNearestString(const QPointF& pos) const
+int FretboardScene::getNearestString(const QPointF& pos) const
 {
 	return getNearestId(m_yByString, pos.y());
 }
 
-uint FretboardScene::getNearestFret(const QPointF& pos) const
+int FretboardScene::getNearestFret(const QPointF& pos) const
 {
 	return getNearestId(m_xByFret, pos.x());
 }
