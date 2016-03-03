@@ -7,10 +7,11 @@ namespace Fretboard
 {
 	class FretboardSceneBuilder;
 	class FretboardScene;
-	class FretboardView;
 
 	class FretboardWindow : public QMainWindow
 	{
+		Q_OBJECT
+
 		public:
 			FretboardWindow(QWidget* parent = nullptr, Qt::WindowFlags flags = 0);
 			virtual ~FretboardWindow();

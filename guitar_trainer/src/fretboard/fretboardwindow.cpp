@@ -28,6 +28,7 @@ bool FretboardWindow::tryCreateScene(const QString& fileName)
 {
 	bool created = false;
 
+	Q_ASSERT_X(m_sceneBuilder != nullptr, "tryCreateScene()", "nullptr");
 	FretboardScene* scene = m_sceneBuilder->tryCreateScene(fileName);
 	if (scene != nullptr)
 	{
