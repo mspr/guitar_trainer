@@ -1,13 +1,14 @@
 #ifndef FRETBOARDPLAYWINDOW_H
 #define FRETBOARDPLAYWINDOW_H
 
-#include <QMainWindow>
+#include "fretboard/fretboardwindow.h"
 
-namespace Ui { class FretboardPlayWindow; }
+namespace Ui			{ class FretboardPlayWindow; }
+namespace Output	{ class OutputWindow; }
 
 namespace Fretboard
 {
-	class FretboardPlayWindow : public QMainWindow
+	class FretboardPlayWindow : public FretboardWindow
 	{
 			Q_OBJECT
 
@@ -15,8 +16,18 @@ namespace Fretboard
 			explicit FretboardPlayWindow(QWidget* parent = 0);
 			~FretboardPlayWindow();
 
+		protected:
+			virtual void resizeEvent(QResizeEvent* event) override;
+
+			virtual void initScene_impl() override;
+
+		private slots:
+			void startEdition();
+			void quitApplication();
+
 		private:
-			Ui::FretboardPlayWindow* m_ui;
+			Ui::FretboardPlayWindow*	m_ui;
+			Output::OutputWindow*			m_outputWindow;
 	};
 
 } // Fretboard

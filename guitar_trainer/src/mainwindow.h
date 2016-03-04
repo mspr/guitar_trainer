@@ -6,6 +6,7 @@
 namespace Ui { class MainWindow; }
 namespace Output { class OutputWindow; }
 
+// TODO remove MainWindow class
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT

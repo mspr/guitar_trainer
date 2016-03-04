@@ -1,5 +1,5 @@
 #include "application.h"
-#include "mainwindow.h"
+#include "fretboard/play/fretboardplaywindow.h"
 #include "messagehandler.h"
 
 #include <QDebug>
@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 
 	qInstallMessageHandler(MessageHandler::handleMessage);
 
-	MainWindow w;
+	Fretboard::FretboardPlayWindow w;
 	w.showFullScreen();
 
 	return a.exec();

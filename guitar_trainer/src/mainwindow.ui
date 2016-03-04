@@ -44,9 +44,6 @@
    <addaction name="editorAct"/>
   </widget>
   <action name="editorAct">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/images/editor.png</normaloff>:/images/editor.png</iconset>
