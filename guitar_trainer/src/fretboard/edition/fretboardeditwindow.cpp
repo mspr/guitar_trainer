@@ -16,6 +16,7 @@ FretboardEditWindow::FretboardEditWindow(QWidget* parent)
 	, m_ui(new Ui::FretboardEditWindow)
 {
 	m_ui->setupUi(this);
+
 	m_sceneBuilder.reset(new FretboardEditSceneBuilder());
 
 	setWindowTitle("MainWindow [*]");
